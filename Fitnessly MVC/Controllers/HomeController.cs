@@ -1,6 +1,7 @@
 using Fitnessly_MVC.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using BLL;
 
 namespace Fitnessly_MVC.Controllers
 {
@@ -17,12 +18,13 @@ namespace Fitnessly_MVC.Controllers
         {
 
             // roep de BLL aan
-            var result = new BLL.WorkoutService().GetWorkout();
+            var workouts = new BLL.WorkoutService().GetWorkouts();
 
             // zet data in viewmodel
-            var workoutViewModel = new WorkoutViewModel();
-            workoutViewModel.Id = result.Id;
-            workoutViewModel.Name = result.Name;
+            var workoutViewModel = new WorkoutViewModel
+            {
+                Workouts = workouts
+            };
 
             // geef viemodel aan view
             return View(workoutViewModel);
