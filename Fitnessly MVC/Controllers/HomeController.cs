@@ -17,13 +17,15 @@ namespace Fitnessly_MVC.Controllers
         {
 
             // roep de BLL aan
-            var result = new BLL.WorkoutService().GetWorkouts();
+            var result = new BLL.WorkoutService().GetWorkout();
 
             // zet data in viewmodel
+            var workoutViewModel = new WorkoutViewModel();
+            workoutViewModel.Id = result.Id;
+            workoutViewModel.Name = result.Name;
 
             // geef viemodel aan view
-
-            return View();
+            return View(workoutViewModel);
         }
 
         public IActionResult Privacy()
