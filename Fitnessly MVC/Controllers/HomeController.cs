@@ -2,6 +2,8 @@ using Fitnessly_MVC.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using BLL;
+using DAL;
+using SqlServerDAL;
 
 namespace Fitnessly_MVC.Controllers
 {
@@ -18,7 +20,8 @@ namespace Fitnessly_MVC.Controllers
         {
 
             // roep de BLL aan
-            var workouts = new BLL.WorkoutService().GetWorkouts();
+            var workoutData = new WorkoutData();
+            var workouts = new BLL.WorkoutService(workoutData).GetWorkouts();
 
             // zet data in viewmodel
             var workoutViewModel = new WorkoutViewModel
