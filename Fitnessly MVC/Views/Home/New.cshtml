@@ -2,15 +2,25 @@
     ViewData["Title"] = "Workout Toevoegen";
 }
 
+<div class="error-message">
+    @Html.ValidationSummary()
+</div>
+
+<style>
+    .error-message 
+    {
+    color: red;
+    }
+</style>
 
 <form method="post" action="/Home/NewWorkout">
     <h4>Workout Naam:</h4>
-    <input type="text" id="workoutName" name="workoutName"/>
-    <button type="submit" onclick="SendWorkouts()">Opslaan</button>
+    <input type="text" id="workoutName" name="workoutName" required=""/>
+    <button type="submit" onclick="SendsWorkouts()">Opslaan</button>
 </form>
 
 <script>
-    function SendWorkouts() 
+    function SendsWorkouts() 
     {
         var workoutName = document.getElementById("workoutName").value;
     }

@@ -5,13 +5,15 @@ namespace DAL
 {
     public class WorkoutData : IWorkoutData
     {
+        // connectie string met database
         string mysqlCon = "server=localhost; user=root; database=fitnessly;";
+
+        // Haalt op uit database
         public List<Workout> GetWorkouts()
         {
             {
                 List<Workout> workouts = new List<Workout>();
 
-                // haal op uit database komt hier
                 using (var connection = new MySqlConnection(mysqlCon)) 
                 {
                     try
@@ -38,15 +40,28 @@ namespace DAL
             }
         }
 
-        public void SendWorkouts(string workoutName)
+            // verstuurd naar database
+        public void SendWorkoutsData(string workoutName)
         {
-            // Stuur naar database komt hier
             using (var connection = new MySqlConnection(mysqlCon))
             {
                 connection.Open();
                 string query = $"INSERT INTO workout (workout_name) VALUES ('{workoutName}');";
                 MySqlCommand cmd = new MySqlCommand(query, connection);
                 cmd.ExecuteNonQuery();
+                connection.Close();
+            }
+        }
+
+        public void DeleteWorkouts(int ID)
+        {
+            using (var connection = new MySqlConnection(mysqlCon))
+            {
+                connection.Open();
+                string query = $"DELETE FROM workout WHERE workout_id = ('{ID}')";
+                MySqlCommand cmd = new MySqlCommand(query, connection);
+                cmd.ExecuteNonQuery();
+                connection.Close();
             }
         }
     }

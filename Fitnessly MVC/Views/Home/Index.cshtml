@@ -26,6 +26,11 @@
                 <div class="Workoutbox">
                     <h5>@workout.Name</h5>
                     <p>ID: @workout.Id</p>
+
+                <form method ="post" action="/Home/DeleteWorkout">
+                    <button type="submit" name="workoutID" value="@workout.Id">Delete</button>
+                    <button>Edit</button>
+                </form>
                 </div>
             }
         </ul>

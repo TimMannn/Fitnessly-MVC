@@ -9,7 +9,12 @@ namespace SqlServerDAL
             throw new NotImplementedException();
         }
 
-        public void SendWorkouts(string workoutName)
+        public void SendWorkoutsData(string workoutName)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DeleteWorkouts(int ID)
         {
             throw new NotImplementedException();
         }

@@ -12,23 +12,21 @@ namespace Fitnessly_MVC.Controllers
         private readonly ILogger<HomeController> _logger;
 
         private readonly IWorkoutData _workoutData;
+
+        private readonly WorkoutService _workoutservice;
         public HomeController(ILogger<HomeController> logger, IWorkoutData workoutData)
         {
             _logger = logger;
             _workoutData = workoutData;
+            _workoutservice = new BLL.WorkoutService(workoutData);
         }
 
         public IActionResult Index()
         {
-
-            // roep de BLL aan
-            var workoutData = new WorkoutData();
-            var workouts = new BLL.WorkoutService(workoutData).GetWorkouts();
-
             // zet data in viewmodel
             var workoutViewModel = new WorkoutViewModel
             {
-                Workouts = workouts
+                Workouts = _workoutservice.GetWorkouts()
             };
 
             // geef viemodel aan view
@@ -43,7 +41,26 @@ namespace Fitnessly_MVC.Controllers
 
         public IActionResult NewWorkout(string workoutName)
         {
-            _workoutData.SendWorkouts(workoutName);
+            if (workoutName.Length < 3)
+            {
+                ModelState.AddModelError("workoutName", "De naam mag niet korter zijn dan 3 tekens.");
+                return View("New");
+            }
+
+            else if (workoutName.Length > 50)
+            {
+                ModelState.AddModelError("workoutName", "De naam mag niet langer zijn dan 50 tekens.");
+                return View("New");
+            }
+
+            _workoutservice.SendWorkouts(workoutName);
+
+            return RedirectToAction("Index");
+        }
+
+        public IActionResult DeleteWorkout(int workoutID)
+        {
+            _workoutservice.DeleteWorkouts(workoutID);
             return RedirectToAction("Index");
         }
 
