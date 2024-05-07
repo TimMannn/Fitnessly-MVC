@@ -1,0 +1,17 @@
+﻿@{
+    ViewData["Title"] = "Workout Toevoegen";
+}
+
+
+<form method="post" action="/Home/NewWorkout">
+    <h4>Workout Naam:</h4>
+    <input type="text" id="workoutName" name="workoutName"/>
+    <button type="submit" onclick="SendWorkouts()">Opslaan</button>
+</form>
+
+<script>
+    function SendWorkouts() 
+    {
+        var workoutName = document.getElementById("workoutName").value;
+    }
+</script>

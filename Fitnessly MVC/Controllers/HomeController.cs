@@ -11,9 +11,11 @@ namespace Fitnessly_MVC.Controllers
     {
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        private readonly IWorkoutData _workoutData;
+        public HomeController(ILogger<HomeController> logger, IWorkoutData workoutData)
         {
             _logger = logger;
+            _workoutData = workoutData;
         }
 
         public IActionResult Index()
@@ -31,6 +33,18 @@ namespace Fitnessly_MVC.Controllers
 
             // geef viemodel aan view
             return View(workoutViewModel);
+        }
+
+        
+        public IActionResult New()
+        {
+            return View();
+        }
+
+        public IActionResult NewWorkout(string workoutName)
+        {
+            _workoutData.SendWorkouts(workoutName);
+            return RedirectToAction("Index");
         }
 
         public IActionResult Privacy()

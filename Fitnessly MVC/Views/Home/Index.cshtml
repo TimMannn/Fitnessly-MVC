@@ -2,7 +2,7 @@
     ViewData["Title"] = "Home Page";
 }
 
-@using BLL
+@using BLL;
 @model WorkoutViewModel;
 
 <style>
@@ -16,16 +16,17 @@
 
 
 <div class="text-center">
+    <h1>Workouts lijst</h1>
     <div>
-        <h1>Workouts lijst</h1>
-            <ul>
-                @foreach (var workout in Model.Workouts)
-                {
-                    <div class="Workoutbox">
-                        <h5>@workout.Name</h5>
-                        <p>ID: @workout.Id</p>
-                    </div>
-                }
-            </ul>
+        <a href="/Home/New/">New workout</a>
     </div>
+        <ul>
+            @foreach (var workout in Model.Workouts)
+            {
+                <div class="Workoutbox">
+                    <h5>@workout.Name</h5>
+                    <p>ID: @workout.Id</p>
+                </div>
+            }
+        </ul>
 </div>

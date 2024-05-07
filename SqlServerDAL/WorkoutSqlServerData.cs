@@ -8,5 +8,10 @@ namespace SqlServerDAL
         {
             throw new NotImplementedException();
         }
+
+        public void SendWorkouts(string workoutName)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
