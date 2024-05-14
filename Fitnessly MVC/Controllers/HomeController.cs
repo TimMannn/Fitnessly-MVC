@@ -64,6 +64,17 @@ namespace Fitnessly_MVC.Controllers
             return RedirectToAction("Index");
         }
 
+        public IActionResult EditWorkout(string newWorkoutName, int WorkoutID)
+        {
+            _workoutservice.EditWorkout(newWorkoutName, WorkoutID);
+            return RedirectToAction("Index");
+        }
+
+        public IActionResult Edit()
+        {
+            return View("Edit");
+        }
+
         public IActionResult Privacy()
         {
             return View();

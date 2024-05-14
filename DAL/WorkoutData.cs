@@ -46,8 +46,9 @@ namespace DAL
             using (var connection = new MySqlConnection(mysqlCon))
             {
                 connection.Open();
-                string query = $"INSERT INTO workout (workout_name) VALUES ('{workoutName}');";
+                string query = $"INSERT INTO workout (workout_name) VALUES (@workoutName);";
                 MySqlCommand cmd = new MySqlCommand(query, connection);
+                cmd.Parameters.AddWithValue("@workoutName", workoutName);
                 cmd.ExecuteNonQuery();
                 connection.Close();
             }
@@ -58,8 +59,23 @@ namespace DAL
             using (var connection = new MySqlConnection(mysqlCon))
             {
                 connection.Open();
-                string query = $"DELETE FROM workout WHERE workout_id = ('{ID}')";
+                string query = $"DELETE FROM workout WHERE workout_id = (@ID)";
                 MySqlCommand cmd = new MySqlCommand(query, connection);
+                cmd.Parameters.AddWithValue("@ID", ID);
+                cmd.ExecuteNonQuery();
+                connection.Close();
+            }
+        }
+
+        public void EditWorkouts(string NewWorkoutName, int WorkoutID)
+        {
+            using (var connection = new MySqlConnection(mysqlCon))
+            {
+                connection.Open();
+                string query = $"UPDATE workout SET workout_name = @NewWorkoutName WHERE workout_id = @WorkoutID";
+                MySqlCommand cmd = new MySqlCommand(query, connection);
+                cmd.Parameters.AddWithValue("@NewWorkoutName", NewWorkoutName);
+                cmd.Parameters.AddWithValue("@WorkoutID", WorkoutID);
                 cmd.ExecuteNonQuery();
                 connection.Close();
             }

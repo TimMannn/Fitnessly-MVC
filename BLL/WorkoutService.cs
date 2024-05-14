@@ -34,7 +34,6 @@ namespace BLL
             {
                 message = "De naam moet minimaal 3 letters lang zijn";
             }
-
             else if (workoutName.Length > 50)
             {
                 message = "De naam mag maximaal 50 letters lang zijn";
@@ -46,9 +45,45 @@ namespace BLL
             return message;
         }
 
-        public void DeleteWorkouts(int ID)
+        public string DeleteWorkouts(int ID)
         {
-            data.DeleteWorkouts(ID);
+            var message = "Alles is correct";
+            if (ID <= 0)
+            {
+                message = "Workout ID is kleiner of gelijk aan 0";
+            }
+            else
+            {
+                data.DeleteWorkouts(ID);
+            }
+
+            return message;
+        }
+
+        public string EditWorkout(string NewWorkoutName, int WorkoutID)
+        {
+            var message = "Alles is correct";
+            if (string.IsNullOrEmpty(NewWorkoutName))
+            {
+                message = "Mag niet null zijn";
+            }
+            else if (NewWorkoutName.Length < 3)
+            {
+                message = "De naam moet minimaal 3 letters lang zijn";
+            }
+            else if (NewWorkoutName.Length > 50)
+            {
+                message = "De naam mag maximaal 50 letters lang zijn";
+            }
+            else if (WorkoutID <= 0)
+            {
+                message = "Workout ID is kleiner of gelijk aan 0";
+            }
+            else
+            {
+                data.EditWorkouts(NewWorkoutName, WorkoutID);
+            }
+            return message;
         }
     }
 }

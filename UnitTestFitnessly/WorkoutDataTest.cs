@@ -23,5 +23,10 @@ namespace UnitTestFitnessly
         {
             
         }
+
+        public void EditWorkouts(string NewWorkoutName, int ID)
+        {
+
+        }
     }
 }

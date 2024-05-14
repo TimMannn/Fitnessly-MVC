@@ -20,7 +20,42 @@ namespace UnitTestFitnessly
             var data = new WorkoutDataTest();
             WorkoutService workoutservice = new WorkoutService(data);
             var message = workoutservice.SendWorkouts(workoutName);
+
             // Assert
+            Assert.AreEqual("Alles is correct", message);
+        }
+
+        [TestMethod]
+        public void DeleteWorkouts_CorrectID_NotNull()
+        {
+            //Arrange
+            int workoutID;
+
+            //Act
+            workoutID = 1;
+            var data = new WorkoutDataTest();
+            WorkoutService workoutservice = new WorkoutService(data);
+            var message = workoutservice.DeleteWorkouts(workoutID);
+
+            //Assert
+            Assert.AreEqual("Alles is correct", message);
+        }
+
+        [TestMethod]
+        public void EditWorkout_CorrectName_CorrectID()
+        {
+            //Arrange
+            string workoutName;
+            int workoutID;
+
+            //Act
+            workoutName = "Pizza";
+            workoutID = 1;
+            var data = new WorkoutDataTest();
+            WorkoutService workoutservice = new WorkoutService(data);
+            var message = workoutservice.EditWorkout(workoutName, workoutID);
+
+            //Assert
             Assert.AreEqual("Alles is correct", message);
         }
     }

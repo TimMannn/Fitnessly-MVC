@@ -1,0 +1,33 @@
+﻿@using BLL
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "Workout Bewerken";
+}
+
+<html lang="nl">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">    
+
+    <div class="error-message">
+        @Html.ValidationSummary()
+    </div>
+
+    <style>
+    .error-message 
+    {
+    color: red;
+    }
+</style>
+
+    <form method="post" action="/Home/EditWorkout">
+        <h4>Workout Naam Bewerken:</h4>
+        <input type="text" id="newWorkoutName" name="newWorkoutName" required=""/>
+        <button type="submit" onclick="EditWorkouts()">Opslaan</button>
+    </form>
+
+    <script>
+    function EditWorkouts() 
+    {
+        var newWorkoutName = document.getElementById("newWorkoutName").value;
+    }
+</script>

@@ -5,6 +5,10 @@
 @using BLL;
 @model WorkoutViewModel;
 
+<html lang="nl">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <style>
     .Workoutbox 
     {
@@ -12,6 +16,31 @@
         margin-bottom: 15px;
         padding: 5px;
     }
+
+    .NormalButton {
+        background-color: #808080;
+        color: white;
+        padding: 8px 15px;
+        text-decoration: none;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .NormalButton:hover {
+        background-color: #A0A0A0;
+        color: white;
+    }
+
+    .DeleteButton {
+        background-color: #FF0000;
+        padding: 7px 15px;
+    }
+
+    .DeleteButton:hover {
+        background-color: #FF3333;
+    }
+
 </style>
 
 
@@ -27,10 +56,10 @@
                     <h5>@workout.Name</h5>
                     <p>ID: @workout.Id</p>
 
-                <form method ="post" action="/Home/DeleteWorkout">
-                    <button type="submit" name="workoutID" value="@workout.Id">Delete</button>
-                    <button>Edit</button>
-                </form>
+                    <form method ="post" action="/Home/DeleteWorkout">
+                        <button class="NormalButton DeleteButton" type="submit" name="workoutID" value="@workout.Id">Delete</button>
+                        <a class="NormalButton" href="/Home/Edit/">Edit</a>
+                    </form>
                 </div>
             }
         </ul>
