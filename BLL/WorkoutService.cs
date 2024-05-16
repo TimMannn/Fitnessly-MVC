@@ -85,5 +85,10 @@ namespace BLL
             }
             return message;
         }
+
+        public Workout GetWorkout(int Id)
+        {
+            return data.GetWorkout(Id);
+        }
     }
 }

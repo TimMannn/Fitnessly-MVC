@@ -12,5 +12,6 @@ namespace BLL
         void SendWorkoutsData(string workoutName);
         void DeleteWorkouts(int ID);
         void EditWorkouts(string NewWorkoutName, int WorkoutID);
+        Workout GetWorkout(int ID);
     }
 }

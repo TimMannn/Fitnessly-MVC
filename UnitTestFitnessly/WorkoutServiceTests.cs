@@ -42,6 +42,23 @@ namespace UnitTestFitnessly
         }
 
         [TestMethod]
+        public void DeleteWorkouts_InCorrectID_NotNull()
+        {
+            //Arrange
+            int workoutID;
+
+            //Act
+            workoutID = 0;
+            var data = new WorkoutDataTest();
+            WorkoutService workoutservice = new WorkoutService(data);
+            var message = workoutservice.DeleteWorkouts(workoutID);
+
+            //Assert
+            Assert.AreEqual("Workout ID is kleiner of gelijk aan 0", message);
+        }
+
+
+        [TestMethod]
         public void EditWorkout_CorrectName_CorrectID()
         {
             //Arrange

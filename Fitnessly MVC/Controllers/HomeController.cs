@@ -70,9 +70,14 @@ namespace Fitnessly_MVC.Controllers
             return RedirectToAction("Index");
         }
 
-        public IActionResult Edit()
+        public IActionResult Edit(int ID)
         {
-            return View("Edit");
+           Workout workout = _workoutservice.GetWorkout(ID);
+           var viewModel = new WorkoutViewModel();
+           viewModel.Id = workout.Id;
+           viewModel.Name = workout.Name;
+
+            return View("Edit", viewModel);
         }
 
         public IActionResult Privacy()

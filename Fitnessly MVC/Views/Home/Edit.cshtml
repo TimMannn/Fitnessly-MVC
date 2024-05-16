@@ -1,5 +1,6 @@
 ﻿@using BLL
 @using Microsoft.AspNetCore.Mvc.TagHelpers
+@model WorkoutViewModel
 @{
     ViewData["Title"] = "Workout Bewerken";
 }
@@ -20,8 +21,9 @@
 </style>
 
     <form method="post" action="/Home/EditWorkout">
+    <input type="hidden" name="WorkoutID" value="@Model.Id" />
         <h4>Workout Naam Bewerken:</h4>
-        <input type="text" id="newWorkoutName" name="newWorkoutName" required=""/>
+        <input type="text" id="newWorkoutName" name="newWorkoutName" value="@Model.Name" required=""/>
         <button type="submit" onclick="EditWorkouts()">Opslaan</button>
     </form>
 

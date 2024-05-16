@@ -23,5 +23,10 @@ namespace SqlServerDAL
         {
             throw new NotImplementedException();
         }
+
+        public Workout GetWorkout(int ID)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

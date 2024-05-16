@@ -10,21 +10,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
+    body {
+        background-color: #f0f0f0;
+    }
+
+    .NewWorkout
+    {
+        margin-bottom: 15px;
+        margin-top: 10px;
+    }
+
     .Workoutbox 
     {
-        border: 1px solid;
+        border: none;
+        margin-bottom: 20px;
+        padding: 15px;
+        background-color: #ccc;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .TextSpace
+    {
         margin-bottom: 15px;
-        padding: 5px;
     }
 
     .NormalButton {
         background-color: #808080;
         color: white;
-        padding: 8px 15px;
+        padding: 7px 24px;
         text-decoration: none;
         border: none;
         cursor: pointer;
         transition: background-color 0.3s ease;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        margin-left: 5px;
+        margin-right: 5px;
     }
 
     .NormalButton:hover {
@@ -33,34 +53,54 @@
     }
 
     .DeleteButton {
-        background-color: #FF0000;
+        background-color: #FF3333;
         padding: 7px 15px;
     }
 
     .DeleteButton:hover {
-        background-color: #FF3333;
+            background-color: #FF5555;
+    }
+    
+    .Zwart{
+        color: black;
+    }
+
+    .link {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        z-index: 1;
     }
 
 </style>
 
 
-<div class="text-center">
-    <h1>Workouts lijst</h1>
-    <div>
-        <a href="/Home/New/">New workout</a>
-    </div>
+    <div class="text-center">
+        <h1>Workouts lijst</h1>
+        <div class="NewWorkout">
+            <a class="NormalButton" href="/Home/New/">New workout</a>
+        </div>
         <ul>
             @foreach (var workout in Model.Workouts)
             {
                 <div class="Workoutbox">
-                    <h5>@workout.Name</h5>
-                    <p>ID: @workout.Id</p>
-
-                    <form method ="post" action="/Home/DeleteWorkout">
-                        <button class="NormalButton DeleteButton" type="submit" name="workoutID" value="@workout.Id">Delete</button>
-                        <a class="NormalButton" href="/Home/Edit/">Edit</a>
-                    </form>
+                    <a href="/Home/Edit/1" style="display: block; text-decoration: none;">
+                        <div class="TextSpace">
+                            <div class="Zwart">
+                                <h4>@workout.Name</h4>
+                            </div>
+                        </div>
+                    <div style="display: flex; justify-content: center;">
+                        <form method="post" action="/Home/DeleteWorkout">
+                            <button class="NormalButton DeleteButton" type="submit" name="workoutID" value="@workout.Id">Delete</button>
+                        </form>
+                        <a class="NormalButton" href="/Home/Edit/@workout.Id">Edit</a>
+                    </div>
+                    </a>
                 </div>
             }
         </ul>
-</div>
+    </div>
+

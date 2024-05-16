@@ -80,5 +80,35 @@ namespace DAL
                 connection.Close();
             }
         }
+
+        public Workout GetWorkout(int WorkoutID)
+        {
+            {
+                using (var connection = new MySqlConnection(mysqlCon))
+                {
+                    try
+                    {
+                        var workout = new Workout(0, "");
+                        connection.Open();
+                        MySqlCommand mySqlCommand = new MySqlCommand("select * from workout WHERE workout_id = @WorkoutID" , connection);
+                        mySqlCommand.Parameters.AddWithValue("@WorkoutID", WorkoutID);
+                        MySqlDataReader reader = mySqlCommand.ExecuteReader();
+
+                        while (reader.Read())
+                        {
+                            int workoutID = reader.GetInt32("workout_id");
+                            string workoutName = reader.GetString("workout_name");
+                            workout = new Workout(id: workoutID, name: workoutName);
+                        }
+
+                        return workout;
+                    }
+                    finally
+                    {
+                        connection.Close();
+                    }
+                }
+            }
+        }
     }
 }
