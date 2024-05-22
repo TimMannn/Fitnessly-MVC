@@ -1,0 +1,44 @@
+﻿@using BLL
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model ExerciseViewModel
+@{
+    ViewData["Title"] = "Exercise Bewerken";
+}
+
+<html lang="nl">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">    
+
+    <div class="error-message">
+        @Html.ValidationSummary()
+    </div>
+
+    <style>
+    .error-message 
+    {
+    color: red;
+    }
+</style>
+
+    <form method="post" action="/Home/EditExercise">
+    <input type="hidden" name="ExerciseID" value="@Model.Id" />
+        <h4>Exercise naam bewerken:</h4>
+        <input type="text" id="newExerciseName" name="newExerciseName" value="@Model.Name" required=""/>
+        <h4>Nieuw Gewicht:</h4>
+        <input type="text" id="newExerciseGewicht" name="newExerciseGewicht" value="@Model.Gewicht" required="" />
+        <h4>Nieuwe hoeveelheid Sets:</h4>
+        <input type="text" id="newExerciseSets" name="newExerciseSets" value="@Model.Sets" required="" />
+        <h4>Nieuwe hoeveelheid Reps:</h4>
+        <input type="text" id="newExerciseReps" name="newExerciseReps" value="@Model.Reps" required="" />
+        <button type="submit" onclick="EditExercises()">Opslaan</button>
+    </form>
+
+    <script>
+    function EditExercises() 
+    {
+        var newExerciseName = document.getElementById("newExerciseName").value;
+        var newExerciseGewicht = document.getElementById("newExerciseGewicht").value;
+        var newExerciseSets = document.getElementById("newExerciseSets").value;
+        var newExerciseReps = document.getElementById("newExerciseReps").value;
+    }
+</script>

@@ -1,0 +1,41 @@
+﻿@{
+    ViewData["Title"] = "Exercise Toevoegen";
+}
+
+<html lang="nl">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<div class="error-message">
+    @Html.ValidationSummary()
+</div>
+
+<style>
+    .error-message 
+    {
+    color: red;
+    }
+
+</style>
+
+<form method="post" action="/Home/AddNewExercise">
+    <h4>Exercise Naam:</h4>
+    <input type="text" id="exerciseName" name="exerciseName" required=""/>
+    <h4>Exercise Gewicht:</h4>
+    <input type="text" id="exerciseGewicht" name="exerciseGewicht" required=""/>
+    <h4>Exercise Sets:</h4>
+    <input type="text" id="exerciseSets" name="exerciseSets" required=""/>
+    <h4>Exercise Reps:</h4>
+    <input type="text" id="exerciseReps" name="exerciseReps" required=""/>
+    <p><button type="submit" onclick="SendsExercise()">Opslaan</button></p>
+</form>
+
+<script>
+    function SendsExercise() 
+    {
+        var exerciseName = document.getElementById("exerciseName").value;
+        var exerciseGewicht = document.getElementById("exerciseGewicht").value;
+        var exerciseSets = document.getElementById("exerciseSets").value;
+        var exerciseReps = document.getElementById("exerciseReps").value;
+    }
+</script>

@@ -40,7 +40,7 @@ namespace DAL
             }
         }
 
-            // verstuurd naar database
+        // verstuurd naar database
         public void SendWorkoutsData(string workoutName)
         {
             using (var connection = new MySqlConnection(mysqlCon))
@@ -54,6 +54,7 @@ namespace DAL
             }
         }
 
+        // verwijder uit database
         public void DeleteWorkouts(int ID)
         {
             using (var connection = new MySqlConnection(mysqlCon))
@@ -67,6 +68,7 @@ namespace DAL
             }
         }
 
+        // bewerk uit database
         public void EditWorkouts(string NewWorkoutName, int WorkoutID)
         {
             using (var connection = new MySqlConnection(mysqlCon))

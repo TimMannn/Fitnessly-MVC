@@ -1,9 +1,9 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Workout";
 }
 
 @using BLL;
-@model WorkoutViewModel;
+@model ExerciseViewModel;
 
 <html lang="nl">
     <meta charset="UTF-8">
@@ -14,13 +14,13 @@
         background-color: #f0f0f0;
     }
 
-    .NewWorkout
+    .NewExercise
     {
         margin-bottom: 15px;
         margin-top: 10px;
     }
 
-    .Workoutbox 
+    .Exercisebox 
     {
         border: none;
         margin-bottom: 20px;
@@ -78,27 +78,26 @@
 
 
     <div class="text-center">
-        <h1>Workouts lijst</h1>
-        <div class="NewWorkout">
-            <a class="NormalButton" href="/Home/New/">New workout</a>
+        <h1>Exercise lijst</h1>
+        <div class="NewExercise">
+            <a class="NormalButton" href="/Home/NewExercise/">New exercise</a>
         </div>
         <ul>
-            @foreach (var workout in Model.Workouts)
+            @foreach (var exercise in Model.Exercises)
             {
-                <div class="Workoutbox">
-                    <a href="/Home/Exercise/@workout.Id" style="display: block; text-decoration: none;">
+                <div class="Exercisebox">
                         <div class="TextSpace">
                             <div class="Zwart">
-                                <h4>@workout.Name</h4>
+                                <h4>@exercise.Name</h4>
+                                <h6>Gewicht: @exercise.Gewicht | Sets: @exercise.Sets | Reps: @exercise.Reps</h6>
                             </div>
                         </div>
                     <div style="display: flex; justify-content: center;">
-                        <form method="post" action="/Home/DeleteWorkout">
-                            <button class="NormalButton DeleteButton" type="submit" name="workoutID" value="@workout.Id">Delete</button>
+                        <form method="post" action="/Home/DeleteExercise">
+                            <button class="NormalButton DeleteButton" type="submit" name="exerciseID" value="@exercise.Id">Delete</button>
                         </form>
-                        <a class="NormalButton" href="/Home/Edit/@workout.Id">Edit</a>
+                        <a class="NormalButton" href="/Home/ExerciseEdit/@exercise.Id">Edit</a>
                     </div>
-                    </a>
                 </div>
             }
         </ul>

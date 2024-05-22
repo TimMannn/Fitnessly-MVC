@@ -8,6 +8,8 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddScoped<IWorkoutData, WorkoutData>();
 
+builder.Services.AddScoped<IExerciseData, ExerciseData>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
