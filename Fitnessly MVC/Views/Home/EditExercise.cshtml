@@ -14,24 +14,89 @@
     </div>
 
     <style>
-    .error-message 
-    {
-    color: red;
+    body {
+        height: 80vh;
+        display: flex;
+        align-items: center;
+        background-color: #f0f0f0;
     }
+
+    .error-message {
+        color: red;
+    }
+
+    .form-container {
+        max-width: 600px;
+        margin: auto;
+        background-color: #ccc;
+        padding: 20px;
+        border-radius: 5px;
+    }
+
+    label {
+        display: block;
+        font-size: 16px;
+    }
+
+    input[type=text] {
+        width: calc(100% - 20px);
+        padding: 10px;
+        margin-bottom: 20px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+
+    .NormalButton {
+        background-color: #808080;
+        color: white;
+        padding: 7px 24px;
+        text-decoration: none;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        margin-left: 5px;
+        margin-right: 5px;
+        border-radius: 4px;
+    }
+
+    .NormalButton:hover {
+        background-color: #A0A0A0;
+        color: white;
+    }
+
+    .Zwart {
+        color: black;
+    }
+
 </style>
 
+<h1 class="text-center">Exercise Bewerken</h1>
+    <div class="form-container">
     <form method="post" action="/Home/EditExercise">
-    <input type="hidden" name="ExerciseID" value="@Model.Id" />
-        <h4>Exercise naam bewerken:</h4>
-        <input type="text" id="newExerciseName" name="newExerciseName" value="@Model.Name" required=""/>
-        <h4>Nieuw Gewicht:</h4>
-        <input type="text" id="newExerciseGewicht" name="newExerciseGewicht" value="@Model.Gewicht" required="" />
-        <h4>Nieuwe hoeveelheid Sets:</h4>
-        <input type="text" id="newExerciseSets" name="newExerciseSets" value="@Model.Sets" required="" />
-        <h4>Nieuwe hoeveelheid Reps:</h4>
-        <input type="text" id="newExerciseReps" name="newExerciseReps" value="@Model.Reps" required="" />
-        <button type="submit" onclick="EditExercises()">Opslaan</button>
+        <input type="hidden" name="ExerciseID" value="@Model.Id" />
+        <div class="form-group">
+            <label for="newExerciseName" class="Zwart">Exercise naam bewerken:</label>
+            <input type="text" id="newExerciseName" name="newExerciseName" value="@Model.Name" required="">
+        </div>
+        <div class="form-group">
+            <label for="newExerciseGewicht" class="Zwart">Nieuw Gewicht:</label>
+            <input type="text" id="newExerciseGewicht" name="newExerciseGewicht" value="@Model.Gewicht" required="">
+        </div>
+        <div class="form-group">
+            <label for="newExerciseSets" class="Zwart">Nieuwe hoeveelheid Sets:</label>
+            <input type="text" id="newExerciseSets" name="newExerciseSets" value="@Model.Sets" required="">
+        </div>
+        <div class="form-group">
+            <label for="newExerciseReps" class="Zwart">Nieuwe hoeveelheid Reps:</label>
+            <input type="text" id="newExerciseReps" name="newExerciseReps" value="@Model.Reps" required="">
+        </div>
+        <div style="display: flex; justify-content: center;">
+            <a href="/Home/Exercise/" class="NormalButton Terug">Terug</a>
+            <button type="submit" class="NormalButton">Opslaan</button>
+        </div>
     </form>
+    </div>
 
     <script>
     function EditExercises() 

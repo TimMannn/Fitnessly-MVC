@@ -9,7 +9,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<style>
+    <style>
     body {
         background-color: #f0f0f0;
     }
@@ -20,13 +20,14 @@
         margin-top: 10px;
     }
 
-    .Exercisebox 
+    .Exercisebox
     {
         border: none;
         margin-bottom: 20px;
         padding: 15px;
         background-color: #ccc;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        border-radius: 5px;
     }
 
     .TextSpace
@@ -45,6 +46,7 @@
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         margin-left: 5px;
         margin-right: 5px;
+        border-radius: 4px;
     }
 
     .NormalButton:hover {
@@ -74,9 +76,16 @@
         z-index: 1;
     }
 
+    .Terug {
+        position: absolute;
+        margin-top: 25px;
+        margin-left: 25px;
+    }
+}
+
 </style>
 
-
+<a href="/Home/Index/" class="NormalButton Terug">Terug</a>
     <div class="text-center">
         <h1>Exercise lijst</h1>
         <div class="NewExercise">
