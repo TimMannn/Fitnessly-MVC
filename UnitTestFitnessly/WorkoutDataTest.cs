@@ -28,5 +28,10 @@ namespace UnitTestFitnessly
         {
 
         }
+
+        public Workout GetWorkout(int WorkoutID)
+        {
+            return new Workout(0, "");
+        }
     }
 }

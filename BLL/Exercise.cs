@@ -9,13 +9,13 @@ namespace BLL
 {
     public class Exercise(int id, string name, double gewicht, int sets, int reps)
     {
-        public int Id { get; set; } = id;
+        public int Id { get; } = id;
 
         [MaxLength(50)]
         [MinLength(3)]
-        public string Name { get; set; } = name;
-        public double Gewicht { get; set;} = gewicht;
-        public int Sets { get; set; } = sets;
-        public int Reps { get; set; } = reps;
+        public string Name { get;  } = name;
+        public double Gewicht { get; } = gewicht;
+        public int Sets { get; } = sets;
+        public int Reps { get; } = reps;
     }
 }

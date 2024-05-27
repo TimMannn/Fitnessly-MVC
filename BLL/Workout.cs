@@ -4,10 +4,12 @@ namespace BLL
 {
     public class Workout(int id, string name)
     {
-        public int Id { get; set; } = id;
+        public int Id { get; } = id;
 
         [MaxLength(50)]
         [MinLength(3)]
-        public string Name { get; set; } = name;
+        public string Name { get; } = name;
+
+        public List<Exercise> Exercises { get; } = new List<Exercise>();
     }
 }

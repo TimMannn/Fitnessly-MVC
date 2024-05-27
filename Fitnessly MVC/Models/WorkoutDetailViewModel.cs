@@ -2,10 +2,10 @@
 
 namespace Fitnessly_MVC.Models
 {
-    public class WorkoutViewModel
+    public class WorkoutDetailViewModel
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public List<Workout> Workouts { get; set; }
+        
     }
 }

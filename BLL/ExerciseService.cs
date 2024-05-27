@@ -87,6 +87,18 @@ namespace BLL
             {
                 message = "De naam mag maximaal 50 letters lang zijn";
             }
+            else if (NewExerciseGewicht == 0)
+            {
+                message = "Het gewicht mag niet 0 zijn.";
+            }
+            else if (NewExerciseSets == 0)
+            {
+                message = "De hoeveelheid sets mag niet 0 zijn.";
+            }
+            else if (NewExerciseReps == 0)
+            {
+                message = "De hoeveelheid reps mag niet 0 zijn.";
+            }
             else if (ExerciseID <= 0)
             {
                 message = "Exercise ID is kleiner of gelijk aan 0";

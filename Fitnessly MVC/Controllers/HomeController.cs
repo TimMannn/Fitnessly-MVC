@@ -30,11 +30,22 @@ namespace Fitnessly_MVC.Controllers
 
         public IActionResult Index()
         {
+            var workOutDomainModels = _workoutservice.GetWorkouts();
+
+
             // zet data in viewmodel
-            var workoutViewModel = new WorkoutViewModel
+            var workoutViewModel = new WorkoutOverViewModel
             {
-                Workouts = _workoutservice.GetWorkouts()
+                Workouts = new List<WorkoutDetailViewModel>()
             };
+
+            foreach (Workout workout in workOutDomainModels)
+            {
+                var model = new WorkoutDetailViewModel();
+                model.Id = workout.Id;
+                model.Name = workout.Name;
+                workoutViewModel.Workouts.Add(model);
+            }
 
             // geef viemodel aan view
             return View(workoutViewModel);
@@ -80,7 +91,7 @@ namespace Fitnessly_MVC.Controllers
         public IActionResult Edit(int ID)
         {
            Workout workout = _workoutservice.GetWorkout(ID);
-           var viewModel = new WorkoutViewModel();
+           var viewModel = new WorkoutDetailViewModel();
            viewModel.Id = workout.Id;
            viewModel.Name = workout.Name;
 
