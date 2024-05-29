@@ -88,7 +88,7 @@
             @foreach (var workout in Model.Workouts)
             {
                 <div class="Workoutbox">
-                    <a href="/Home/Exercise/@workout.Id" style="display: block; text-decoration: none;">
+                    <a href="/Exercise/Exercise?WorkoutID=@workout.Id" style="display: block; text-decoration: none;">
                         <div class="TextSpace">
                             <div class="Zwart">
                                 <h4>@workout.Name</h4>

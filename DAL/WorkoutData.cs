@@ -6,7 +6,7 @@ namespace DAL
     public class WorkoutData : IWorkoutData
     {
         // connectie string met database
-        string mysqlCon = "server=localhost; user=root; database=fitnessly;";
+        string mysqlCon = "server=localhost; user=root; database=fitnesslybackup;";
 
         // Haalt op uit database
         public List<Workout> GetWorkouts()
@@ -60,10 +60,17 @@ namespace DAL
             using (var connection = new MySqlConnection(mysqlCon))
             {
                 connection.Open();
-                string query = $"DELETE FROM workout WHERE workout_id = (@ID)";
+                
+                string query = $"DELETE FROM exercise WHERE exercise.exercise_id IN(SELECT workoutexercise.exercise_id FROM workoutexercise WHERE workoutexercise.workout_id = {ID})";
                 MySqlCommand cmd = new MySqlCommand(query, connection);
                 cmd.Parameters.AddWithValue("@ID", ID);
                 cmd.ExecuteNonQuery();
+
+                string query2 = $"DELETE FROM workout WHERE workout_id = (@ID)";
+                MySqlCommand cmd2 = new MySqlCommand(query2, connection);
+                cmd2.Parameters.AddWithValue("@ID", ID);
+                cmd2.ExecuteNonQuery();
+
                 connection.Close();
             }
         }

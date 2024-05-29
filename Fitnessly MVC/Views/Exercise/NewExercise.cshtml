@@ -2,6 +2,8 @@
     ViewData["Title"] = "Exercise Toevoegen";
 }
 
+@model ExerciseViewModel
+
 <html lang="nl">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -70,7 +72,7 @@
 
     <h1 class="text-center">Exercise aanmaken</h1>
     <div class="form-container">
-        <form method="post" action="/Home/AddNewExercise">
+        <form method="post" action="/Exercise/AddNewExercise?WorkoutID=@Model.WorkoutID">
             <div class="form-group">
                 <label for="exerciseName" class="Zwart">Exercise naam:</label>
                 <input type="text" id="exerciseName" name="exerciseName" required=""/>
@@ -88,7 +90,7 @@
                 <input type="text" id="exerciseReps" name="exerciseReps" required=""/>
             </div>
             <div style="display: flex; justify-content: center;">
-                <a href="/Home/Exercise/" class="NormalButton">Terug</a>
+            <a href="/Exercise/Exercise?WorkoutID=@Model.WorkoutID" class="NormalButton">Terug</a>
                 <button type="submit" onclick="SendsExercise()" class="NormalButton">Opslaan</button>
             </div>
         </form>

@@ -9,7 +9,5 @@ namespace BLL
         [MaxLength(50)]
         [MinLength(3)]
         public string Name { get; } = name;
-
-        public List<Exercise> Exercises { get; } = new List<Exercise>();
     }
 }

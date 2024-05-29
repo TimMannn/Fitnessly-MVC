@@ -9,12 +9,12 @@ namespace UnitTestFitnessly
 {
     public class ExerciseDataTest : IExerciseData
     {
-        public List<Exercise> GetExercises()
+        public List<Exercise> GetExercises(int WorkoutID)
         {
             return new List<Exercise>();
         }
 
-        public void SendExerciseData(string exerciseName, double exerciseGewicht, int exerciseSets, int exerciseReps)
+        public void SendExerciseData(string exerciseName, double exerciseGewicht, int exerciseSets, int exerciseReps, int WorkoutID)
         {
             
         }

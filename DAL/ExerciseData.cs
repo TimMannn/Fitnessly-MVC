@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.PortableExecutable;
 using System.Text;
 using System.Threading.Tasks;
 using BLL;
@@ -11,9 +12,9 @@ namespace DAL
     public class ExerciseData : IExerciseData
     {
         //connectie string database
-        string mysqlCon = "server=localhost; user=root; database=fitnessly;";
+        string mysqlCon = "server=localhost; user=root; database=fitnesslybackup;";
 
-        public List<Exercise> GetExercises()
+        public List<Exercise> GetExercises(int WorkoutID)
         {
             {
                 List<Exercise> exercises = new List<Exercise>();
@@ -23,7 +24,8 @@ namespace DAL
                     try
                     {
                         connection.Open();
-                        MySqlCommand mySqlCommand = new MySqlCommand("select * from exercise", connection);
+                        //MySqlCommand mySqlCommand = new MySqlCommand("select * from exercise ", connection);
+                        MySqlCommand mySqlCommand = new MySqlCommand($"SELECT * FROM exercise WHERE exercise.exercise_id IN (SELECT workoutexercise.exercise_id FROM workoutexercise WHERE workoutexercise.workout_id = {WorkoutID})", connection);
                         MySqlDataReader reader = mySqlCommand.ExecuteReader();
 
                         while (reader.Read())
@@ -48,18 +50,30 @@ namespace DAL
         }
 
         // verstuur naar database
-        public void SendExerciseData(string exerciseName, double exerciseGewicht, int exerciseSets, int exerciseReps)
+        public void SendExerciseData(string exerciseName, double exerciseGewicht, int exerciseSets, int exerciseReps, int WorkoutID)
         {
             using (var connection = new MySqlConnection(mysqlCon))
             {
                 connection.Open();
+
                 string query = $"INSERT INTO exercise (exercise_name, exercise_gewicht, exercise_sets, exercise_reps) VALUES (@exerciseName, @exerciseGewicht, @exerciseSets, @exerciseReps);";
                 MySqlCommand cmd = new MySqlCommand(query, connection);
                 cmd.Parameters.AddWithValue("@exerciseName", exerciseName);
                 cmd.Parameters.AddWithValue("@exerciseGewicht", exerciseGewicht);
                 cmd.Parameters.AddWithValue("@exerciseSets", exerciseSets);
-                cmd.Parameters.AddWithValue("@exerciseReps", exerciseReps);
+                cmd.Parameters.AddWithValue("@exerciseReps", exerciseReps); 
                 cmd.ExecuteNonQuery();
+
+                string query2 = "SELECT LAST_INSERT_ID();";
+                MySqlCommand cmd2 = new MySqlCommand(query2, connection);
+                int ExerciseID = Convert.ToInt32(cmd2.ExecuteScalar());
+
+                string query3 = $"INSERT INTO workoutexercise (workout_id, exercise_id) VALUES (@workoutID, @exerciseID);";
+                MySqlCommand cmd3 = new MySqlCommand(query3, connection);
+                cmd3.Parameters.AddWithValue("@workoutID", WorkoutID);
+                cmd3.Parameters.AddWithValue("exerciseID", ExerciseID);
+                cmd3.ExecuteNonQuery();
+
                 connection.Close();
             }
         }
@@ -70,10 +84,17 @@ namespace DAL
             using (var connection = new MySqlConnection(mysqlCon))
             {
                 connection.Open();
+
                 string query = $"DELETE FROM exercise WHERE exercise_id = (@ID)";
                 MySqlCommand cmd = new MySqlCommand(query, connection);
                 cmd.Parameters.AddWithValue("@ID", ID);
                 cmd.ExecuteNonQuery();
+
+                string query2 = $"DELETE FROM workoutexercise WHERE exercise_id = (@ID)";
+                MySqlCommand cmd2 = new MySqlCommand(query2, connection);
+                cmd2.Parameters.AddWithValue("@ID", ID);
+                cmd2.ExecuteNonQuery();
+
                 connection.Close();
             }
         }

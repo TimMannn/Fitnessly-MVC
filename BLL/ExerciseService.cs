@@ -16,14 +16,14 @@ namespace BLL
             this.data = data;
         }
 
-        public List<Exercise> GetExercises()
+        public List<Exercise> GetExercises(int WorkoutID)
         {
-            var result = data.GetExercises();
+            var result = data.GetExercises(WorkoutID);
 
             return result;
         }
 
-        public string SendExercise(string exerciseName, double exerciseGewicht,int exerciseSets, int exerciseReps)
+        public string SendExercise(string exerciseName, double exerciseGewicht,int exerciseSets, int exerciseReps, int WorkoutID)
         {
             var message = "Alles is correct";
             if (string.IsNullOrEmpty(exerciseName))
@@ -52,7 +52,7 @@ namespace BLL
             }
             else
             {
-                data.SendExerciseData(exerciseName, exerciseGewicht, exerciseSets, exerciseReps);
+                data.SendExerciseData(exerciseName, exerciseGewicht, exerciseSets, exerciseReps, WorkoutID);
             }
             return message;
         }

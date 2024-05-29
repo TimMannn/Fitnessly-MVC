@@ -73,8 +73,9 @@
 
 <h1 class="text-center">Exercise Bewerken</h1>
     <div class="form-container">
-    <form method="post" action="/Home/EditExercise">
+    <form method="post" action="/Exercise/EditExercise">
         <input type="hidden" name="ExerciseID" value="@Model.Id" />
+        <input type="hidden" name="WorkoutID" value="@Model.WorkoutID" />
         <div class="form-group">
             <label for="newExerciseName" class="Zwart">Exercise naam bewerken:</label>
             <input type="text" id="newExerciseName" name="newExerciseName" value="@Model.Name" required="">
@@ -92,7 +93,7 @@
             <input type="text" id="newExerciseReps" name="newExerciseReps" value="@Model.Reps" required="">
         </div>
         <div style="display: flex; justify-content: center;">
-            <a href="/Home/Exercise/" class="NormalButton Terug">Terug</a>
+            <a href="/Exercise/Exercise?WorkoutID = @Model.WorkoutID" class="NormalButton Terug">Terug</a>
             <button type="submit" class="NormalButton">Opslaan</button>
         </div>
     </form>
