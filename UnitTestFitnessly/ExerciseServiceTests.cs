@@ -17,15 +17,17 @@ namespace UnitTestFitnessly
             double exerciseGewicht;
             int exerciseSets;
             int exerciseReps;
+            int WorkoutID;
 
             // Act
             exerciseName = "Pizza";
             exerciseGewicht = 1;
             exerciseSets = 1;
             exerciseReps = 1;
+            WorkoutID = 1;
             var data = new ExerciseDataTest();
             ExerciseService workoutservice = new ExerciseService(data);
-            var message = workoutservice.SendExercise(exerciseName, exerciseGewicht, exerciseSets, exerciseReps);
+            var message = workoutservice.SendExercise(exerciseName, exerciseGewicht, exerciseSets, exerciseReps, WorkoutID);
 
             // Assert
             Assert.AreEqual("Alles is correct", message);
@@ -39,15 +41,17 @@ namespace UnitTestFitnessly
             double exerciseGewicht;
             int exerciseSets;
             int exerciseReps;
+            int WorkoutID;
 
             // Act
             exerciseName = "";
             exerciseGewicht = 1;
             exerciseSets = 1;
             exerciseReps = 1;
+            WorkoutID = 1;
             var data = new ExerciseDataTest();
             ExerciseService workoutservice = new ExerciseService(data);
-            var message = workoutservice.SendExercise(exerciseName, exerciseGewicht, exerciseSets, exerciseReps);
+            var message = workoutservice.SendExercise(exerciseName, exerciseGewicht, exerciseSets, exerciseReps, WorkoutID);
 
             // Assert
             Assert.AreEqual("Mag niet null zijn", message);
@@ -61,15 +65,17 @@ namespace UnitTestFitnessly
             double exerciseGewicht;
             int exerciseSets;
             int exerciseReps;
+            int WorkoutID;
 
             // Act
             exerciseName = "BP";
             exerciseGewicht = 1;
             exerciseSets = 1;
             exerciseReps = 1;
+            WorkoutID = 1;
             var data = new ExerciseDataTest();
             ExerciseService workoutservice = new ExerciseService(data);
-            var message = workoutservice.SendExercise(exerciseName, exerciseGewicht, exerciseSets, exerciseReps);
+            var message = workoutservice.SendExercise(exerciseName, exerciseGewicht, exerciseSets, exerciseReps, WorkoutID);
 
             // Assert
             Assert.AreEqual("De naam moet minimaal 3 letters lang zijn", message);
@@ -83,15 +89,17 @@ namespace UnitTestFitnessly
             double exerciseGewicht;
             int exerciseSets;
             int exerciseReps;
+            int WorkoutID;
 
             // Act
             exerciseName = "ababababababababababababababababababababababababababababababababababababababababababababab";
             exerciseGewicht = 1;
             exerciseSets = 1;
             exerciseReps = 1;
+            WorkoutID = 1;
             var data = new ExerciseDataTest();
             ExerciseService workoutservice = new ExerciseService(data);
-            var message = workoutservice.SendExercise(exerciseName, exerciseGewicht, exerciseSets, exerciseReps);
+            var message = workoutservice.SendExercise(exerciseName, exerciseGewicht, exerciseSets, exerciseReps, WorkoutID);
 
             // Assert
             Assert.AreEqual("De naam mag maximaal 50 letters lang zijn", message);
@@ -105,15 +113,17 @@ namespace UnitTestFitnessly
             double exerciseGewicht;
             int exerciseSets;
             int exerciseReps;
+            int WorkoutID;
 
             // Act
             exerciseName = "Pizza";
             exerciseGewicht = 0;
             exerciseSets = 1;
             exerciseReps = 1;
+            WorkoutID = 1;
             var data = new ExerciseDataTest();
             ExerciseService workoutservice = new ExerciseService(data);
-            var message = workoutservice.SendExercise(exerciseName, exerciseGewicht, exerciseSets, exerciseReps);
+            var message = workoutservice.SendExercise(exerciseName, exerciseGewicht, exerciseSets, exerciseReps, WorkoutID);
 
             // Assert
             Assert.AreEqual("Het gewicht mag niet 0 zijn.", message);
@@ -127,15 +137,17 @@ namespace UnitTestFitnessly
             double exerciseGewicht;
             int exerciseSets;
             int exerciseReps;
+            int WorkoutID;
 
             // Act
             exerciseName = "Pizza";
             exerciseGewicht = 1;
             exerciseSets = 0;
             exerciseReps = 1;
+            WorkoutID = 1;
             var data = new ExerciseDataTest();
             ExerciseService workoutservice = new ExerciseService(data);
-            var message = workoutservice.SendExercise(exerciseName, exerciseGewicht, exerciseSets, exerciseReps);
+            var message = workoutservice.SendExercise(exerciseName, exerciseGewicht, exerciseSets, exerciseReps, WorkoutID);
 
             // Assert
             Assert.AreEqual("De hoeveelheid sets mag niet 0 zijn.", message);
@@ -149,15 +161,17 @@ namespace UnitTestFitnessly
             double exerciseGewicht;
             int exerciseSets;
             int exerciseReps;
+            int WorkoutID;
 
             // Act
             exerciseName = "Pizza";
             exerciseGewicht = 1;
             exerciseSets = 1;
             exerciseReps = 0;
+            WorkoutID = 1;
             var data = new ExerciseDataTest();
             ExerciseService workoutservice = new ExerciseService(data);
-            var message = workoutservice.SendExercise(exerciseName, exerciseGewicht, exerciseSets, exerciseReps);
+            var message = workoutservice.SendExercise(exerciseName, exerciseGewicht, exerciseSets, exerciseReps, WorkoutID);
 
             // Assert
             Assert.AreEqual("De hoeveelheid reps mag niet 0 zijn.", message);

@@ -11,7 +11,6 @@ namespace DAL
 {
     public class ExerciseData : IExerciseData
     {
-        //connectie string database
         string mysqlCon = "server=localhost; user=root; database=fitnesslybackup;";
 
         public List<Exercise> GetExercises(int WorkoutID)
@@ -24,7 +23,6 @@ namespace DAL
                     try
                     {
                         connection.Open();
-                        //MySqlCommand mySqlCommand = new MySqlCommand("select * from exercise ", connection);
                         MySqlCommand mySqlCommand = new MySqlCommand($"SELECT * FROM exercise WHERE exercise.exercise_id IN (SELECT workoutexercise.exercise_id FROM workoutexercise WHERE workoutexercise.workout_id = {WorkoutID})", connection);
                         MySqlDataReader reader = mySqlCommand.ExecuteReader();
 
@@ -56,25 +54,48 @@ namespace DAL
             {
                 connection.Open();
 
-                string query = $"INSERT INTO exercise (exercise_name, exercise_gewicht, exercise_sets, exercise_reps) VALUES (@exerciseName, @exerciseGewicht, @exerciseSets, @exerciseReps);";
-                MySqlCommand cmd = new MySqlCommand(query, connection);
-                cmd.Parameters.AddWithValue("@exerciseName", exerciseName);
-                cmd.Parameters.AddWithValue("@exerciseGewicht", exerciseGewicht);
-                cmd.Parameters.AddWithValue("@exerciseSets", exerciseSets);
-                cmd.Parameters.AddWithValue("@exerciseReps", exerciseReps); 
-                cmd.ExecuteNonQuery();
+                using (var transaction = connection.BeginTransaction())
+                {
+                    try
+                    {
+                        string query = $"INSERT INTO exercise (exercise_name, exercise_gewicht, exercise_sets, exercise_reps) VALUES (@exerciseName, @exerciseGewicht, @exerciseSets, @exerciseReps);";
+                        MySqlCommand cmd = new MySqlCommand(query, connection);
+                        cmd.Transaction = transaction;
+                        cmd.Parameters.AddWithValue("@exerciseName", exerciseName);
+                        cmd.Parameters.AddWithValue("@exerciseGewicht", exerciseGewicht);
+                        cmd.Parameters.AddWithValue("@exerciseSets", exerciseSets);
+                        cmd.Parameters.AddWithValue("@exerciseReps", exerciseReps);
+                        cmd.ExecuteNonQuery();
 
-                string query2 = "SELECT LAST_INSERT_ID();";
-                MySqlCommand cmd2 = new MySqlCommand(query2, connection);
-                int ExerciseID = Convert.ToInt32(cmd2.ExecuteScalar());
+                        string query2 = "SELECT LAST_INSERT_ID();";
+                        MySqlCommand cmd2 = new MySqlCommand(query2, connection);
+                        cmd2.Transaction = transaction;
+                        int ExerciseID = Convert.ToInt32(cmd2.ExecuteScalar());
 
-                string query3 = $"INSERT INTO workoutexercise (workout_id, exercise_id) VALUES (@workoutID, @exerciseID);";
-                MySqlCommand cmd3 = new MySqlCommand(query3, connection);
-                cmd3.Parameters.AddWithValue("@workoutID", WorkoutID);
-                cmd3.Parameters.AddWithValue("exerciseID", ExerciseID);
-                cmd3.ExecuteNonQuery();
+                        string query3 = $"INSERT INTO workoutexercise (workout_id, exercise_id) VALUES (@workoutID, @exerciseID);";
+                        MySqlCommand cmd3 = new MySqlCommand(query3, connection);
+                        cmd3.Transaction = transaction;
+                        cmd3.Parameters.AddWithValue("@workoutID", WorkoutID);
+                        cmd3.Parameters.AddWithValue("exerciseID", ExerciseID);
+                        cmd3.ExecuteNonQuery();
 
-                connection.Close();
+                        transaction.Commit();
+                    }
+
+                    catch (MySqlException ex)
+                    {
+                        try
+                        {
+                            transaction.Rollback();
+                            throw ex;
+                        }
+
+                        catch (MySqlException exRollback)
+                        {
+                            throw exRollback;
+                        }
+                    }
+                }
             }
         }
 
@@ -84,18 +105,39 @@ namespace DAL
             using (var connection = new MySqlConnection(mysqlCon))
             {
                 connection.Open();
+                using (var transcation = connection.BeginTransaction())
+                {
+                    try
+                    {
+                        string query = $"DELETE FROM exercise WHERE exercise_id = (@ID)";
+                        MySqlCommand cmd = new MySqlCommand(query, connection);
+                        cmd.Transaction = transcation;
+                        cmd.Parameters.AddWithValue("@ID", ID);
+                        cmd.ExecuteNonQuery();
 
-                string query = $"DELETE FROM exercise WHERE exercise_id = (@ID)";
-                MySqlCommand cmd = new MySqlCommand(query, connection);
-                cmd.Parameters.AddWithValue("@ID", ID);
-                cmd.ExecuteNonQuery();
+                        string query2 = $"DELETE FROM workoutexercise WHERE exercise_id = (@ID)";
+                        MySqlCommand cmd2 = new MySqlCommand(query2, connection);
+                        cmd2.Transaction = transcation;
+                        cmd2.Parameters.AddWithValue("@ID", ID);
+                        cmd2.ExecuteNonQuery();
 
-                string query2 = $"DELETE FROM workoutexercise WHERE exercise_id = (@ID)";
-                MySqlCommand cmd2 = new MySqlCommand(query2, connection);
-                cmd2.Parameters.AddWithValue("@ID", ID);
-                cmd2.ExecuteNonQuery();
+                        transcation.Commit();
+                    }
 
-                connection.Close();
+                    catch (MySqlException ex)
+                    {
+                        try
+                        {
+                            transcation.Rollback();
+                            throw ex;
+                        }
+
+                        catch (MySqlException exRollback)
+                        {
+                            throw exRollback;
+                        }
+                    }
+                }
             }
         }
 

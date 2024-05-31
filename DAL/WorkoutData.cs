@@ -60,18 +60,40 @@ namespace DAL
             using (var connection = new MySqlConnection(mysqlCon))
             {
                 connection.Open();
-                
-                string query = $"DELETE FROM exercise WHERE exercise.exercise_id IN(SELECT workoutexercise.exercise_id FROM workoutexercise WHERE workoutexercise.workout_id = {ID})";
-                MySqlCommand cmd = new MySqlCommand(query, connection);
-                cmd.Parameters.AddWithValue("@ID", ID);
-                cmd.ExecuteNonQuery();
+                using (var transcation = connection.BeginTransaction())
+                {
+                    try
+                    {
+                        string query =
+                            $"DELETE FROM exercise WHERE exercise.exercise_id IN(SELECT workoutexercise.exercise_id FROM workoutexercise WHERE workoutexercise.workout_id = {ID})";
+                        MySqlCommand cmd = new MySqlCommand(query, connection);
+                        cmd.Transaction = transcation;
+                        cmd.Parameters.AddWithValue("@ID", ID);
+                        cmd.ExecuteNonQuery();
 
-                string query2 = $"DELETE FROM workout WHERE workout_id = (@ID)";
-                MySqlCommand cmd2 = new MySqlCommand(query2, connection);
-                cmd2.Parameters.AddWithValue("@ID", ID);
-                cmd2.ExecuteNonQuery();
+                        string query2 = $"DELETE FROM workout WHERE workout_id = (@ID)";
+                        MySqlCommand cmd2 = new MySqlCommand(query2, connection);
+                        cmd2.Transaction = transcation;
+                        cmd2.Parameters.AddWithValue("@ID", ID);
+                        cmd2.ExecuteNonQuery();
 
-                connection.Close();
+                        transcation.Commit();
+                    }
+
+                    catch (MySqlException ex)
+                    {
+                        try
+                        {
+                            transcation.Rollback();
+                            throw ex;
+                        }
+
+                        catch (MySqlException exRollback)
+                        {
+                            throw exRollback;
+                        }
+                    }
+                }
             }
         }
 
