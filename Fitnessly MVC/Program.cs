@@ -6,9 +6,9 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddScoped<IWorkoutData, WorkoutData>();
-
-builder.Services.AddScoped<IExerciseData, ExerciseData>();
+var connectionString = builder.Configuration["ConnectionString"];
+builder.Services.AddScoped<IWorkoutData>(x => new WorkoutData(connectionString));
+builder.Services.AddScoped<IExerciseData>(x => new ExerciseData(connectionString));
 
 var app = builder.Build();
 

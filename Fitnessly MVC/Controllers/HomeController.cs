@@ -90,7 +90,7 @@ namespace Fitnessly_MVC.Controllers
 
         public IActionResult Edit(int ID)
         {
-           Workout workout = _workoutservice.GetWorkout(ID);
+            Workout workout = _workoutservice.GetWorkout(ID);
            var viewModel = new WorkoutDetailViewModel();
            viewModel.Id = workout.Id;
            viewModel.Name = workout.Name;

@@ -5,37 +5,35 @@ namespace DAL
 {
     public class WorkoutData : IWorkoutData
     {
-        // connectie string met database
-        string mysqlCon = "server=localhost; user=root; database=fitnesslybackup;";
+        private string mysqlCon;
+
+        public WorkoutData(string mysqlCon)
+        {
+            this.mysqlCon = mysqlCon;
+        }
 
         // Haalt op uit database
         public List<Workout> GetWorkouts()
         {
+
             {
                 List<Workout> workouts = new List<Workout>();
 
-                using (var connection = new MySqlConnection(mysqlCon)) 
+                using (var connection = new MySqlConnection(mysqlCon))
                 {
-                    try
+                    connection.Open();
+                    MySqlCommand mySqlCommand = new MySqlCommand("select * from workout", connection);
+                    MySqlDataReader reader = mySqlCommand.ExecuteReader();
+
+                    while (reader.Read())
                     {
-                        connection.Open();
-                        MySqlCommand mySqlCommand = new MySqlCommand("select * from workout", connection);
-                        MySqlDataReader reader = mySqlCommand.ExecuteReader();
+                        int workoutID = reader.GetInt32("workout_id");
+                        string workoutName = reader.GetString("workout_name");
 
-                        while (reader.Read())
-                        {
-                            int workoutID = reader.GetInt32("workout_id");
-                            string workoutName = reader.GetString("workout_name");
-
-                            workouts.Add(new Workout(id: workoutID, name: workoutName));
-                        }
-
-                        return workouts;
+                        workouts.Add(new Workout(id: workoutID, name: workoutName));
                     }
-                    finally
-                    {
-                        connection.Close();
-                    }
+
+                    return workouts;
                 }
             }
         }
@@ -117,27 +115,21 @@ namespace DAL
             {
                 using (var connection = new MySqlConnection(mysqlCon))
                 {
-                    try
-                    {
-                        var workout = new Workout(0, "");
-                        connection.Open();
-                        MySqlCommand mySqlCommand = new MySqlCommand("select * from workout WHERE workout_id = @WorkoutID" , connection);
-                        mySqlCommand.Parameters.AddWithValue("@WorkoutID", WorkoutID);
-                        MySqlDataReader reader = mySqlCommand.ExecuteReader();
+                    var workout = new Workout(0, "");
+                    connection.Open();
+                    MySqlCommand mySqlCommand = new MySqlCommand("select * from workout WHERE workout_id = @WorkoutID",
+                        connection);
+                    mySqlCommand.Parameters.AddWithValue("@WorkoutID", WorkoutID);
+                    MySqlDataReader reader = mySqlCommand.ExecuteReader();
 
-                        while (reader.Read())
-                        {
-                            int workoutID = reader.GetInt32("workout_id");
-                            string workoutName = reader.GetString("workout_name");
-                            workout = new Workout(id: workoutID, name: workoutName);
-                        }
-
-                        return workout;
-                    }
-                    finally
+                    while (reader.Read())
                     {
-                        connection.Close();
+                        int workoutID = reader.GetInt32("workout_id");
+                        string workoutName = reader.GetString("workout_name");
+                        workout = new Workout(id: workoutID, name: workoutName);
                     }
+
+                    return workout;
                 }
             }
         }

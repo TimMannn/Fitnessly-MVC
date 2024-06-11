@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Reflection.PortableExecutable;
 using System.Text;
@@ -11,7 +12,12 @@ namespace DAL
 {
     public class ExerciseData : IExerciseData
     {
-        string mysqlCon = "server=localhost; user=root; database=fitnesslybackup;";
+        private string mysqlCon;
+
+        public ExerciseData(string mysqlCon)
+        {
+            this.mysqlCon = mysqlCon;
+        }
 
         public List<Exercise> GetExercises(int WorkoutID)
         {
@@ -20,29 +26,22 @@ namespace DAL
 
                 using (var connection = new MySqlConnection(mysqlCon))
                 {
-                    try
+                    connection.Open();
+                    MySqlCommand mySqlCommand = new MySqlCommand($"SELECT * FROM exercise WHERE exercise.exercise_id IN (SELECT workoutexercise.exercise_id FROM workoutexercise WHERE workoutexercise.workout_id = {WorkoutID})", connection);
+                    MySqlDataReader reader = mySqlCommand.ExecuteReader();
+
+                    while (reader.Read())
                     {
-                        connection.Open();
-                        MySqlCommand mySqlCommand = new MySqlCommand($"SELECT * FROM exercise WHERE exercise.exercise_id IN (SELECT workoutexercise.exercise_id FROM workoutexercise WHERE workoutexercise.workout_id = {WorkoutID})", connection);
-                        MySqlDataReader reader = mySqlCommand.ExecuteReader();
+                        int exerciseID = reader.GetInt32("exercise_id");
+                        string exerciseName = reader.GetString("exercise_name");
+                        double exerciseGewicht = reader.GetDouble("exercise_gewicht");
+                        int exerciseSets = reader.GetInt32("exercise_sets");
+                        int exerciseReps = reader.GetInt32("exercise_reps");
 
-                        while (reader.Read())
-                        {
-                            int exerciseID = reader.GetInt32("exercise_id");
-                            string exerciseName = reader.GetString("exercise_name");
-                            double exerciseGewicht = reader.GetDouble("exercise_gewicht");
-                            int exerciseSets = reader.GetInt32("exercise_sets");
-                            int exerciseReps = reader.GetInt32("exercise_reps");
-
-                            exercises.Add(new Exercise(id: exerciseID, name: exerciseName, gewicht:exerciseGewicht, sets: exerciseSets, reps: exerciseReps));
-                        }
-
-                        return exercises;
+                        exercises.Add(new Exercise(id: exerciseID, name: exerciseName, gewicht: exerciseGewicht, sets: exerciseSets, reps: exerciseReps));
                     }
-                    finally
-                    {
-                        connection.Close();
-                    }
+
+                    return exercises;
                 }
             }
         }
@@ -164,30 +163,23 @@ namespace DAL
             {
                 using (var connection = new MySqlConnection(mysqlCon))
                 {
-                    try
-                    {
-                        var exercise = new Exercise(0, "", 0, 0, 0);
-                        connection.Open();
-                        MySqlCommand mySqlCommand = new MySqlCommand("select * from exercise WHERE exercise_id = @ExerciseID", connection);
-                        mySqlCommand.Parameters.AddWithValue("@ExerciseID", ExerciseID);
-                        MySqlDataReader reader = mySqlCommand.ExecuteReader();
+                    var exercise = new Exercise(0, "", 0, 0, 0);
+                    connection.Open();
+                    MySqlCommand mySqlCommand = new MySqlCommand("select * from exercise WHERE exercise_id = @ExerciseID", connection);
+                    mySqlCommand.Parameters.AddWithValue("@ExerciseID", ExerciseID);
+                    MySqlDataReader reader = mySqlCommand.ExecuteReader();
 
-                        while (reader.Read())
-                        {
-                            int exerciseID = reader.GetInt32("exercise_id");
-                            string exerciseName = reader.GetString("exercise_name");
-                            double exerciseGewicht = reader.GetDouble("exercise_gewicht");
-                            int exerciseSets = reader.GetInt32("exercise_sets");
-                            int exerciseReps = reader.GetInt32("exercise_reps");
-                            exercise = new Exercise(id: exerciseID, name: exerciseName, gewicht: exerciseGewicht, sets: exerciseSets, reps: exerciseReps);
-                        }
-
-                        return exercise;
-                    }
-                    finally
+                    while (reader.Read())
                     {
-                        connection.Close();
+                        int exerciseID = reader.GetInt32("exercise_id");
+                        string exerciseName = reader.GetString("exercise_name");
+                        double exerciseGewicht = reader.GetDouble("exercise_gewicht");
+                        int exerciseSets = reader.GetInt32("exercise_sets");
+                        int exerciseReps = reader.GetInt32("exercise_reps");
+                        exercise = new Exercise(id: exerciseID, name: exerciseName, gewicht: exerciseGewicht, sets: exerciseSets, reps: exerciseReps);
                     }
+
+                    return exercise;
                 }
             }
         }

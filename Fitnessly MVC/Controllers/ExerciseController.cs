@@ -30,7 +30,6 @@ namespace Fitnessly_MVC.Controllers
 
         public IActionResult Exercise(int WorkoutID)
         {
-            // zet data in viewmodel
             var exerciseViewModel = new ExerciseViewModel
 
             {
@@ -38,8 +37,6 @@ namespace Fitnessly_MVC.Controllers
                 WorkoutID = WorkoutID
             };
 
-
-            // geef viemodel aan view
             return View(exerciseViewModel);
         }
 
@@ -94,13 +91,10 @@ namespace Fitnessly_MVC.Controllers
             {
                 return View("NewExercise");
             }
+            _exerciseservice.SendExercise(exerciseName, exerciseGewicht, exerciseSets, exerciseReps, WorkoutID);
 
-            else
-            {
-                _exerciseservice.SendExercise(exerciseName, exerciseGewicht, exerciseSets, exerciseReps, WorkoutID);
+            return RedirectToAction("Exercise", exerciseViewModel);
 
-                return RedirectToAction("Exercise", exerciseViewModel);
-            }
         }
 
         public IActionResult DeleteExercise(int exerciseID, int WorkoutID)
