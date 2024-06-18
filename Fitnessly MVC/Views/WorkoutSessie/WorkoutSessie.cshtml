@@ -1,0 +1,144 @@
+﻿@{
+    ViewData["Title"] = "WorkoutSessie";
+}
+
+@using BLL;
+@model ExerciseViewModel;
+
+<html lang="nl">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+    body {
+        background-color: #f0f0f0;
+    }
+
+    .StopWorkoutSessie {
+        margin-bottom: 15px;
+        margin-top: 10px;
+    }
+
+    .Exercisebox {
+        border: none;
+        margin-bottom: 20px;
+        padding: 15px;
+        background-color: #ccc;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        border-radius: 5px;
+    }
+
+    .TextSpace {
+        margin-bottom: 15px;
+    }
+
+    .NormalButton {
+        background-color: #808080;
+        color: white;
+        padding: 7px 24px;
+        text-decoration: none;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        margin-left: 5px;
+        margin-right: 5px;
+        border-radius: 4px;
+    }
+
+        .NormalButton:hover {
+            background-color: #A0A0A0;
+            color: white;
+        }
+
+    .DeleteButton {
+        background-color: #FF3333;
+        padding: 7px 15px;
+    }
+
+        .DeleteButton:hover {
+            background-color: #FF5555;
+        }
+
+    .Zwart {
+        color: black;
+    }
+
+    .link {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        z-index: 1;
+    }
+
+    .Terug {
+        position: absolute;
+        margin-top: 25px;
+        margin-left: 25px;
+    }
+
+    #timer {
+        font-size: 48px;
+    }
+
+
+    }
+</style>
+
+<div class="text-center">
+    <h1>WorkoutSessie</></h1>
+    <div id="timer">00:00:00</div>
+    <div class="StopWorkoutSessie">
+        <a class="NormalButton" id="stopworkout" href="/Home/Index/">Stop Workout</a>
+    </div>
+    <ul>
+        @foreach (var exercise in Model.Exercises)
+        {
+            <div class="Exercisebox">
+                <div class="TextSpace">
+                    <div class="Zwart">
+                        <h4>@exercise.Name</h4>
+                        <h6>Gewicht: @exercise.Gewicht | Sets: @exercise.Sets | Reps: @exercise.Reps</h6>
+                    </div>
+                </div>
+                <div style="display: flex; justify-content: center;">
+                    <a class="NormalButton" href="/WorkoutSessie/WorkoutSessieStats?ExerciseID=@exercise.Id&WorkoutID=@Model.WorkoutID">Klaar</a>
+                </div>
+            </div>
+        }
+    </ul>
+</div>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        var seconds = 0;
+        var interval = setInterval(function () {
+            seconds++;
+            var hours = Math.floor(seconds / 3600);
+            var minutes = Math.floor((seconds - (hours * 3600)) / 60);
+            var secs = seconds % 60;
+            $('#timer').text(pad(hours) + ':' + pad(minutes) + ':' + pad(secs));
+        }, 1000);
+
+        function pad(val) {
+            return val > 9 ? val : '0' + val;
+        }
+
+        $('#stopworkout').click(function () {
+            clearInterval(interval);
+            var finalTime = $('#timer').text();
+
+
+            //alert('Workout gestopt! Tijd: ' + finalTime);
+        });
+    });
+</script>
+
+
+
+
+

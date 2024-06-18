@@ -9,6 +9,7 @@ builder.Services.AddControllersWithViews();
 var connectionString = builder.Configuration["ConnectionString"];
 builder.Services.AddScoped<IWorkoutData>(x => new WorkoutData(connectionString));
 builder.Services.AddScoped<IExerciseData>(x => new ExerciseData(connectionString));
+builder.Services.AddScoped<IWorkoutSessieData>(x => new WorkoutSessieData(connectionString));
 
 var app = builder.Build();
 

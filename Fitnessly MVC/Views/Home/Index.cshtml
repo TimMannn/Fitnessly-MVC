@@ -62,6 +62,15 @@
     .DeleteButton:hover {
             background-color: #FF5555;
     }
+
+    .StartButton {
+        background-color: #33CC33;
+    }
+
+    .StartButton:hover {
+        background-color: #66FF66;
+    }
+
     
     .Zwart{
         color: black;
@@ -99,6 +108,7 @@
                             <button class="NormalButton DeleteButton" type="submit" name="workoutID" value="@workout.Id">Delete</button>
                         </form>
                         <a class="NormalButton" href="/Home/Edit/@workout.Id">Edit</a>
+                        <a class="NormalButton StartButton" href="/WorkoutSessie/WorkoutSessie?WorkoutID=@workout.Id">Start</a>
                     </div>
                     </a>
                 </div>
