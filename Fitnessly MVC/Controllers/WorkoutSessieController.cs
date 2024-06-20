@@ -34,22 +34,35 @@ namespace Fitnessly_MVC.Controllers
             _workoutservice = new WorkoutService(workoutData);
         }
 
-        public IActionResult WorkoutSessie(int WorkoutID)
+        public IActionResult WorkoutSessieFirstLoad(int WorkoutID)
         {
             _workoutSessieService.CreateWorkoutSessie(WorkoutID);
-
-            var exerciseViewModel = new ExerciseViewModel
+            _exerciseservice.DisplayTrueExercise();
+            var workoutSessieViewModel = new WorkoutSessieViewModel
 
             {
                 Exercises = _exerciseservice.GetExercises(WorkoutID),
                 WorkoutID = WorkoutID
             };
 
-            return View(exerciseViewModel);
+            return View("WorkoutSessie", workoutSessieViewModel);
         }
 
-        public IActionResult EditStats(WorkoutSessieViewModel model, string WorkoutSessieStatsName, double WorkoutSessieStatsGewicht, int WorkoutSessieStatsSets, int WorkoutSessieStatsReps, int WorkoutID)
+        public IActionResult WorkoutSessie(int WorkoutID)
         {
+            var workoutSessieViewModel = new WorkoutSessieViewModel
+
+            {
+                Exercises = _exerciseservice.GetExercises(WorkoutID),
+                WorkoutID = WorkoutID
+            };
+
+            return View(workoutSessieViewModel);
+        }
+
+        public IActionResult EditStats(WorkoutSessieViewModel model, string WorkoutSessieStatsName, double WorkoutSessieStatsGewicht, int WorkoutSessieStatsSets, int WorkoutSessieStatsReps, int WorkoutID, int ExerciseID)
+        {
+            _exerciseservice.DisplayFalseExercise(ExerciseID);
             _workoutSessieService.CreateWorkoutSessieExercise(WorkoutSessieStatsName, WorkoutSessieStatsSets);
             foreach (var set in model.SetsModels)
             {

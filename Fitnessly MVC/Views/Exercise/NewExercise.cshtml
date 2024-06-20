@@ -73,6 +73,7 @@
     <h1 class="text-center">Exercise aanmaken</h1>
     <div class="form-container">
         <form method="post" action="/Exercise/AddNewExercise?WorkoutID=@Model.WorkoutID">
+        <input type="hidden" name="display" value="block" />
             <div class="form-group">
                 <label for="exerciseName" class="Zwart">Exercise naam:</label>
                 <input type="text" id="exerciseName" name="exerciseName" required=""/>
@@ -90,7 +91,7 @@
                 <input type="text" id="exerciseReps" name="exerciseReps" required=""/>
             </div>
             <div style="display: flex; justify-content: center;">
-            <a href="/Exercise/Exercise?WorkoutID=@Model.WorkoutID" class="NormalButton">Terug</a>
+                <a href="/Exercise/Exercise?WorkoutID=@Model.WorkoutID" class="NormalButton">Terug</a>
                 <button type="submit" onclick="SendsExercise()" class="NormalButton">Opslaan</button>
             </div>
         </form>
@@ -103,5 +104,6 @@
         var exerciseGewicht = document.getElementById("exerciseGewicht").value;
         var exerciseSets = document.getElementById("exerciseSets").value;
         var exerciseReps = document.getElementById("exerciseReps").value;
+        var display = document.getElementById("display").value;
     }
 </script>

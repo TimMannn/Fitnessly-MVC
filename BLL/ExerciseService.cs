@@ -24,7 +24,7 @@ namespace BLL
             return result;
         }
 
-        public string SendExercise(string exerciseName, double exerciseGewicht,int exerciseSets, int exerciseReps, int WorkoutID)
+        public string SendExercise(string exerciseName, double exerciseGewicht,int exerciseSets, int exerciseReps, string display, int WorkoutID)
         {
             var message = "Alles is correct";
             if (string.IsNullOrEmpty(exerciseName))
@@ -53,7 +53,7 @@ namespace BLL
             }
             else
             {
-                data.SendExerciseData(exerciseName, exerciseGewicht, exerciseSets, exerciseReps, WorkoutID);
+                data.SendExerciseData(exerciseName, exerciseGewicht, exerciseSets, exerciseReps, display, WorkoutID);
             }
             return message;
         }
@@ -114,6 +114,16 @@ namespace BLL
         public Exercise GetExercise(int Id)
         {
             return data.GetExercise(Id);
+        }
+
+        public void DisplayTrueExercise()
+        {
+            data.DisplayTrueExercise();
+        }
+
+        public void DisplayFalseExercise(int ExerciseID)
+        {
+            data.DisplayFalseExercise(ExerciseID);
         }
     }
 }

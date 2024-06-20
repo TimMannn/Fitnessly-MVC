@@ -3,7 +3,7 @@
 }
 
 @using BLL;
-@model ExerciseViewModel;
+@model WorkoutSessieViewModel;
 
 <html lang="nl">
 <meta charset="UTF-8">
@@ -77,12 +77,12 @@
         position: absolute;
         margin-top: 25px;
         margin-left: 25px;
+        display:
     }
 
     #timer {
         font-size: 48px;
     }
-
 
     }
 </style>
@@ -96,7 +96,7 @@
     <ul>
         @foreach (var exercise in Model.Exercises)
         {
-            <div class="Exercisebox">
+            <div class="Exercisebox" style="display:@exercise.Display">
                 <div class="TextSpace">
                     <div class="Zwart">
                         <h4>@exercise.Name</h4>

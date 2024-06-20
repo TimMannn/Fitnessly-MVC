@@ -19,15 +19,16 @@ namespace UnitTestFitnessly
             int exerciseSets = 1;
             int exerciseReps = 1;
             int WorkoutID = 1;
+            string Display = "none";
             var dataMock = new Mock<IExerciseData>();
             var workoutService = new ExerciseService(dataMock.Object);
 
             // Act
-            var message = workoutService.SendExercise(exerciseName, exerciseGewicht, exerciseSets, exerciseReps, WorkoutID);
+            var message = workoutService.SendExercise(exerciseName, exerciseGewicht, exerciseSets, exerciseReps, Display, WorkoutID);
 
             // Assert
             Assert.AreEqual("Alles is correct", message);
-            dataMock.Verify(d => d.SendExerciseData(exerciseName, exerciseGewicht, exerciseSets, exerciseReps, WorkoutID), Times.Once);
+            dataMock.Verify(d => d.SendExerciseData(exerciseName, exerciseGewicht, exerciseSets, exerciseReps, Display, WorkoutID), Times.Once);
 
         }
 
@@ -39,16 +40,17 @@ namespace UnitTestFitnessly
             double exerciseGewicht = 1;
             int exerciseSets = 1;
             int exerciseReps = 1;
+            string Display = "none";
             int WorkoutID = 1;
             var dataMock = new Mock<IExerciseData>();
             var workoutService = new ExerciseService(dataMock.Object);
 
             // Act
-            var message = workoutService.SendExercise(exerciseName, exerciseGewicht, exerciseSets, exerciseReps, WorkoutID);
+            var message = workoutService.SendExercise(exerciseName, exerciseGewicht, exerciseSets, exerciseReps, Display, WorkoutID);
 
             // Assert
             Assert.AreEqual("Mag niet null zijn", message);
-            dataMock.Verify(d => d.SendExerciseData(It.IsAny<string>(), It.IsAny<double>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>()), Times.Never);
+            dataMock.Verify(d => d.SendExerciseData(It.IsAny<string>(), It.IsAny<double>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<string>(), It.IsAny<int>()), Times.Never);
 
         }
 
@@ -61,15 +63,16 @@ namespace UnitTestFitnessly
             int exerciseSets = 1;
             int exerciseReps = 1;
             int WorkoutID = 1;
+            string Display = "none";
             var dataMock = new Mock<IExerciseData>();
             var workoutService = new ExerciseService(dataMock.Object);
 
             // Act
-            var message = workoutService.SendExercise(exerciseName, exerciseGewicht, exerciseSets, exerciseReps, WorkoutID);
+            var message = workoutService.SendExercise(exerciseName, exerciseGewicht, exerciseSets, exerciseReps, Display, WorkoutID);
 
             // Assert
             Assert.AreEqual("De naam moet minimaal 3 letters lang zijn", message);
-            dataMock.Verify(d => d.SendExerciseData(It.IsAny<string>(), It.IsAny<double>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>()), Times.Never);
+            dataMock.Verify(d => d.SendExerciseData(It.IsAny<string>(), It.IsAny<double>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<string>(), It.IsAny<int>()), Times.Never);
 
         }
 
@@ -82,15 +85,16 @@ namespace UnitTestFitnessly
             int exerciseSets = 1;
             int exerciseReps = 1;
             int WorkoutID = 1;
+            string Display = "none";
             var dataMock = new Mock<IExerciseData>();
             var workoutService = new ExerciseService(dataMock.Object);
 
             // Act
-            var message = workoutService.SendExercise(exerciseName, exerciseGewicht, exerciseSets, exerciseReps, WorkoutID);
+            var message = workoutService.SendExercise(exerciseName, exerciseGewicht, exerciseSets, exerciseReps, Display, WorkoutID);
 
             // Assert
             Assert.AreEqual("De naam mag maximaal 50 letters lang zijn", message);
-            dataMock.Verify(d => d.SendExerciseData(It.IsAny<string>(), It.IsAny<double>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>()), Times.Never);
+            dataMock.Verify(d => d.SendExerciseData(It.IsAny<string>(), It.IsAny<double>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<string>(), It.IsAny<int>()), Times.Never);
 
         }
 
@@ -103,15 +107,16 @@ namespace UnitTestFitnessly
             int exerciseSets = 1;
             int exerciseReps = 1;
             int WorkoutID = 1;
+            string Display = "none";
             var dataMock = new Mock<IExerciseData>();
             var workoutService = new ExerciseService(dataMock.Object);
 
             // Act
-            var message = workoutService.SendExercise(exerciseName, exerciseGewicht, exerciseSets, exerciseReps, WorkoutID);
+            var message = workoutService.SendExercise(exerciseName, exerciseGewicht, exerciseSets, exerciseReps, Display, WorkoutID);
 
             // Assert
             Assert.AreEqual("Het gewicht mag niet 0 zijn.", message);
-            dataMock.Verify(d => d.SendExerciseData(It.IsAny<string>(), It.IsAny<double>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>()), Times.Never);
+            dataMock.Verify(d => d.SendExerciseData(It.IsAny<string>(), It.IsAny<double>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<string>(), It.IsAny<int>()), Times.Never);
 
         }
 
@@ -124,15 +129,16 @@ namespace UnitTestFitnessly
             int exerciseSets = 0;
             int exerciseReps = 1;
             int WorkoutID = 1;
+            string Display = "none";
             var dataMock = new Mock<IExerciseData>();
             var workoutService = new ExerciseService(dataMock.Object);
 
             // Act
-            var message = workoutService.SendExercise(exerciseName, exerciseGewicht, exerciseSets, exerciseReps, WorkoutID);
+            var message = workoutService.SendExercise(exerciseName, exerciseGewicht, exerciseSets, exerciseReps, Display, WorkoutID);
 
             // Assert
             Assert.AreEqual("De hoeveelheid sets mag niet 0 zijn.", message);
-            dataMock.Verify(d => d.SendExerciseData(It.IsAny<string>(), It.IsAny<double>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>()), Times.Never);
+            dataMock.Verify(d => d.SendExerciseData(It.IsAny<string>(), It.IsAny<double>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<string>(), It.IsAny<int>()), Times.Never);
 
         }
 
@@ -145,15 +151,16 @@ namespace UnitTestFitnessly
             int exerciseSets = 1;
             int exerciseReps = 0;
             int WorkoutID = 1;
+            string Display = "none";
             var dataMock = new Mock<IExerciseData>();
             var workoutService = new ExerciseService(dataMock.Object);
 
             // Act
-            var message = workoutService.SendExercise(exerciseName, exerciseGewicht, exerciseSets, exerciseReps, WorkoutID);
+            var message = workoutService.SendExercise(exerciseName, exerciseGewicht, exerciseSets, exerciseReps, Display, WorkoutID);
 
             // Assert
             Assert.AreEqual("De hoeveelheid reps mag niet 0 zijn.", message);
-            dataMock.Verify(d => d.SendExerciseData(It.IsAny<string>(), It.IsAny<double>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>()), Times.Never);
+            dataMock.Verify(d => d.SendExerciseData(It.IsAny<string>(), It.IsAny<double>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<string>(), It.IsAny<int>()), Times.Never);
 
         }
 

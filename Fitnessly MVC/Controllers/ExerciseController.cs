@@ -50,7 +50,7 @@ namespace Fitnessly_MVC.Controllers
             return View(exerciseViewModel);
         }
 
-        public IActionResult AddNewExercise(string exerciseName, double exerciseGewicht, int exerciseSets, int exerciseReps, int WorkoutID)
+        public IActionResult AddNewExercise(string exerciseName, double exerciseGewicht, int exerciseSets, int exerciseReps, string display, int WorkoutID)
         {
             var exerciseViewModel = new ExerciseViewModel
             {
@@ -91,7 +91,7 @@ namespace Fitnessly_MVC.Controllers
             {
                 return View("NewExercise");
             }
-            _exerciseservice.SendExercise(exerciseName, exerciseGewicht, exerciseSets, exerciseReps, WorkoutID);
+            _exerciseservice.SendExercise(exerciseName, exerciseGewicht, exerciseSets, exerciseReps, display, WorkoutID);
 
             return RedirectToAction("Exercise", exerciseViewModel);
 

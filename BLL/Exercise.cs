@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BLL
 {
-    public class Exercise(int id, string name, double gewicht, int sets, int reps)
+    public class Exercise(int id, string name, double gewicht, int sets, int reps, string display)
     {
         public int Id { get; } = id;
 
@@ -17,5 +17,6 @@ namespace BLL
         public double Gewicht { get; } = gewicht;
         public int Sets { get; } = sets;
         public int Reps { get; } = reps;
+        public string Display { get; } = display;
     }
 }

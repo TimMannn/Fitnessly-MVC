@@ -14,7 +14,7 @@ namespace UnitTestFitnessly
             return new List<Exercise>();
         }
 
-        public void SendExerciseData(string exerciseName, double exerciseGewicht, int exerciseSets, int exerciseReps, int WorkoutID)
+        public void SendExerciseData(string exerciseName, double exerciseGewicht, int exerciseSets, int exerciseReps, string Display, int WorkoutID)
         {
             
         }
@@ -31,7 +31,17 @@ namespace UnitTestFitnessly
 
         public Exercise GetExercise(int ExerciseID)
         {
-            return new Exercise(0, "",0 ,0 ,0);
+            return new Exercise(0, "",0 ,0 ,0, "none");
+        }
+
+        public void DisplayTrueExercise()
+        {
+
+        }
+
+        public void DisplayFalseExercise(int ExerciseID)
+        {
+
         }
     }
 }

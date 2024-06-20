@@ -37,8 +37,9 @@ namespace DAL
                         double exerciseGewicht = reader.GetDouble("exercise_gewicht");
                         int exerciseSets = reader.GetInt32("exercise_sets");
                         int exerciseReps = reader.GetInt32("exercise_reps");
+                        string display = reader.GetString("exercise_display");
 
-                        exercises.Add(new Exercise(id: exerciseID, name: exerciseName, gewicht: exerciseGewicht, sets: exerciseSets, reps: exerciseReps));
+                        exercises.Add(new Exercise(id: exerciseID, name: exerciseName, gewicht: exerciseGewicht, sets: exerciseSets, reps: exerciseReps, display: display));
                     }
 
                     return exercises;
@@ -47,7 +48,7 @@ namespace DAL
         }
 
         // verstuur naar database
-        public void SendExerciseData(string exerciseName, double exerciseGewicht, int exerciseSets, int exerciseReps, int WorkoutID)
+        public void SendExerciseData(string exerciseName, double exerciseGewicht, int exerciseSets, int exerciseReps, string display, int WorkoutID)
         {
             using (var connection = new MySqlConnection(mysqlCon))
             {
@@ -57,13 +58,14 @@ namespace DAL
                 {
                     try
                     {
-                        string query = $"INSERT INTO exercise (exercise_name, exercise_gewicht, exercise_sets, exercise_reps) VALUES (@exerciseName, @exerciseGewicht, @exerciseSets, @exerciseReps);";
+                        string query = $"INSERT INTO exercise (exercise_name, exercise_gewicht, exercise_sets, exercise_reps, exercise_display) VALUES (@exerciseName, @exerciseGewicht, @exerciseSets, @exerciseReps, @display);";
                         MySqlCommand cmd = new MySqlCommand(query, connection);
                         cmd.Transaction = transaction;
                         cmd.Parameters.AddWithValue("@exerciseName", exerciseName);
                         cmd.Parameters.AddWithValue("@exerciseGewicht", exerciseGewicht);
                         cmd.Parameters.AddWithValue("@exerciseSets", exerciseSets);
                         cmd.Parameters.AddWithValue("@exerciseReps", exerciseReps);
+                        cmd.Parameters.AddWithValue("@display", display);
                         cmd.ExecuteNonQuery();
 
                         string query2 = "SELECT LAST_INSERT_ID();";
@@ -154,7 +156,6 @@ namespace DAL
                 cmd.Parameters.AddWithValue("@NewExerciseReps", NewExerciseReps);
                 cmd.Parameters.AddWithValue("@ExerciseID", ExerciseID);
                 cmd.ExecuteNonQuery();
-                connection.Close();
             }
         }
 
@@ -163,7 +164,7 @@ namespace DAL
             {
                 using (var connection = new MySqlConnection(mysqlCon))
                 {
-                    var exercise = new Exercise(0, "", 0, 0, 0);
+                    var exercise = new Exercise(0, "", 0, 0, 0, "block");
                     connection.Open();
                     MySqlCommand mySqlCommand = new MySqlCommand("select * from exercise WHERE exercise_id = @ExerciseID", connection);
                     mySqlCommand.Parameters.AddWithValue("@ExerciseID", ExerciseID);
@@ -176,11 +177,36 @@ namespace DAL
                         double exerciseGewicht = reader.GetDouble("exercise_gewicht");
                         int exerciseSets = reader.GetInt32("exercise_sets");
                         int exerciseReps = reader.GetInt32("exercise_reps");
-                        exercise = new Exercise(id: exerciseID, name: exerciseName, gewicht: exerciseGewicht, sets: exerciseSets, reps: exerciseReps);
+                        string display = reader.GetString("exercise_display");
+                        exercise = new Exercise(id: exerciseID, name: exerciseName, gewicht: exerciseGewicht, sets: exerciseSets, reps: exerciseReps, display: display);
                     }
 
                     return exercise;
                 }
+            }
+        }
+
+        public void DisplayTrueExercise()
+        {
+            using (var connection = new MySqlConnection(mysqlCon))
+            {
+                connection.Open();
+
+                string query = $"UPDATE exercise SET exercise_display = 'block';";
+                MySqlCommand cmd = new MySqlCommand(query, connection);
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        public void DisplayFalseExercise(int ExerciseID)
+        {
+            using (var connection = new MySqlConnection(mysqlCon))
+            {
+                connection.Open();
+                string query = $"UPDATE exercise SET exercise_display = 'none' WHERE exercise_id = @ExerciseID";
+                MySqlCommand cmd = new MySqlCommand(query, connection);
+                cmd.Parameters.AddWithValue("@ExerciseID", ExerciseID);
+                cmd.ExecuteNonQuery();
             }
         }
     }

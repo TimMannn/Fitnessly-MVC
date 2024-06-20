@@ -11,5 +11,6 @@ namespace Fitnessly_MVC.Models
         public int Reps { get; set; }
         public List<Exercise> Exercises { get; set; }
         public int WorkoutID { get; set; }
+        public string Display { get; set; }
     }
 }
