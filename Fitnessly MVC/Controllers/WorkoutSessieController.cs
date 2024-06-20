@@ -60,6 +60,12 @@ namespace Fitnessly_MVC.Controllers
             return View(workoutSessieViewModel);
         }
 
+        public IActionResult WorkoutSessieResultaat()
+        {
+            _workoutSessieService.GetResults();
+            return View("WorkoutSessieResultaat");
+        }
+
         public IActionResult EditStats(WorkoutSessieViewModel model, string WorkoutSessieStatsName, double WorkoutSessieStatsGewicht, int WorkoutSessieStatsSets, int WorkoutSessieStatsReps, int WorkoutID, int ExerciseID)
         {
             _exerciseservice.DisplayFalseExercise(ExerciseID);

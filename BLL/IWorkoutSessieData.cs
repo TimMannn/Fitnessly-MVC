@@ -11,5 +11,6 @@ namespace BLL
         void CreateWorkoutSessie(int WorkoutID);
         void CreateWorkoutSessieExercise(string WorkoutSessieExerciseName, int WorkoutSessieStatsSets);
         void CreateWorkoutSessieStats(double WorkoutSessieStatsGewicht, int WorkoutSessieStatsReps);
+        (List<WorkoutSessieExerciseResult>, List<WorkoutSessieExerciseStats>) GetResults();
     }
 }

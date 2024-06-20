@@ -1,0 +1,83 @@
+﻿@using BLL
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model WorkoutSessieViewModel
+@{
+    ViewData["Title"] = "Workoutsessie resultaat";
+}
+
+<html lang="nl">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<div class="error-message">
+    @Html.ValidationSummary()
+</div>
+
+<style>
+    body {
+        height: 80vh;
+        display: flex;
+        align-items: center;
+        background-color: #f0f0f0;
+    }
+
+    .error-message {
+        color: red;
+    }
+
+    .form-container {
+        max-width: 600px;
+        margin: auto;
+        background-color: #ccc;
+        padding: 20px;
+        border-radius: 5px;
+    }
+
+    label {
+        display: block;
+        font-size: 16px;
+    }
+
+    input[type=text] {
+        width: calc(100% - 20px);
+        padding: 10px;
+        margin-bottom: 20px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+
+    .NormalButton {
+        background-color: #808080;
+        color: white;
+        padding: 7px 24px;
+        text-decoration: none;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        margin-left: 5px;
+        margin-right: 5px;
+        border-radius: 4px;
+    }
+
+        .NormalButton:hover {
+            background-color: #A0A0A0;
+            color: white;
+        }
+
+    .Zwart {
+        color: black;
+    }
+
+</style>
+
+<h1 class="text-center">Resultaten</h1>
+<div class="form-container">
+    <h1>@Model.Name</h1>
+    <h2>@Model.Sets</h2>
+    <h3>@Model.Gewicht | @Model.Reps</h3>
+
+        <div style="display: flex; justify-content: center;">
+            <a href="/Home/Index/" class="NormalButton Terug">HomePage</a>
+        </div>
+</div>

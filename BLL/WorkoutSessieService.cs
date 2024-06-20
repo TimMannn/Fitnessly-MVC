@@ -29,5 +29,10 @@ namespace BLL
         {
             data.CreateWorkoutSessieStats(WorkoutSessieStatsGewicht, WorkoutSessieStatsReps);
         }
+
+        public (List<WorkoutSessieExerciseResult>, List<WorkoutSessieExerciseStats>) GetResults()
+        {
+            return data.GetResults();
+        }
     }
 }
