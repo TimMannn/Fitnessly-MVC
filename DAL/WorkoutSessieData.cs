@@ -202,8 +202,10 @@ namespace DAL
                             }
                         }
 
+                        List<int> tempIdList = new List<int>(ExerciseIdList);
+
                         // Create list Results
-                        foreach (int exerciseID in ExerciseIdList)
+                        foreach (int exerciseID in tempIdList)
                         {
                             string query2 = "SELECT workoutsessieexercise_name, workoutsessieexercise_sets FROM workoutsessieexercise WHERE workoutsessieexercise_id = @WorkoutSessieExerciseID;";
                             MySqlCommand cmd2 = new MySqlCommand(query2, connection);
@@ -228,16 +230,18 @@ namespace DAL
                             cmd3.Parameters.AddWithValue("@WorkoutSessieExerciseID", exerciseID);
                             List<int> ExerciseStatsList = new List<int>();
 
-                            using (var reader = cmd.ExecuteReader())
+                            using (var reader = cmd3.ExecuteReader())
                             {
                                 while (reader.Read())
                                 {
                                     int exerciseStatsID = reader.GetInt32("workoutsessiestats_id");
-                                    ExerciseIdList.Add(exerciseStatsID);
+                                    ExerciseStatsList.Add(exerciseStatsID);
                                 }
                             }
 
-                            foreach (int exerciseStatsID in ExerciseStatsList)
+                            List<int> tempStatsList = new List<int>(ExerciseStatsList);
+
+                            foreach (int exerciseStatsID in tempStatsList)
                             {
                                 string query4 = "SELECT workoutsessiestats_gewicht, workoutsessiestats_reps FROM workoutsessiestats WHERE workoutsessiestats_id = @WorkoutSessieStatsID;";
                                 MySqlCommand cmd4 = new MySqlCommand(query4, connection);
