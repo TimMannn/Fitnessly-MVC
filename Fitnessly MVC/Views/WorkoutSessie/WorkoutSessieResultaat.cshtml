@@ -1,6 +1,4 @@
-﻿@using BLL
-@using Microsoft.AspNetCore.Mvc.TagHelpers
-@model WorkoutSessieResultsViewModel
+﻿@model WorkoutSessieResultsViewModel
 @{
     ViewData["Title"] = "Workoutsessie resultaat";
 }
@@ -8,104 +6,102 @@
 <html lang="nl">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<div class="error-message">
-    @Html.ValidationSummary()
-</div>
-
+<title>@ViewData["Title"]</title>
 <style>
     body {
-        height: 80vh;
-        display: flex;
-        align-items: center;
+        font-family: Arial, sans-serif;
         background-color: #f0f0f0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
     }
 
-    .error-message {
-        color: red;
-    }
-
-    .form-container {
+    .container {
         max-width: 600px;
-        margin: auto;
         background-color: #ccc;
         padding: 20px;
         border-radius: 5px;
-    }
-
-    label {
-        display: block;
-        font-size: 16px;
-    }
-
-    input[type=text] {
-        width: calc(100% - 20px);
-        padding: 10px;
-        margin-bottom: 20px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-    }
-
-    .NormalButton {
-        background-color: #808080;
-        color: white;
-        padding: 7px 24px;
-        text-decoration: none;
-        border: none;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        margin-left: 5px;
-        margin-right: 5px;
-        border-radius: 4px;
     }
 
-        .NormalButton:hover {
-            background-color: #A0A0A0;
-            color: white;
+    .exercise-box {
+        background-color: #fff;
+        padding: 15px;
+        margin-bottom: 10px
+        border-radius: 5px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+        text-align: center;
+        font-size: 28px;
+        margin-bottom: 20px;
+    }
+
+    h2 {
+        font-size: 22px;
+        margin-top: 20px;
+    }
+
+    h4 {
+        font-size: 16px;
+        margin-top: 10px;
+    }
+
+    h5 {
+        font-size: 14px;
+        color: #777;
+    }
+
+    .button {
+        display: block;
+        text-align: center;
+        margin-top: 20px;
+    }
+
+        .button a {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #808080;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
         }
 
-    .Zwart {
-        color: black;
-    }
-
+            .button a:hover {
+                background-color: #A0A0A0;
+            }
 </style>
-
-<h1 class="text-center">Resultaten</h1>
-<div class="form-container">
+<div class="container">
+    <h1>Resultaten</h1>
     @{
-        int currentIndex = 0; // Houd de huidige index bij
+        var currentIndex = 0;
     }
-
     @foreach (var workoutSessieExerciseResult in Model.workoutSessieExerciseResults)
     {
-        <h2>@workoutSessieExerciseResult.Name</h2>
-        for (int i = 0; i < @workoutSessieExerciseResult.Sets; i++)
-        {
-            var Repnumber = i + 1;
-            <h4>Rep: @Repnumber</h4>
-
-            @if (currentIndex < Model.workoutSessieExerciseStats.Count)
+        <div class="exercise-box">
+            <h2>@workoutSessieExerciseResult.Name</h2>
+            @for (int i = 0; i < workoutSessieExerciseResult.Sets; i++)
             {
-                var workoutSessieExerciseStats = Model.workoutSessieExerciseStats[currentIndex];
-                <h5>Gewicht: @workoutSessieExerciseStats.Gewicht | Reps: @workoutSessieExerciseStats.Reps</h5>
-                currentIndex++; // Verhoog de index voor de volgende iteratie
+                var Repnumber = i + 1;
+                <h4>Rep: @Repnumber</h4>
+                @if (currentIndex < Model.workoutSessieExerciseStats.Count)
+                {
+                    var workoutSessieExerciseStats = Model.workoutSessieExerciseStats[currentIndex];
+                    <h5>Gewicht: @workoutSessieExerciseStats.Gewicht | Reps: @workoutSessieExerciseStats.Reps</h5>
+                    currentIndex++;
+                }
+                else
+                {
+                    <h5>No stats available</h5>
+                }
             }
-            else
-            {
-                <h5>No stats available</h5>
-            }
-        }
+        </div>
     }
-
-
-
-
-
-
-
-
-    <div style="display: flex; justify-content: center;">
-        <a href="/Home/Index/" class="NormalButton Terug">HomePage</a>
+    <div class="button">
+        <a href="/Home/Index/">HomePage</a>
     </div>
 </div>

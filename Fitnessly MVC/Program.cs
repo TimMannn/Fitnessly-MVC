@@ -1,5 +1,6 @@
 using BLL;
 using DAL;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,6 +8,13 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 var connectionString = builder.Configuration["ConnectionString"];
+
+//var serverVersion = new MariaDbServerVersion(new Version(10, 4, 32));
+
+/*builder.Services.AddDbContext<WorkoutContext>(
+    dbContextOptions => dbContextOptions
+        .UseMySql(connectionString, serverVersion)); */
+
 builder.Services.AddScoped<IWorkoutData>(x => new WorkoutData(connectionString));
 builder.Services.AddScoped<IExerciseData>(x => new ExerciseData(connectionString));
 builder.Services.AddScoped<IWorkoutSessieData>(x => new WorkoutSessieData(connectionString));

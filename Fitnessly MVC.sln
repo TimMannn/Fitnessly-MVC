@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.9.34622.214
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fitnessly MVC", "Fitnessly MVC\Fitnessly MVC.csproj", "{0ADFA6A4-3FC0-45BB-8151-1FC358B644AE}"
+	ProjectSection(ProjectDependencies) = postProject
+		{FB43E8FD-B375-462C-889A-C363DBA7BBC9} = {FB43E8FD-B375-462C-889A-C363DBA7BBC9}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BLL", "BLL\BLL.csproj", "{E3AA1C8B-D392-4647-82CE-49B893F4ADB3}"
 EndProject
@@ -11,11 +14,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DAL", "DAL\DAL.csproj", "{6
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DALSqlServer", "SqlServerDAL\DALSqlServer.csproj", "{562C63BE-1F47-4393-A530-ED696B61EF85}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestFitnessly", "UnitTestFitnessly\UnitTestFitnessly.csproj", "{DD7FE018-8F72-4F5A-8AAD-344AC9610E07}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTestFitnessly", "UnitTestFitnessly\UnitTestFitnessly.csproj", "{DD7FE018-8F72-4F5A-8AAD-344AC9610E07}"
 	ProjectSection(ProjectDependencies) = postProject
 		{6F6B5C13-C7B8-45B1-A1D8-24BEAAC3DDEC} = {6F6B5C13-C7B8-45B1-A1D8-24BEAAC3DDEC}
 		{E3AA1C8B-D392-4647-82CE-49B893F4ADB3} = {E3AA1C8B-D392-4647-82CE-49B893F4ADB3}
 	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EForm", "EF ORM\EForm.csproj", "{FB43E8FD-B375-462C-889A-C363DBA7BBC9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -43,6 +48,10 @@ Global
 		{DD7FE018-8F72-4F5A-8AAD-344AC9610E07}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DD7FE018-8F72-4F5A-8AAD-344AC9610E07}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DD7FE018-8F72-4F5A-8AAD-344AC9610E07}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FB43E8FD-B375-462C-889A-C363DBA7BBC9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FB43E8FD-B375-462C-889A-C363DBA7BBC9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FB43E8FD-B375-462C-889A-C363DBA7BBC9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FB43E8FD-B375-462C-889A-C363DBA7BBC9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
