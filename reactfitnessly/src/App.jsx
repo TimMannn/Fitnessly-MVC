@@ -1,3 +1,4 @@
+//import { useEffect, useState } from 'react';
 import './App.css';
 import CRUD from './CRUD';
 
@@ -6,5 +7,4 @@ function App() {
         <CRUD />
     </div>
 }
-
 export default App;
