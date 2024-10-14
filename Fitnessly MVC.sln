@@ -26,8 +26,6 @@ Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "reactprojectfitnessly", "Re
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web api", "Web api\Web api.csproj", "{C176E62D-A34E-49BF-9EBD-10B10B2D0F14}"
 EndProject
-Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "reactfitnessly", "ReactFitnessly\reactfitnessly.esproj", "{EB719140-1037-473D-982B-65FC97F403F3}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -68,12 +66,6 @@ Global
 		{C176E62D-A34E-49BF-9EBD-10B10B2D0F14}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C176E62D-A34E-49BF-9EBD-10B10B2D0F14}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C176E62D-A34E-49BF-9EBD-10B10B2D0F14}.Release|Any CPU.Build.0 = Release|Any CPU
-		{EB719140-1037-473D-982B-65FC97F403F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EB719140-1037-473D-982B-65FC97F403F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EB719140-1037-473D-982B-65FC97F403F3}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
-		{EB719140-1037-473D-982B-65FC97F403F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EB719140-1037-473D-982B-65FC97F403F3}.Release|Any CPU.Build.0 = Release|Any CPU
-		{EB719140-1037-473D-982B-65FC97F403F3}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

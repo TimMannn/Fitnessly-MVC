@@ -22,7 +22,7 @@ const CRUD = () => {
 
     useEffect(() => {
         setData(FitnesslyData);
-    },[])
+    }, [])
 
     return (
         <Fragment>
