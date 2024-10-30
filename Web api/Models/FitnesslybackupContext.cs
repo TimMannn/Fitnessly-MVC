@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Pomelo.EntityFrameworkCore.MySql.Scaffolding.Internal;
 
-namespace Fitnessly_MVC.sakila;
+namespace Web_api.Models;
 
 public partial class FitnesslybackupContext : DbContext
 {

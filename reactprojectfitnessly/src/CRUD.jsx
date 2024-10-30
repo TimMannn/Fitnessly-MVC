@@ -6,100 +6,119 @@ import Modal from 'react-bootstrap/Modal';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
-
+import axios from "../node_modules/axios/index";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const CRUD = () => {
-    const FitnesslyData = [
-        { ID: 1, Workout: 'Push' },
-        { ID: 2, Workout: 'Pull' },
-        { ID: 3, Workout: 'Legs' }
-    ];
+    const [Workout, setWorkout] = useState('');
+    const [editID, setEditID] = useState('');
+    const [editWorkout, setEditWorkout] = useState('');
 
-    const [Workout, setWorkout] = useState('')
-
-    const [editID, setEditID] = useState('')
-    const [editWorkout, setEditWorkout] = useState('')
 
     const [data, setData] = useState([]);
-
+    
     useEffect(() => {
-        setData(FitnesslyData);
+        getData();
     }, []);
 
+    const getData = () => {
+        axios.get('https://localhost:7187/api/Api')
+            .then((result) => {
+                console.log(result.data);
+                setData(result.data);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    };
+
     const handleEdit = (ID) => {
-        //alert(ID);
         handleShow();
-    }
+    };
 
     const handleDelete = (ID) => {
-        if (window.confirm("Are you sure you want to delete this workout?") == true)
-        {
+        if (window.confirm("Are you sure you want to delete this workout?")) {
             alert(ID);
         }
-    }
+    };
 
-    const handleUpdate = () => {
+    const handleUpdate = () => { };
 
-    }
+    const handelSave = () => {
+        const url = "https://localhost:7187/api/Api"
+        const data = {
+            "workoutName": Workout
+        }
 
-    //pop-up bootstrap modal
+        const clear = () =>{
+            setWorkout('');
+            setEditWorkout('');
+            setEditID('');
+        }
+
+        axios.post(url, data)
+            .then((result) => {
+                getData();
+                clear();
+                toast.succes('Workout has been added');
+            })
+    };
+
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
     return (
         <Fragment>
+            <ToastContainer/>
             <Container>
                 <Row>
                     <Col>
-                        <input type="text" className="fomr-control" placeholder="Enter workout name"
-                            value={Workout} onChange={(e)=> setWorkout(e.target.value)}
-                        />
+                        <input type="text" className="form-control" placeholder="Enter workout name"
+                            value={Workout} onChange={(e) => setWorkout(e.target.value)} />
                     </Col>
                     <Col>
-                        <button className="btn btn-primary">Submit</button>
+                        <button className="btn btn-primary" onClick={()=> handelSave()}>Submit</button>
                     </Col>
                 </Row>
             </Container>
             <br></br>
-
-              <Table striped bordered hover>
-                  <thead>
-                      <tr>
-                          <th>ID</th>
-                          <th>Workout</th>
-                          <th>Actions</th>
-                      </tr>
-                  </thead>
-                  <tbody>
-                      {data.length > 0 ? (
-                          data.map((item, index) => (
-                              <tr key={index}>
-                                  <td>{item.ID}</td>
-                                  <td>{item.Workout}</td>
-                                  <td colSpan={2}>
-                                      <button className="btn btn-primary" onClick={() => handleEdit(item.ID)}>Edit</button> | <button className="btn btn-danger" onClick={()=> handleDelete(item.ID) }>Delete</button>
-                                  </td>
-                              </tr>
-                          ))
-                      ) : (
-                          <tr>
-                              <td colSpan="3">Loading...</td>
-                          </tr>
-                      )}
-                  </tbody>
+            <Table striped bordered hover>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Workout</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {data.length > 0 ? (
+                        data.map((item, index) => (
+                            <tr key={index}>
+                                <td>{item.workoutId}</td>
+                                <td>{item.workoutName}</td>
+                                <td colSpan={2}>
+                                    <button className="btn btn-primary" onClick={() => handleEdit(item.workoutId)}>Edit</button> | <button className="btn btn-danger" onClick={() => handleDelete(item.workoutId)}>Delete</button>
+                                </td>
+                            </tr>
+                        ))
+                    ) : (
+                        <tr>
+                            <td colSpan="3">Loading...</td>
+                        </tr>
+                    )}
+                </tbody>
             </Table>
-
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Chance Workout</Modal.Title>
+                    <Modal.Title>Change Workout</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <Row>
                         <Col>
-                            <input type="text" className="fomr-control" placeholder="Enter workout name"
-                                value={editWorkout} onChange={(e) => setEditWorkout(e.target.value)}
-                            />
+                            <input type="text" className="form-control" placeholder="Enter workout name"
+                                value={editWorkout} onChange={(e) => setEditWorkout(e.target.value)} />
                         </Col>
                         <Col>
                             <button className="btn btn-primary">Update</button>
@@ -117,7 +136,6 @@ const CRUD = () => {
             </Modal>
         </Fragment>
     );
-
 };
 
 export default CRUD;

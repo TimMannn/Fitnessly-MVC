@@ -100,11 +100,6 @@ namespace Fitnessly_MVC.Controllers
             return View("EditStats", workoutSessieViewModel);
         }
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

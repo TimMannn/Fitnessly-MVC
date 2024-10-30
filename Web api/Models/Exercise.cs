@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Fitnessly_MVC.sakila;
+namespace Web_api.Models;
 
 public partial class Exercise
 {

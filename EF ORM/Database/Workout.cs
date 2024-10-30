@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Fitnessly_MVC.sakila;
 
-public partial class Workout
+public class Workout
 {
     public int WorkoutId { get; set; }
 
