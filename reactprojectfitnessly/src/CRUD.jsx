@@ -21,7 +21,7 @@ const CRUD = () => {
     useEffect(() => {
         getData();
     }, []);
-
+    
     const getData = () => {
         axios.get('https://localhost:7187/api/Api')
             .then((result) => {
@@ -35,15 +35,60 @@ const CRUD = () => {
 
     const handleEdit = (ID) => {
         handleShow();
+        axios.get(`https://localhost:7187/api/Api/${ID}`)
+            .then((result) => {
+                setEditWorkout(result.data.workoutName);
+                setEditID(ID);
+
+            })
+            .catch((error) => {
+                console.log(error);
+            });
     };
 
     const handleDelete = (ID) => {
         if (window.confirm("Are you sure you want to delete this workout?")) {
-            alert(ID);
+            axios.delete(`https://localhost:7187/api/Api/${ID}`)
+                .then((result) => {
+                    if (result.status === 200)
+                    {
+                        toast.success("Workout has been deleted")
+                        getData();
+                    }
+                })
+                .catch((error) => {
+                    toast.error("Failed deleting workout")
+                    console.log(error);
+                })
         }
     };
 
-    const handleUpdate = () => { };
+    const handleUpdate = () => {
+        const url = `https://localhost:7187/api/Api/${editID}`;
+        const data = {
+            "workoutId" : editID,
+            "workoutName": editWorkout
+        }
+
+        const clear = () => {
+            setWorkout('');
+            setEditWorkout('');
+            setEditID('');
+        }
+
+        axios.put(url, data)
+            .then((result) => {
+                getData();
+                clear();
+                toast.success('Workout has been updated');
+                handleClose();
+            })
+            .catch((error) => {
+                toast.error('Error updating workout');
+                console.log(error);
+            })
+
+    };
 
     const handelSave = () => {
         const url = "https://localhost:7187/api/Api"
@@ -61,7 +106,11 @@ const CRUD = () => {
             .then((result) => {
                 getData();
                 clear();
-                toast.succes('Workout has been added');
+                toast.success('Workout has been added');
+            })
+            .catch((error) => {
+                toast.error('Error adding workout');
+                console.log(error);
             })
     };
 
@@ -119,9 +168,6 @@ const CRUD = () => {
                         <Col>
                             <input type="text" className="form-control" placeholder="Enter workout name"
                                 value={editWorkout} onChange={(e) => setEditWorkout(e.target.value)} />
-                        </Col>
-                        <Col>
-                            <button className="btn btn-primary">Update</button>
                         </Col>
                     </Row>
                 </Modal.Body>
