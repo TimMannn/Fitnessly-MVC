@@ -4,7 +4,6 @@ using System.Diagnostics;
 using System.Runtime.InteropServices.Marshalling;
 using BLL;
 using DAL;
-using SqlServerDAL;
 
 namespace Fitnessly_MVC.Controllers
 {
@@ -86,7 +85,7 @@ namespace Fitnessly_MVC.Controllers
 
         public IActionResult WorkoutSessieStats(int ExerciseID, int WorkoutID)
         {
-            Exercise exercise = _exerciseservice.GetExercise(ExerciseID);
+            ExerciseDetails exercise = _exerciseservice.GetExercise(ExerciseID);
             var workoutSessieViewModel = new WorkoutSessieViewModel()
             {
                 WorkoutID = WorkoutID,

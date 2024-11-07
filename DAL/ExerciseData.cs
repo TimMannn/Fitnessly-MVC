@@ -19,10 +19,10 @@ namespace DAL
             this.mysqlCon = mysqlCon;
         }
 
-        public List<Exercise> GetExercises(int WorkoutID)
+        public List<ExerciseDetails> GetExercises(int WorkoutID)
         {
             {
-                List<Exercise> exercises = new List<Exercise>();
+                List<ExerciseDetails> exercises = new List<ExerciseDetails>();
 
                 using (var connection = new MySqlConnection(mysqlCon))
                 {
@@ -39,7 +39,7 @@ namespace DAL
                         int exerciseReps = reader.GetInt32("exercise_reps");
                         string display = reader.GetString("exercise_display");
 
-                        exercises.Add(new Exercise(id: exerciseID, name: exerciseName, gewicht: exerciseGewicht, sets: exerciseSets, reps: exerciseReps, display: display));
+                        exercises.Add(new ExerciseDetails(id: exerciseID, name: exerciseName, gewicht: exerciseGewicht, sets: exerciseSets, reps: exerciseReps, display: display));
                     }
 
                     return exercises;
@@ -159,12 +159,12 @@ namespace DAL
             }
         }
 
-        public Exercise GetExercise(int ExerciseID)
+        public ExerciseDetails GetExercise(int ExerciseID)
         {
             {
                 using (var connection = new MySqlConnection(mysqlCon))
                 {
-                    var exercise = new Exercise(0, "", 0, 0, 0, "block");
+                    var exercise = new ExerciseDetails(0, "", 0, 0, 0, "block");
                     connection.Open();
                     MySqlCommand mySqlCommand = new MySqlCommand("select * from exercise WHERE exercise_id = @ExerciseID", connection);
                     mySqlCommand.Parameters.AddWithValue("@ExerciseID", ExerciseID);
@@ -178,7 +178,7 @@ namespace DAL
                         int exerciseSets = reader.GetInt32("exercise_sets");
                         int exerciseReps = reader.GetInt32("exercise_reps");
                         string display = reader.GetString("exercise_display");
-                        exercise = new Exercise(id: exerciseID, name: exerciseName, gewicht: exerciseGewicht, sets: exerciseSets, reps: exerciseReps, display: display);
+                        exercise = new ExerciseDetails(id: exerciseID, name: exerciseName, gewicht: exerciseGewicht, sets: exerciseSets, reps: exerciseReps, display: display);
                     }
 
                     return exercise;

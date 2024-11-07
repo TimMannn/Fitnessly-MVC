@@ -1,6 +1,5 @@
 ﻿using Fitnessly_MVC.sakila;
 using Microsoft.EntityFrameworkCore;
-using Web_api.Models;
 
 public class WorkoutContext : DbContext
 {

@@ -8,10 +8,10 @@ namespace BLL
 {
     public interface IWorkoutData
     {
-        List<Workout> GetWorkouts();
+        List<WorkoutDetails> GetWorkouts();
         void SendWorkoutsData(string workoutName);
         void DeleteWorkouts(int ID);
         void EditWorkouts(string NewWorkoutName, int WorkoutID);
-        Workout GetWorkout(int ID);
+        WorkoutDetails GetWorkout(int ID);
     }
 }

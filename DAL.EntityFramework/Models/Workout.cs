@@ -1,4 +1,4 @@
-﻿namespace Web_api.Models
+﻿namespace DAL.EntityFramework.Models
 {
     public class Workout
     {

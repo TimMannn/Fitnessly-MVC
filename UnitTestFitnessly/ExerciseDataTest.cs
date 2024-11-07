@@ -9,9 +9,9 @@ namespace UnitTestFitnessly
 {
     public class ExerciseDataTest : IExerciseData
     {
-        public List<Exercise> GetExercises(int WorkoutID)
+        public List<ExerciseDetails> GetExercises(int WorkoutID)
         {
-            return new List<Exercise>();
+            return new List<ExerciseDetails>();
         }
 
         public void SendExerciseData(string exerciseName, double exerciseGewicht, int exerciseSets, int exerciseReps, string Display, int WorkoutID)
@@ -29,9 +29,9 @@ namespace UnitTestFitnessly
 
         }
 
-        public Exercise GetExercise(int ExerciseID)
+        public ExerciseDetails GetExercise(int ExerciseID)
         {
-            return new Exercise(0, "",0 ,0 ,0, "none");
+            return new ExerciseDetails(0, "",0 ,0 ,0, "none");
         }
 
         public void DisplayTrueExercise()

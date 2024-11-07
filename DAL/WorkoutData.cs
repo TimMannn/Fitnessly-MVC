@@ -13,11 +13,11 @@ namespace DAL
         }
 
         // Haalt op uit database
-        public List<Workout> GetWorkouts()
+        public List<WorkoutDetails> GetWorkouts()
         {
 
             {
-                List<Workout> workouts = new List<Workout>();
+                List<WorkoutDetails> workouts = new List<WorkoutDetails>();
 
                 using (var connection = new MySqlConnection(mysqlCon))
                 {
@@ -30,7 +30,7 @@ namespace DAL
                         int workoutID = reader.GetInt32("workout_id");
                         string workoutName = reader.GetString("workout_name");
 
-                        workouts.Add(new Workout(id: workoutID, name: workoutName));
+                        workouts.Add(new WorkoutDetails(id: workoutID, name: workoutName));
                     }
 
                     return workouts;
@@ -110,12 +110,12 @@ namespace DAL
             }
         }
 
-        public Workout GetWorkout(int WorkoutID)
+        public WorkoutDetails GetWorkout(int WorkoutID)
         {
             {
                 using (var connection = new MySqlConnection(mysqlCon))
                 {
-                    var workout = new Workout(0, "");
+                    var workout = new WorkoutDetails(0, "");
                     connection.Open();
                     MySqlCommand mySqlCommand = new MySqlCommand("select * from workout WHERE workout_id = @WorkoutID",
                         connection);
@@ -126,7 +126,7 @@ namespace DAL
                     {
                         int workoutID = reader.GetInt32("workout_id");
                         string workoutName = reader.GetString("workout_name");
-                        workout = new Workout(id: workoutID, name: workoutName);
+                        workout = new WorkoutDetails(id: workoutID, name: workoutName);
                     }
 
                     return workout;

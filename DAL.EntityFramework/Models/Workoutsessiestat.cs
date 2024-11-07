@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Web_api.Models;
+namespace DAL.EntityFramework.Models;
 
 public partial class Workoutsessiestat
 {

@@ -1,27 +1,19 @@
-﻿using MySql.Data.MySqlClient;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Mysqlx.Crud;
+﻿using System.Collections.Generic;
 
 namespace BLL
 {
     public class WorkoutService
     {
-        private readonly IWorkoutData data;
+        private readonly IWorkoutData _workoutData;
 
-        public WorkoutService(IWorkoutData data)
+        public WorkoutService(IWorkoutData workoutData)
         {
-            this.data = data;
+            _workoutData = workoutData;
         }
 
-        public List<Workout> GetWorkouts()
+        public List<WorkoutDetails> GetWorkouts()
         {
-            var result = data.GetWorkouts();
-
-            return result;
+            return _workoutData.GetWorkouts();
         }
 
         public string SendWorkouts(string workoutName)
@@ -41,7 +33,7 @@ namespace BLL
             }
             else
             {
-                data.SendWorkoutsData(workoutName);
+                _workoutData.SendWorkoutsData(workoutName);
             }
             return message;
         }
@@ -55,41 +47,41 @@ namespace BLL
             }
             else
             {
-                data.DeleteWorkouts(ID);
+                _workoutData.DeleteWorkouts(ID);
             }
 
             return message;
         }
 
-        public string EditWorkout(string NewWorkoutName, int WorkoutID)
+        public string EditWorkout(string newWorkoutName, int workoutID)
         {
             var message = "Alles is correct";
-            if (string.IsNullOrEmpty(NewWorkoutName))
+            if (string.IsNullOrEmpty(newWorkoutName))
             {
                 message = "Mag niet null zijn";
             }
-            else if (NewWorkoutName.Length < 3)
+            else if (newWorkoutName.Length < 3)
             {
                 message = "De naam moet minimaal 3 letters lang zijn";
             }
-            else if (NewWorkoutName.Length > 50)
+            else if (newWorkoutName.Length > 50)
             {
                 message = "De naam mag maximaal 50 letters lang zijn";
             }
-            else if (WorkoutID <= 0)
+            else if (workoutID <= 0)
             {
                 message = "Workout ID is kleiner of gelijk aan 0";
             }
             else
             {
-                data.EditWorkouts(NewWorkoutName, WorkoutID);
+                _workoutData.EditWorkouts(newWorkoutName, workoutID);
             }
             return message;
         }
 
-        public Workout GetWorkout(int Id)
+        public WorkoutDetails GetWorkout(int id)
         {
-            return data.GetWorkout(Id);
+            return _workoutData.GetWorkout(id);
         }
     }
 }

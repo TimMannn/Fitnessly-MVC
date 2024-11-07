@@ -2,7 +2,7 @@
 
 namespace BLL
 {
-    public class Workout(int id, string name)
+    public class WorkoutDetails(int id, string name)
     {
         public int Id { get; } = id;
 

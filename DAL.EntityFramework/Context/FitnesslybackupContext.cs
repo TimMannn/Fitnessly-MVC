@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Pomelo.EntityFrameworkCore.MySql.Scaffolding.Internal;
+using DAL.EntityFramework.Models;
 
-namespace Web_api.Models;
+namespace DAL.EntityFramework.Context;
 
 public partial class FitnesslybackupContext : DbContext
 {
@@ -34,7 +35,7 @@ public partial class FitnesslybackupContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseMySql("server=localhost;user=root;database=fitnesslybackup", Microsoft.EntityFrameworkCore.ServerVersion.Parse("10.4.32-mariadb"));
+        => optionsBuilder.UseMySql("server=localhost;user=root;database=fitnesslybackup", ServerVersion.Parse("10.4.32-mariadb"));
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

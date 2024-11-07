@@ -4,7 +4,7 @@ namespace SqlServerDAL
 {
     public class WorkoutSqlServerData : IWorkoutData
     {
-        public List<Workout> GetWorkouts()
+        public List<WorkoutDetails> GetWorkouts()
         {
             throw new NotImplementedException();
         }
@@ -24,7 +24,7 @@ namespace SqlServerDAL
             throw new NotImplementedException();
         }
 
-        public Workout GetWorkout(int ID)
+        public WorkoutDetails GetWorkout(int ID)
         {
             throw new NotImplementedException();
         }

@@ -1,17 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Web_api.Models;
+namespace DAL.EntityFramework.Models;
 
-public partial class Workoutsessieworkoutsessieexercise
+public partial class Workoutsessieexerciseworkoutsessiestat
 {
     public int Id { get; set; }
 
-    public int WorkoutsessieId { get; set; }
-
     public int WorkoutsessieexerciseId { get; set; }
 
-    public virtual Workoutsessie Workoutsessie { get; set; } = null!;
+    public int WorkoutsessiestatsId { get; set; }
 
     public virtual Workoutsessieexercise Workoutsessieexercise { get; set; } = null!;
+
+    public virtual Workoutsessiestat Workoutsessiestats { get; set; } = null!;
 }

@@ -29,9 +29,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BLL\BLL.csproj" />
-    <ProjectReference Include="..\DAL\DAL.csproj" />
-    <ProjectReference Include="..\EF ORM\EForm.csproj" />
-    <ProjectReference Include="..\SqlServerDAL\DALSqlServer.csproj" />
+    <ProjectReference Include="..\DAL\DAL.SQL.csproj" />
   </ItemGroup>
 
 </Project>

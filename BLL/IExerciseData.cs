@@ -8,7 +8,7 @@ namespace BLL
 {
     public interface IExerciseData
     {
-        List<Exercise> GetExercises(int WorkoutID);
+        List<ExerciseDetails> GetExercises(int WorkoutID);
 
         void SendExerciseData(string exerciseName, double exerciseGewicht, int exerciseSets, int exerciseReps, string display, int WorkoutID);
 
@@ -16,7 +16,7 @@ namespace BLL
 
         void EditExercise(string NewExerciseName, double NewExerciseGewicht, int NewExerciseSets, int NewExerciseReps, int ExerciseID);
 
-        Exercise GetExercise(int ExerciseID);
+        ExerciseDetails GetExercise(int ExerciseID);
 
         void DisplayTrueExercise();
         void DisplayFalseExercise(int ExerciseID);

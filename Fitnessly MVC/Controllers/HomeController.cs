@@ -39,7 +39,7 @@ namespace Fitnessly_MVC.Controllers
                 Workouts = new List<WorkoutDetailViewModel>()
             };
 
-            foreach (Workout workout in workOutDomainModels)
+            foreach (WorkoutDetails workout in workOutDomainModels)
             {
                 var model = new WorkoutDetailViewModel();
                 model.Id = workout.Id;
@@ -90,7 +90,7 @@ namespace Fitnessly_MVC.Controllers
 
         public IActionResult Edit(int ID)
         {
-            Workout workout = _workoutservice.GetWorkout(ID);
+            WorkoutDetails workout = _workoutservice.GetWorkout(ID);
            var viewModel = new WorkoutDetailViewModel();
            viewModel.Id = workout.Id;
            viewModel.Name = workout.Name;

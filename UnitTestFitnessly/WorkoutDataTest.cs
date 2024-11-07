@@ -10,9 +10,9 @@ namespace UnitTestFitnessly
 {
     public class WorkoutDataTest : IWorkoutData
     {
-        public List<Workout> GetWorkouts()
+        public List<WorkoutDetails> GetWorkouts()
         {
-            return new List<Workout>();
+            return new List<WorkoutDetails>();
         }
 
         public void SendWorkoutsData(string workoutName)
@@ -30,9 +30,9 @@ namespace UnitTestFitnessly
 
         }
 
-        public Workout GetWorkout(int WorkoutID)
+        public WorkoutDetails GetWorkout(int WorkoutID)
         {
-            return new Workout(0, "");
+            return new WorkoutDetails(0, "");
         }
     }
 }

@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
-using Web_api.Models;
+using DAL.EntityFramework.Context;
+using DAL.EntityFramework.Repository;
+using BLL;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +17,12 @@ var serverVersion = new MariaDbServerVersion(new Version(10, 4, 32));
 builder.Services.AddDbContext<FitnesslybackupContext>(
     dbContextOptions => dbContextOptions
         .UseMySql(connectionString, serverVersion));
+
+// Register Repositories for EntityFramework DAL
+builder.Services.AddScoped<IWorkoutData, WorkoutData>();
+
+// Register Services
+builder.Services.AddScoped<WorkoutService>();
 
 // Add CORS policy
 builder.Services.AddCors(options =>

@@ -17,7 +17,7 @@ namespace BLL
             this.data = data;
         }
 
-        public List<Exercise> GetExercises(int WorkoutID)
+        public List<ExerciseDetails> GetExercises(int WorkoutID)
         {
             var result = data.GetExercises(WorkoutID);
 
@@ -111,7 +111,7 @@ namespace BLL
             return message;
         }
 
-        public Exercise GetExercise(int Id)
+        public ExerciseDetails GetExercise(int Id)
         {
             return data.GetExercise(Id);
         }

@@ -1,8 +1,8 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using BLL;
+using DALModels = DAL.EntityFramework.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Web_api.Models;
-
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Web_api.Controllers
 {
@@ -10,87 +10,55 @@ namespace Web_api.Controllers
     [ApiController]
     public class ApiController : ControllerBase
     {
-        private readonly FitnesslybackupContext _fitnesslybackupContext;
-        public ApiController(FitnesslybackupContext fitnesslybackupContext)
+        private readonly WorkoutService _workoutService;
+
+        public ApiController(WorkoutService workoutService)
         {
-            _fitnesslybackupContext = fitnesslybackupContext;
+            _workoutService = workoutService;
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Workout>>> GetWorkouts()
+        public ActionResult<IEnumerable<DALModels.Workout>> GetWorkouts()
         {
-            if (_fitnesslybackupContext.Workouts == null)
-            {
-                return NotFound();
-            }
-
-            return await _fitnesslybackupContext.Workouts.ToListAsync();
+            var workouts = _workoutService.GetWorkouts();
+            return Ok(workouts);
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Workout>> GetWorkout(int id)
+        public ActionResult<DALModels.Workout> GetWorkout(int id)
         {
-            if (_fitnesslybackupContext.Workouts == null)
-            {
-                return NotFound();
-            }
-
-            var workout = await _fitnesslybackupContext.Workouts.FindAsync(id);
+            var workout = _workoutService.GetWorkout(id);
             if (workout == null)
             {
                 return NotFound();
             }
 
-            return workout;
+            return Ok(workout);
         }
 
         [HttpPost]
-        public async Task<ActionResult<Workout>> PostWorkout(Workout workout)
+        public ActionResult<DALModels.Workout> PostWorkout(DALModels.Workout workout)
         {
-            _fitnesslybackupContext.Workouts.Add(workout);
-            await _fitnesslybackupContext.SaveChangesAsync();
-
+            _workoutService.SendWorkouts(workout.WorkoutName);  
             return CreatedAtAction(nameof(GetWorkout), new { id = workout.WorkoutId }, workout);
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult> PutWorkout(int id, Workout workout)
+        public ActionResult PutWorkout(int id, DALModels.Workout workout)
         {
             if (id != workout.WorkoutId)
             {
                 return BadRequest();
             }
 
-            _fitnesslybackupContext.Entry(workout).State = EntityState.Modified;
-
-            try
-            {
-                await _fitnesslybackupContext.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                throw;
-            }
+            _workoutService.EditWorkout(workout.WorkoutName, id);  
             return Ok();
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult> DeleteWorkout(int id)
+        public ActionResult DeleteWorkout(int id)
         {
-            if (_fitnesslybackupContext.Workouts == null)
-            {
-                return NotFound();
-            }
-
-            var workout = await _fitnesslybackupContext.Workouts.FindAsync(id);
-            if (workout == null)
-            {
-                return NotFound();
-            }
-
-            _fitnesslybackupContext.Workouts.Remove(workout);
-            await _fitnesslybackupContext.SaveChangesAsync();
-
+            _workoutService.DeleteWorkouts(id);  
             return Ok();
         }
     }

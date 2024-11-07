@@ -6,7 +6,7 @@ import Modal from 'react-bootstrap/Modal';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
-import axios from "../node_modules/axios/index";
+import axios from "axios";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -14,14 +14,12 @@ const CRUD = () => {
     const [Workout, setWorkout] = useState('');
     const [editID, setEditID] = useState('');
     const [editWorkout, setEditWorkout] = useState('');
-
-
     const [data, setData] = useState([]);
-    
+
     useEffect(() => {
         getData();
     }, []);
-    
+
     const getData = () => {
         axios.get('https://localhost:7187/api/Api')
             .then((result) => {
@@ -37,9 +35,8 @@ const CRUD = () => {
         handleShow();
         axios.get(`https://localhost:7187/api/Api/${ID}`)
             .then((result) => {
-                setEditWorkout(result.data.workoutName);
+                setEditWorkout(result.data.name);
                 setEditID(ID);
-
             })
             .catch((error) => {
                 console.log(error);
@@ -50,34 +47,33 @@ const CRUD = () => {
         if (window.confirm("Are you sure you want to delete this workout?")) {
             axios.delete(`https://localhost:7187/api/Api/${ID}`)
                 .then((result) => {
-                    if (result.status === 200)
-                    {
-                        toast.success("Workout has been deleted")
+                    if (result.status === 200) {
+                        toast.success("Workout has been deleted");
                         getData();
                     }
                 })
                 .catch((error) => {
-                    toast.error("Failed deleting workout")
+                    toast.error("Failed deleting workout");
                     console.log(error);
-                })
+                });
         }
     };
 
     const handleUpdate = () => {
         const url = `https://localhost:7187/api/Api/${editID}`;
         const data = {
-            "workoutId" : editID,
+            "workoutId": editID,
             "workoutName": editWorkout
-        }
+        };
 
         const clear = () => {
             setWorkout('');
             setEditWorkout('');
             setEditID('');
-        }
+        };
 
         axios.put(url, data)
-            .then((result) => {
+            .then(() => {
                 getData();
                 clear();
                 toast.success('Workout has been updated');
@@ -86,24 +82,23 @@ const CRUD = () => {
             .catch((error) => {
                 toast.error('Error updating workout');
                 console.log(error);
-            })
-
+            });
     };
 
     const handelSave = () => {
-        const url = "https://localhost:7187/api/Api"
+        const url = "https://localhost:7187/api/Api";
         const data = {
             "workoutName": Workout
-        }
+        };
 
-        const clear = () =>{
+        const clear = () => {
             setWorkout('');
             setEditWorkout('');
             setEditID('');
-        }
+        };
 
         axios.post(url, data)
-            .then((result) => {
+            .then(() => {
                 getData();
                 clear();
                 toast.success('Workout has been added');
@@ -111,7 +106,7 @@ const CRUD = () => {
             .catch((error) => {
                 toast.error('Error adding workout');
                 console.log(error);
-            })
+            });
     };
 
     const [show, setShow] = useState(false);
@@ -120,16 +115,12 @@ const CRUD = () => {
 
     return (
         <Fragment>
-            <ToastContainer/>
+            <ToastContainer />
             <Container>
-                <Row>
-                    <Col>
-                        <input type="text" className="form-control" placeholder="Enter workout name"
-                            value={Workout} onChange={(e) => setWorkout(e.target.value)} />
-                    </Col>
-                    <Col>
-                        <button className="btn btn-primary" onClick={()=> handelSave()}>Submit</button>
-                    </Col>
+                <Row className="container-row">
+                    <input type="text" className="form-control" placeholder="Enter workout name"
+                        value={Workout} onChange={(e) => setWorkout(e.target.value)} />
+                    <button className="btn btn-primary" onClick={handelSave}>Submit</button>
                 </Row>
             </Container>
             <br></br>
@@ -145,10 +136,10 @@ const CRUD = () => {
                     {data.length > 0 ? (
                         data.map((item, index) => (
                             <tr key={index}>
-                                <td>{item.workoutId}</td>
-                                <td>{item.workoutName}</td>
+                                <td>{item.id}</td>
+                                <td>{item.name}</td>
                                 <td colSpan={2}>
-                                    <button className="btn btn-primary" onClick={() => handleEdit(item.workoutId)}>Edit</button> | <button className="btn btn-danger" onClick={() => handleDelete(item.workoutId)}>Delete</button>
+                                    <button className="btn btn-primary" onClick={() => handleEdit(item.id)}>Edit</button> | <button className="btn btn-danger" onClick={() => handleDelete(item.id)}>Delete</button>
                                 </td>
                             </tr>
                         ))
