@@ -16,6 +16,10 @@ const CRUD = () => {
     const [editWorkout, setEditWorkout] = useState('');
     const [data, setData] = useState([]);
 
+    const [show, setShow] = useState(false);
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+
     useEffect(() => {
         getData();
     }, []);
@@ -35,13 +39,17 @@ const CRUD = () => {
         handleShow();
         axios.get(`https://localhost:7187/api/Api/${ID}`)
             .then((result) => {
-                setEditWorkout(result.data.name);
+                console.log('Workout data opgehaald:', result.data); // Debugging log
+                setEditWorkout(result.data.name); // Gebruik het juiste veld
                 setEditID(ID);
+                console.log('editWorkout updated to:', result.data.name); // Log the updated state
             })
             .catch((error) => {
-                console.log(error);
+                console.error('Error bij het ophalen van workout:', error); // Debugging log
             });
     };
+
+
 
     const handleDelete = (ID) => {
         if (window.confirm("Are you sure you want to delete this workout?")) {
@@ -72,18 +80,31 @@ const CRUD = () => {
             setEditID('');
         };
 
+        // Controleer of workoutName niet leeg is
+        if (editWorkout.trim() === '') {
+            toast.error('Workout name cannot be empty');
+            return;
+        }
+
         axios.put(url, data)
-            .then(() => {
-                getData();
-                clear();
-                toast.success('Workout has been updated');
-                handleClose();
+            .then((response) => {
+                if (response.status === 200) {
+                    getData();
+                    clear();
+                    toast.success('Workout has been updated');
+                } else {
+                    toast.error(`Error updating workout: ${response.data.message}`);
+                }
             })
             .catch((error) => {
-                toast.error('Error updating workout');
-                console.log(error);
+                console.error('Error details:', error.response); // Log de volledige error response voor debugging
+                const errorMessages = error.response?.data?.messages || [error.response?.data?.message || 'Error updating workout'];
+                errorMessages.forEach(msg => toast.error(msg));
             });
     };
+
+
+
 
     const handelSave = () => {
         const url = "https://localhost:7187/api/Api";
@@ -98,28 +119,41 @@ const CRUD = () => {
         };
 
         axios.post(url, data)
-            .then(() => {
-                getData();
-                clear();
-                toast.success('Workout has been added');
+            .then((response) => {
+                if (response.status === 201) { // Controleer op de statuscode 201 Created
+                    getData();
+                    clear();
+                    toast.success('Workout has been added');
+                } else {
+                    toast.error(`Error adding workout: ${response.data.message}`);
+                }
             })
             .catch((error) => {
-                toast.error('Error adding workout');
-                console.log(error);
+                const errorMessages = error.response?.data?.messages || [error.response?.data?.message || 'Error adding workout'];
+                errorMessages.forEach(msg => toast.error(msg));
             });
     };
 
-    const [show, setShow] = useState(false);
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
+
+
+
+
 
     return (
         <Fragment>
             <ToastContainer />
             <Container>
                 <Row className="container-row">
-                    <input type="text" className="form-control" placeholder="Enter workout name"
-                        value={Workout} onChange={(e) => setWorkout(e.target.value)} />
+                    <input
+                        type="text"
+                        className="form-control"
+                        placeholder="Enter workout name"
+                        value={Workout}
+                        onChange={(e) => setWorkout(e.target.value)}
+                        minLength={3}
+                        maxLength={50}
+                        required
+                    />
                     <button className="btn btn-primary" onClick={handelSave}>Submit</button>
                 </Row>
             </Container>
@@ -157,22 +191,28 @@ const CRUD = () => {
                 <Modal.Body>
                     <Row>
                         <Col>
-                            <input type="text" className="form-control" placeholder="Enter workout name"
-                                value={editWorkout} onChange={(e) => setEditWorkout(e.target.value)} />
+                            <input
+                                type="text"
+                                className="form-control"
+                                placeholder="Enter workout name"
+                                value={editWorkout || ''} // Zorg voor een fallback waarde
+                                onChange={(e) => setEditWorkout(e.target.value)}
+                                minLength={3}
+                                maxLength={50}
+                                required
+                            />
                         </Col>
                     </Row>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="secondary" onClick={handleClose}>
-                        Close
-                    </Button>
-                    <Button variant="primary" onClick={handleUpdate}>
-                        Save Changes
-                    </Button>
+                    <Button variant="secondary" onClick={handleClose}>Close</Button>
+                    <Button variant="primary" onClick={handleUpdate}>Save Changes</Button>
                 </Modal.Footer>
             </Modal>
+
         </Fragment>
     );
+
 };
 
 export default CRUD;

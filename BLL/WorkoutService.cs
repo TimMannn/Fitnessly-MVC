@@ -16,29 +16,29 @@ namespace BLL
             return _workoutData.GetWorkouts();
         }
 
-        public string SendWorkouts(string workoutName)
-        {
-            var message = "Alles is correct";
-            if (string.IsNullOrEmpty(workoutName))
-            {
-                message = "Mag niet null zijn";
-            }
-            else if (workoutName.Length < 3)
-            {
-                message = "De naam moet minimaal 3 letters lang zijn";
-            }
-            else if (workoutName.Length > 50)
-            {
-                message = "De naam mag maximaal 50 letters lang zijn";
-            }
-            else
-            {
-                _workoutData.SendWorkoutsData(workoutName);
-            }
-            return message;
-        }
+		public string SendWorkouts(string workoutName)
+		{
+			var message = "Alles is correct";
+			if (string.IsNullOrEmpty(workoutName))
+			{
+				message = "Mag niet null zijn";
+			}
+			else if (workoutName.Length < 3)
+			{
+				message = "De naam moet minimaal 3 letters lang zijn";
+			}
+			else if (workoutName.Length > 50)
+			{
+				message = "De naam mag maximaal 50 letters lang zijn";
+			}
+			else
+			{
+				_workoutData.SendWorkoutsData(workoutName);
+			}
+			return message;
+		}
 
-        public string DeleteWorkouts(int ID)
+		public string DeleteWorkouts(int ID)
         {
             var message = "Alles is correct";
             if (ID <= 0)
