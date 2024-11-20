@@ -39,13 +39,13 @@ const CRUD = () => {
         handleShow();
         axios.get(`https://localhost:7187/api/Api/${ID}`)
             .then((result) => {
-                console.log('Workout data opgehaald:', result.data); // Debugging log
-                setEditWorkout(result.data.name); // Gebruik het juiste veld
+                console.log('Workout data opgehaald:', result.data);
+                setEditWorkout(result.data.name);
                 setEditID(ID);
-                console.log('editWorkout updated to:', result.data.name); // Log the updated state
+                console.log('editWorkout updated to:', result.data.name);
             })
             .catch((error) => {
-                console.error('Error bij het ophalen van workout:', error); // Debugging log
+                console.error('Error bij het ophalen van workout:', error);
             });
     };
 
@@ -80,7 +80,6 @@ const CRUD = () => {
             setEditID('');
         };
 
-        // Controleer of workoutName niet leeg is
         if (editWorkout.trim() === '') {
             toast.error('Workout name cannot be empty');
             return;
@@ -97,7 +96,7 @@ const CRUD = () => {
                 }
             })
             .catch((error) => {
-                console.error('Error details:', error.response); // Log de volledige error response voor debugging
+                console.error('Error details:', error.response); 
                 const errorMessages = error.response?.data?.messages || [error.response?.data?.message || 'Error updating workout'];
                 errorMessages.forEach(msg => toast.error(msg));
             });
@@ -120,9 +119,10 @@ const CRUD = () => {
 
         axios.post(url, data)
             .then((response) => {
-                if (response.status === 201) { // Controleer op de statuscode 201 Created
+                if (response.status === 201) { 
                     getData();
                     clear();
+                    handleClose();
                     toast.success('Workout has been added');
                 } else {
                     toast.error(`Error adding workout: ${response.data.message}`);
@@ -195,7 +195,7 @@ const CRUD = () => {
                                 type="text"
                                 className="form-control"
                                 placeholder="Enter workout name"
-                                value={editWorkout || ''} // Zorg voor een fallback waarde
+                                value={editWorkout} 
                                 onChange={(e) => setEditWorkout(e.target.value)}
                                 minLength={3}
                                 maxLength={50}
