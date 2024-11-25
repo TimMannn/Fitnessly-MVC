@@ -27,15 +27,15 @@ jobs:
 
       - name: Restore .NET Core dependencies
         run: dotnet restore
-        working-directory: .BLL
+        working-directory: .reactprojectfitnessly
 
       - name: Build .NET Core project
         run: dotnet build --no-restore
-        working-directory: .BLL
+        working-directory: .reactprojectfitnessly
 
       - name: Test .NET Core project
         run: dotnet test --no-build --verbosity normal
-        working-directory: .BLL
+        working-directory: .reactprojectfitnessly
 
       # Setup Node.js
       - name: Setup Node.js
