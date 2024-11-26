@@ -21,10 +21,6 @@ jobs:
         with: 
           path: Fitnessly-MVC
 
-        # Verander de directory naar de juiste root directory 
-      - name: Change directory to Fitnessly-MVC 
-        run: cd Fitnessly-MVC
-
       - name: Print working directory
         run: pwd
 
