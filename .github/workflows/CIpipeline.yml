@@ -9,20 +9,17 @@ on:
     branches:
       - master
       - development
-  workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-        with: 
-          path: Fitnessly-MVC
-
       - name: Print working directory
         run: pwd
+    
+      - name: Checkout code
+        uses: actions/checkout@v2
 
       # Setup .NET Core SDK
       - name: Setup .NET Core
