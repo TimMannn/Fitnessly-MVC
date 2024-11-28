@@ -27,9 +27,9 @@ jobs:
         with:
           dotnet-version: '8.0.x'
 
-     #- name: Restore .NET Core dependencies
-        #run: dotnet restore
-        #working-directory: .BLL
+      - name: Restore .NET Core dependencies
+        run: dotnet restore
+        working-directory: .BLL
 
       - name: Build .NET Core project
         run: dotnet build --no-restore
