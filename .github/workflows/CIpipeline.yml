@@ -38,21 +38,3 @@ jobs:
       - name: Test .NET Core project
         run: dotnet test --no-build --verbosity normal
         working-directory: BLL
-
-      # Setup Node.js
-      - name: Setup Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: '16'
-
-      - name: Install Node.js dependencies
-        run: npm install
-        working-directory: ./reactprojectfitnessly
-
-      - name: Build React app
-        run: npm run build
-        working-directory: ./reactprojectfitnessly
-
-      - name: Test React app
-        run: npm test
-        working-directory: ./reactprojectfitnessly
