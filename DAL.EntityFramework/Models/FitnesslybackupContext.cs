@@ -2,13 +2,10 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Pomelo.EntityFrameworkCore.MySql.Scaffolding.Internal;
-using DAL.EntityFramework.Models;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.AspNetCore.Identity;
 
-namespace DAL.EntityFramework.Context;
+namespace DAL.EntityFramework.Models;
 
-public partial class FitnesslybackupContext : IdentityDbContext<IdentityUser>
+public partial class FitnesslybackupContext : DbContext
 {
     public FitnesslybackupContext()
     {
@@ -18,6 +15,10 @@ public partial class FitnesslybackupContext : IdentityDbContext<IdentityUser>
         : base(options)
     {
     }
+
+    public virtual DbSet<Aspnetuser> Aspnetusers { get; set; }
+
+    public virtual DbSet<Efmigrationshistory> Efmigrationshistories { get; set; }
 
     public virtual DbSet<Exercise> Exercises { get; set; }
 
@@ -37,7 +38,7 @@ public partial class FitnesslybackupContext : IdentityDbContext<IdentityUser>
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseMySql("server=localhost;user=root;database=fitnesslybackup", ServerVersion.Parse("10.4.32-mariadb"));
+        => optionsBuilder.UseMySql("server=localhost;user=root;database=fitnesslybackup", Microsoft.EntityFrameworkCore.ServerVersion.Parse("10.4.32-mariadb"));
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -45,7 +46,32 @@ public partial class FitnesslybackupContext : IdentityDbContext<IdentityUser>
             .UseCollation("utf8mb4_general_ci")
             .HasCharSet("utf8mb4");
 
-		modelBuilder.Entity<Exercise>(entity =>
+        modelBuilder.Entity<Aspnetuser>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PRIMARY");
+
+            entity.ToTable("aspnetusers");
+
+            entity.Property(e => e.Id).HasMaxLength(450);
+            entity.Property(e => e.Email).HasMaxLength(256);
+            entity.Property(e => e.EmailConfirmed).HasColumnType("bit(1)");
+            entity.Property(e => e.NormalizedEmail).HasMaxLength(256);
+            entity.Property(e => e.NormalizedUserName).HasMaxLength(256);
+            entity.Property(e => e.PasswordHash).HasColumnType("text");
+            entity.Property(e => e.UserName).HasMaxLength(256);
+        });
+
+        modelBuilder.Entity<Efmigrationshistory>(entity =>
+        {
+            entity.HasKey(e => e.MigrationId).HasName("PRIMARY");
+
+            entity.ToTable("__efmigrationshistory");
+
+            entity.Property(e => e.MigrationId).HasMaxLength(150);
+            entity.Property(e => e.ProductVersion).HasMaxLength(32);
+        });
+
+        modelBuilder.Entity<Exercise>(entity =>
         {
             entity.HasKey(e => e.ExerciseId).HasName("PRIMARY");
 
