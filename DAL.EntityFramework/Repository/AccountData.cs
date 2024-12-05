@@ -28,7 +28,6 @@ namespace DAL.EntityFramework.Repository
 
 		public async Task LogoutAsync()
 		{
-			Console.WriteLine("LogoutAsync called Data laag");
 			await _signInManager.SignOutAsync();
 		}
 	}

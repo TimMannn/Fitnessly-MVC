@@ -37,26 +37,27 @@ namespace Web_api.Controllers
         }
 
 		[HttpPost]
-		public ActionResult<DALModels.Workout> PostWorkout(DALModels.Workout workout)
+		public async Task<ActionResult<DALModels.Workout>> PostWorkout(DALModels.Workout workout)
 		{
+			Console.WriteLine("Hoiii");
 			if (!ModelState.IsValid)
 			{
 				var errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage).ToList();
 				return BadRequest(new { messages = errors });
 			}
-
-			var result = _workoutService.SendWorkouts(workout.WorkoutName);
+			Console.WriteLine("1");
+			var result = await _workoutService.SendWorkouts(workout.WorkoutName);
 			if (result != "Alles is correct")
 			{
 				return BadRequest(new { message = result });
 			}
-
+			Console.WriteLine("2");
 			return CreatedAtAction(nameof(GetWorkout), new { id = workout.WorkoutId }, workout);
 		}
 
 
 		[HttpPut("{id}")]
-		public ActionResult PutWorkout(int id, DALModels.Workout workout)
+		public async Task<ActionResult> PutWorkout(int id, DALModels.Workout workout)
 		{
 			if (id != workout.WorkoutId)
 			{
@@ -69,7 +70,7 @@ namespace Web_api.Controllers
 				return BadRequest(new { messages = errors });
 			}
 
-			var result = _workoutService.EditWorkout(workout.WorkoutName, id);
+			var result = await _workoutService.EditWorkout(workout.WorkoutName, id);
 			if (result != "Alles is correct")
 			{
 				return BadRequest(new { message = result });

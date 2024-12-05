@@ -1,22 +1,29 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
+using System.Collections.Generic;
 
 namespace BLL
 {
     public class WorkoutService
     {
         private readonly IWorkoutData _workoutData;
+		private readonly UserManager<IdentityUser> _userManager; 
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public WorkoutService(IWorkoutData workoutData)
+		public WorkoutService(IWorkoutData workoutData, UserManager<IdentityUser> userManager, IHttpContextAccessor httpContextAccessor)
         {
             _workoutData = workoutData;
+            _userManager = userManager;
+            _httpContextAccessor = httpContextAccessor;
         }
 
-        public List<WorkoutDetails> GetWorkouts()
+        public async Task<List<WorkoutDetails>> GetWorkouts()
         {
-            return _workoutData.GetWorkouts();
-        }
+            var user = await _userManager.GetUserAsync(_httpContextAccessor.HttpContext.User);
+            return await _workoutData.GetWorkouts(user.Id);
+		}
 
-		public string SendWorkouts(string workoutName)
+		public async Task<string> SendWorkouts(string workoutName)
 		{
 			var message = "Alles is correct";
 			if (string.IsNullOrEmpty(workoutName))
@@ -33,12 +40,14 @@ namespace BLL
 			}
 			else
 			{
-				_workoutData.SendWorkoutsData(workoutName);
+                Console.WriteLine("Ik ben in de service geweest");
+				var user = await _userManager.GetUserAsync(_httpContextAccessor.HttpContext.User);
+				await _workoutData.SendWorkoutsData(workoutName, user.Id);
 			}
 			return message;
 		}
 
-		public string DeleteWorkouts(int ID)
+		public async Task<string> DeleteWorkouts(int ID)
         {
             var message = "Alles is correct";
             if (ID <= 0)
@@ -47,13 +56,13 @@ namespace BLL
             }
             else
             {
-                _workoutData.DeleteWorkouts(ID);
+				await _workoutData.DeleteWorkouts(ID);
             }
 
             return message;
         }
 
-        public string EditWorkout(string newWorkoutName, int workoutID)
+        public async Task<string> EditWorkout(string newWorkoutName, int workoutID)
         {
             var message = "Alles is correct";
             if (string.IsNullOrEmpty(newWorkoutName))
@@ -74,14 +83,14 @@ namespace BLL
             }
             else
             {
-                _workoutData.EditWorkouts(newWorkoutName, workoutID);
+				await _workoutData.EditWorkouts(newWorkoutName, workoutID);
             }
             return message;
         }
 
-        public WorkoutDetails GetWorkout(int id)
+        public async Task<WorkoutDetails> GetWorkout(int id)
         {
-            return _workoutData.GetWorkout(id);
+            return await _workoutData.GetWorkout(id);
         }
     }
 }

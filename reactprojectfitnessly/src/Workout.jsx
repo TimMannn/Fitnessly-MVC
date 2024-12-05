@@ -136,11 +136,8 @@ const CRUD = () => {
     const handleLogout = () => {
         axios.post('https://localhost:7187/api/Account/logout')
             .then((response) => {
-                console.log('Response:', response); // Debugging line
                 if (response.status === 200) {
-                    console.log('Navigating to login page'); // Debugging line 
                     navigate('/Login');
-                    toast.success('Logged out successfully');
                 } else {
                     toast.error('Error logging out');
                 }

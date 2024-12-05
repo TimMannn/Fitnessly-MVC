@@ -37,7 +37,6 @@ namespace BLL
 
 		public async Task LogoutAsync()
 		{
-			Console.WriteLine("LogoutAsync called");
 			await _accountData.LogoutAsync();
 		}
 	}

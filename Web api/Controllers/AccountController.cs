@@ -39,7 +39,6 @@ public class AccountController : ControllerBase
 	[HttpPost("logout")]
 	public async Task<IActionResult> Logout()
 	{
-		Console.WriteLine("API aangeroepen");
 		await _accountService.LogoutAsync();
 		return Ok(new { message = "Logged out successfully" });
 	}

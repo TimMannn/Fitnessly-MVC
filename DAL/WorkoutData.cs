@@ -29,8 +29,9 @@ namespace DAL
                     {
                         int workoutID = reader.GetInt32("workout_id");
                         string workoutName = reader.GetString("workout_name");
+                        string userId = "";
 
-                        workouts.Add(new WorkoutDetails(id: workoutID, name: workoutName));
+                        workouts.Add(new WorkoutDetails(id: workoutID, name: workoutName, userId: userId));
                     }
 
                     return workouts;
@@ -39,7 +40,7 @@ namespace DAL
         }
 
         // verstuurd naar database
-        public void SendWorkoutsData(string workoutName)
+        public void SendWorkoutsData(string workoutName, int UserId)
         {
             using (var connection = new MySqlConnection(mysqlCon))
             {
@@ -115,7 +116,7 @@ namespace DAL
             {
                 using (var connection = new MySqlConnection(mysqlCon))
                 {
-                    var workout = new WorkoutDetails(0, "");
+                    var workout = new WorkoutDetails(0, "", "");
                     connection.Open();
                     MySqlCommand mySqlCommand = new MySqlCommand("select * from workout WHERE workout_id = @WorkoutID",
                         connection);
@@ -126,7 +127,8 @@ namespace DAL
                     {
                         int workoutID = reader.GetInt32("workout_id");
                         string workoutName = reader.GetString("workout_name");
-                        workout = new WorkoutDetails(id: workoutID, name: workoutName);
+                        string userId = "";
+                        workout = new WorkoutDetails(id: workoutID, name: workoutName, userId: userId);
                     }
 
                     return workout;
