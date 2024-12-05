@@ -4,7 +4,6 @@ using System.Diagnostics;
 using System.Runtime.InteropServices.Marshalling;
 using BLL;
 using DAL;
-using SqlServerDAL;
 
 namespace Fitnessly_MVC.Controllers
 {

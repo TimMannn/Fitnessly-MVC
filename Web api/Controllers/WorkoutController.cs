@@ -8,11 +8,11 @@ namespace Web_api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ApiController : ControllerBase
+    public class WorkoutController : ControllerBase
     {
         private readonly WorkoutService _workoutService;
 
-        public ApiController(WorkoutService workoutService)
+        public WorkoutController(WorkoutService workoutService)
         {
             _workoutService = workoutService;
         }
