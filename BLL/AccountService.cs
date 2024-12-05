@@ -1,25 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using BLL.Models;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
-using BLL.Models;
+using System.Linq;
 
 namespace BLL
 {
-	using System.Threading.Tasks;
-	using Microsoft.AspNetCore.Identity;
-
 	public class AccountService
 	{
 		private readonly IAccountData _accountData;
-		private readonly SignInManager<IdentityUser> _signInManager;
 
-		public AccountService(IAccountData accountData, SignInManager<IdentityUser> signInManager)
+		public AccountService(IAccountData accountData)
 		{
 			_accountData = accountData;
-			_signInManager = signInManager;
 		}
 
 		public async Task<string> RegisterAsync(RegisterModel model)
@@ -35,12 +27,18 @@ namespace BLL
 
 		public async Task<string> LoginAsync(LoginModel model)
 		{
-			var result = await _signInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, lockoutOnFailure: false);
+			var result = await _accountData.LoginAsync(model);
 			if (result.Succeeded)
 			{
 				return "Login successful";
 			}
 			return "Invalid login attempt";
+		}
+
+		public async Task LogoutAsync()
+		{
+			Console.WriteLine("LogoutAsync called");
+			await _accountData.LogoutAsync();
 		}
 	}
 }

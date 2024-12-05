@@ -61,4 +61,10 @@ button {
         padding: 0.5rem 1rem; /* Comfortabele knoppadding */
     }
 
+html, body, #root {
+    height: 105%;
+    margin: 0;
+}
+
+
 

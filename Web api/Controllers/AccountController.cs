@@ -1,6 +1,5 @@
 ﻿using BLL.Models;
 using BLL;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
@@ -8,35 +7,41 @@ using System.Threading.Tasks;
 [ApiController]
 public class AccountController : ControllerBase
 {
-	private readonly IAccountData _accountData;
-	private readonly SignInManager<IdentityUser> _signInManager;
+	private readonly AccountService _accountService;
 
-	public AccountController(IAccountData accountData, SignInManager<IdentityUser> signInManager)
+	public AccountController(AccountService accountService)
 	{
-		_accountData = accountData;
-		_signInManager = signInManager;
+		_accountService = accountService;
 	}
 
 	[HttpPost("register")]
 	public async Task<IActionResult> Register([FromBody] RegisterModel model)
 	{
-		var user = new IdentityUser { UserName = model.UserName, Email = model.Email };
-		var result = await _accountData.CreateUserAsync(user, model.Password);
-		if (result.Succeeded)
+		var result = await _accountService.RegisterAsync(model);
+		if (result == "Registration successful")
 		{
 			return Ok(new { Result = "Registration successful" });
 		}
-		return BadRequest(new { Error = string.Join(", ", result.Errors.Select(e => e.Description)) });
+		return BadRequest(new { Error = result });
 	}
 
 	[HttpPost("login")]
 	public async Task<IActionResult> Login([FromBody] LoginModel model)
 	{
-		var result = await _signInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, lockoutOnFailure: false);
-		if (result.Succeeded)
+		var result = await _accountService.LoginAsync(model);
+		if (result == "Login successful")
 		{
 			return Ok(new { Result = "Login successful" });
 		}
-		return Unauthorized(new { Error = "Invalid login attempt" });
+		return Unauthorized(new { Error = result });
 	}
+
+	[HttpPost("logout")]
+	public async Task<IActionResult> Logout()
+	{
+		Console.WriteLine("API aangeroepen");
+		await _accountService.LogoutAsync();
+		return Ok(new { message = "Logged out successfully" });
+	}
+
 }

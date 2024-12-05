@@ -11,14 +11,14 @@ const Login = () => {
 
     const handleLogin = async () => {
         try {
-            const response = await axios.post('https://your-api-url/api/account/login', {
+            const response = await axios.post('https://localhost:7187/api/Account/login', {
                 userName,
                 password,
                 rememberMe
             });
             localStorage.setItem("token", "your-authentication-token"); // Opslaan van token
             setMessage(response.data.Result);
-            navigate("/workout");
+            navigate("/Workout");
         } catch (error) {
             console.error('Error details:', error.response);
             setMessage('Login failed');

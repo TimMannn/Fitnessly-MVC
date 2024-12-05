@@ -15,9 +15,9 @@ function App() {
         <Router>
             <div className="App">
                 <Routes>
-                    <Route path="/login" element={isAuthenticated() ? <Navigate to="/workout" /> : <Login />} />
-                    <Route path="/register" element={isAuthenticated() ? <Navigate to="/workout" /> : <Register />} />
-                    <Route path="/workout" element={isAuthenticated() ? <CRUD /> : <Navigate to="/login" />} />
+                    <Route path="/login" element={isAuthenticated() ? <Login /> : <Navigate to="/Login" />} />
+                    <Route path="/register" element={isAuthenticated() ? <Register /> : <Navigate to="/Register" />} />
+                    <Route path="/workout" element={isAuthenticated() ? <CRUD /> : <Navigate to="/Workout" />} />
                     <Route path="/" element={<Navigate to="/login" />} />
                 </Routes>
             </div>
