@@ -7,7 +7,6 @@ import './App.css';
 
 function App() {
     const isAuthenticated = () => {
-        // Voeg je authenticatielogica toe, bijvoorbeeld controleer een token in localStorage
         return localStorage.getItem("token") !== null;
     };
 

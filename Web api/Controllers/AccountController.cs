@@ -1,7 +1,6 @@
 ﻿using BLL.Models;
 using BLL;
 using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
 
 [Route("api/[controller]")]
 [ApiController]
@@ -28,12 +27,15 @@ public class AccountController : ControllerBase
 	[HttpPost("login")]
 	public async Task<IActionResult> Login([FromBody] LoginModel model)
 	{
-		var result = await _accountService.LoginAsync(model);
-		if (result == "Login successful")
+		Console.WriteLine("Login API");
+		var token = await _accountService.LoginAsync(model); // Gebruik de gegenereerde token
+		if (token == "Invalid login attempt")
 		{
-			return Ok(new { Result = "Login successful" });
+			Console.WriteLine("Login API Fail");
+			return Unauthorized(new { Error = token });
 		}
-		return Unauthorized(new { Error = result });
+		Console.WriteLine("Login API Success");
+		return Ok(new { Token = token }); // Stuur de token terug in de response
 	}
 
 	[HttpPost("logout")]
@@ -42,5 +44,4 @@ public class AccountController : ControllerBase
 		await _accountService.LogoutAsync();
 		return Ok(new { message = "Logged out successfully" });
 	}
-
 }

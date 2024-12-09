@@ -29,19 +29,30 @@ const CRUD = () => {
     }, []);
 
     const getData = () => {
-        axios.get('https://localhost:7187/api/Workout')
+        const token = localStorage.getItem('token');
+        axios.get('https://localhost:7187/api/Workout', {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
             .then((result) => {
                 console.log(result.data);
                 setData(result.data);
             })
             .catch((error) => {
                 console.log(error);
+                toast.error("Failed to fetch workouts");
             });
     };
 
     const handleEdit = (ID) => {
+        const token = localStorage.getItem('token');
         handleShow();
-        axios.get(`https://localhost:7187/api/Workout/${ID}`)
+        axios.get(`https://localhost:7187/api/Workout/${ID}`, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
             .then((result) => {
                 console.log('Workout data opgehaald:', result.data);
                 setEditWorkout(result.data.name);
@@ -50,12 +61,18 @@ const CRUD = () => {
             })
             .catch((error) => {
                 console.error('Error bij het ophalen van workout:', error);
+                toast.error("Failed to fetch workout");
             });
     };
 
     const handleDelete = (ID) => {
+        const token = localStorage.getItem('token');
         if (window.confirm("Are you sure you want to delete this workout?")) {
-            axios.delete(`https://localhost:7187/api/Workout/${ID}`)
+            axios.delete(`https://localhost:7187/api/Workout/${ID}`, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            })
                 .then((result) => {
                     if (result.status === 200) {
                         toast.success("Workout has been deleted");
@@ -70,6 +87,7 @@ const CRUD = () => {
     };
 
     const handleUpdate = () => {
+        const token = localStorage.getItem('token');
         const url = `https://localhost:7187/api/Workout/${editID}`;
         const data = {
             "workoutId": editID,
@@ -87,7 +105,11 @@ const CRUD = () => {
             return;
         }
 
-        axios.put(url, data)
+        axios.put(url, data, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
             .then((response) => {
                 if (response.status === 200) {
                     getData();
@@ -105,6 +127,7 @@ const CRUD = () => {
     };
 
     const handleSave = () => {
+        const token = localStorage.getItem('token');
         const url = "https://localhost:7187/api/Workout";
         const data = {
             "workoutName": Workout
@@ -116,7 +139,11 @@ const CRUD = () => {
             setEditID('');
         };
 
-        axios.post(url, data)
+        axios.post(url, data, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
             .then((response) => {
                 if (response.status === 201) {
                     getData();
@@ -134,9 +161,15 @@ const CRUD = () => {
     };
 
     const handleLogout = () => {
-        axios.post('https://localhost:7187/api/Account/logout')
+        const token = localStorage.getItem('token');
+        axios.post('https://localhost:7187/api/Account/logout', {}, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
             .then((response) => {
                 if (response.status === 200) {
+                    localStorage.removeItem('token');
                     navigate('/Login');
                 } else {
                     toast.error('Error logging out');
@@ -147,7 +180,6 @@ const CRUD = () => {
                 toast.error('Error logging out');
             });
     };
-
 
     return (
         <Fragment>

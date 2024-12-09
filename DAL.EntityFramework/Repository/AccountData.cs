@@ -23,12 +23,26 @@ namespace DAL.EntityFramework.Repository
 
 		public async Task<SignInResult> LoginAsync(LoginModel model)
 		{
-			return await _signInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, lockoutOnFailure: false);
+			Console.WriteLine("Login DAL");
+			var user = await _userManager.FindByNameAsync(model.UserName);
+			if (user == null)
+			{
+				Console.WriteLine("Login DAL fail");
+				return SignInResult.Failed;
+			}
+			Console.WriteLine("Login DAL succes");
+			return await _signInManager.PasswordSignInAsync(user.UserName, model.Password, model.RememberMe, lockoutOnFailure: false);
 		}
+
 
 		public async Task LogoutAsync()
 		{
 			await _signInManager.SignOutAsync();
+		}
+
+		public async Task<IdentityUser> FindByUserNameAsync(string userName)
+		{
+			return await _userManager.FindByNameAsync(userName);
 		}
 	}
 }

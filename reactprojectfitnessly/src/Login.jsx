@@ -16,8 +16,9 @@ const Login = () => {
                 password,
                 rememberMe
             });
-            localStorage.setItem("token", "your-authentication-token"); // Opslaan van token
-            setMessage(response.data.Result);
+
+            localStorage.setItem("token", response.data);
+            setMessage('Login successful');
             navigate("/Workout");
         } catch (error) {
             console.error('Error details:', error.response);
