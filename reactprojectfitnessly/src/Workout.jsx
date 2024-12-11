@@ -30,6 +30,7 @@ const CRUD = () => {
 
     const getData = () => {
         const token = localStorage.getItem('token');
+        console.log("Sending Token:", token);
         axios.get('https://localhost:7187/api/Workout', {
             headers: {
                 'Authorization': `Bearer ${token}`
@@ -40,7 +41,7 @@ const CRUD = () => {
                 setData(result.data);
             })
             .catch((error) => {
-                console.log(error);
+                console.error('Error fetching workouts:', error);
                 toast.error("Failed to fetch workouts");
             });
     };

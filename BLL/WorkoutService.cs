@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Security.Claims;
 
 namespace BLL
 {
@@ -20,13 +21,54 @@ namespace BLL
 
 		public async Task<List<WorkoutDetails>> GetWorkouts()
 		{
-			var user = await _userManager.GetUserAsync(_httpContextAccessor.HttpContext.User);
-			if (user == null)
+			try
 			{
-				throw new InvalidOperationException("User not found");
+				if (_httpContextAccessor.HttpContext == null)
+				{
+					Console.WriteLine("HttpContext is null.");
+					throw new InvalidOperationException("HttpContext is null");
+				}
+
+				var user = _httpContextAccessor.HttpContext.User;
+				if (user == null || !user.Identity.IsAuthenticated)
+				{
+					Console.WriteLine("User not authenticated.");
+					throw new InvalidOperationException("User not authenticated");
+				}
+
+				Console.WriteLine("HTTP Context User Identity: " + user.Identity.Name);
+				var claims = user.Claims;
+				foreach (var claim in claims)
+				{
+					Console.WriteLine($"Claim Type: {claim.Type}, Claim Value: {claim.Value}");
+				}
+
+				var userId = claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+				if (string.IsNullOrEmpty(userId))
+				{
+					Console.WriteLine("User ID claim not found.");
+					throw new InvalidOperationException("User ID claim not found");
+				}
+
+				var identityUser = await _userManager.FindByIdAsync(userId);
+				if (identityUser == null)
+				{
+					Console.WriteLine("User not found in HttpContext.");
+					throw new InvalidOperationException("User not found");
+				}
+
+				Console.WriteLine("User found: " + identityUser.UserName);
+				return await _workoutData.GetWorkouts(identityUser.Id);
 			}
-			return await _workoutData.GetWorkouts(user.Id);
+			catch (Exception ex)
+			{
+				Console.WriteLine($"Error in GetWorkoutsAsync: {ex.Message}");
+				throw;
+			}
 		}
+
+
+
 
 		public async Task<string> SendWorkouts(string workoutName)
 		{

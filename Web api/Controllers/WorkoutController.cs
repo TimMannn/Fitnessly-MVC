@@ -2,39 +2,49 @@
 using DALModels = DAL.EntityFramework.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using System;
 
 namespace Web_api.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class WorkoutController : ControllerBase
-    {
-        private readonly WorkoutService _workoutService;
+	[Route("api/[controller]")]
+	[ApiController]
+	public class WorkoutController : ControllerBase
+	{
+		private readonly WorkoutService _workoutService;
 
-        public WorkoutController(WorkoutService workoutService)
-        {
-            _workoutService = workoutService;
-        }
+		public WorkoutController(WorkoutService workoutService)
+		{
+			_workoutService = workoutService;
+		}
 
-        [HttpGet]
-        public ActionResult<IEnumerable<DALModels.Workout>> GetWorkouts()
-        {
-            var workouts = _workoutService.GetWorkouts();
-            return Ok(workouts);
-        }
+		[HttpGet]
+		public async Task<ActionResult<IEnumerable<DALModels.Workout>>> GetWorkouts()
+		{
+			try
+			{
+				var workouts = await _workoutService.GetWorkouts(); // Voeg async/await toe
+				return Ok(workouts);
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine($"Error in GetWorkouts: {ex.Message}");
+				return StatusCode(500, "Internal server error");
+			}
+		}
 
-        [HttpGet("{id}")]
-        public ActionResult<DALModels.Workout> GetWorkout(int id)
-        {
-            var workout = _workoutService.GetWorkout(id);
-            if (workout == null)
-            {
-                return NotFound();
-            }
+		[HttpGet("{id}")]
+		public async Task<ActionResult<DALModels.Workout>> GetWorkout(int id)
+		{
+			var workout = await _workoutService.GetWorkout(id); // Voeg async/await toe
+			if (workout == null)
+			{
+				return NotFound();
+			}
 
-            return Ok(workout);
-        }
+			return Ok(workout);
+		}
 
 		[HttpPost]
 		public async Task<ActionResult<DALModels.Workout>> PostWorkout(DALModels.Workout workout)
@@ -54,7 +64,6 @@ namespace Web_api.Controllers
 			Console.WriteLine("2");
 			return CreatedAtAction(nameof(GetWorkout), new { id = workout.WorkoutId }, workout);
 		}
-
 
 		[HttpPut("{id}")]
 		public async Task<ActionResult> PutWorkout(int id, DALModels.Workout workout)
@@ -79,13 +88,11 @@ namespace Web_api.Controllers
 			return Ok();
 		}
 
-
-
 		[HttpDelete("{id}")]
-        public ActionResult DeleteWorkout(int id)
-        {
-            _workoutService.DeleteWorkouts(id);  
-            return Ok();
-        }
-    }
+		public async Task<ActionResult> DeleteWorkout(int id)
+		{
+			await _workoutService.DeleteWorkouts(id); 
+			return Ok();
+		}
+	}
 }

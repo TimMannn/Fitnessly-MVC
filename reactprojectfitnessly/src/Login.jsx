@@ -17,7 +17,9 @@ const Login = () => {
                 rememberMe
             });
 
-            localStorage.setItem("token", response.data);
+            console.log("Login Response:", response);
+
+            localStorage.setItem("token", response.data.token);
             setMessage('Login successful');
             navigate("/Workout");
         } catch (error) {

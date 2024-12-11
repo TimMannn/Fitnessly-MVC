@@ -35,6 +35,7 @@ public class AccountController : ControllerBase
 			return Unauthorized(new { Error = token });
 		}
 		Console.WriteLine("Login API Success");
+		Console.WriteLine($"Generated Token: {token}");
 		return Ok(new { Token = token }); // Stuur de token terug in de response
 	}
 

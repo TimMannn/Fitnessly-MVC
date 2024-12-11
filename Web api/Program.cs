@@ -16,7 +16,6 @@ using Microsoft.Extensions.DependencyInjection;
 var builder = WebApplication.CreateBuilder(args);
 var key = Encoding.ASCII.GetBytes("MySuperSecretKeyForJWT2024!ExtraLongKey123");
 
-// Add services to the container.
 builder.Services.AddControllers();
 
 builder.Services.AddEndpointsApiExplorer();
@@ -25,23 +24,14 @@ builder.Services.AddSwaggerGen();
 var connectionString = builder.Configuration["ConnectionString"];
 var serverVersion = new MariaDbServerVersion(new Version(10, 4, 32));
 
-// Configure DbContext with Identity
+// Configure DbContext with Scoped Lifespan
 builder.Services.AddDbContext<FitnesslybackupContext>(dbContextOptions =>
-	dbContextOptions.UseMySql(connectionString, serverVersion));
+	dbContextOptions.UseMySql(connectionString, serverVersion), ServiceLifetime.Scoped);
 
-builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
-{
-	options.Password.RequireDigit = true;
-	options.Password.RequireLowercase = true;
-	options.Password.RequireNonAlphanumeric = false;
-	options.Password.RequireUppercase = true;
-	options.Password.RequiredLength = 6;
-	options.Password.RequiredUniqueChars = 1;
-})
-.AddEntityFrameworkStores<FitnesslybackupContext>()
-.AddDefaultTokenProviders();
+builder.Services.AddIdentity<IdentityUser, IdentityRole>()
+	.AddEntityFrameworkStores<FitnesslybackupContext>()
+	.AddDefaultTokenProviders();
 
-// Configure JWT Authentication
 builder.Services.AddAuthentication(options =>
 {
 	options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -63,15 +53,12 @@ builder.Services.AddAuthentication(options =>
 	};
 });
 
-// Register Repositories for EntityFramework DAL
 builder.Services.AddScoped<IAccountData, AccountData>();
 builder.Services.AddScoped<IWorkoutData, WorkoutData>();
 
-// Register Services
 builder.Services.AddScoped<WorkoutService>();
 builder.Services.AddScoped<AccountService>();
 
-// Add CORS policy
 builder.Services.AddCors(options =>
 {
 	options.AddPolicy("AllowLocalhost",
@@ -87,7 +74,6 @@ builder.Services.AddHttpContextAccessor();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
 	app.UseSwagger();
