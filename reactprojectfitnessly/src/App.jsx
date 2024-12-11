@@ -3,7 +3,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Login from './Login';
 import Register from './Register';
 import CRUD from './Workout';
-import './App.css';
 
 function App() {
     const isAuthenticated = () => {
@@ -14,9 +13,16 @@ function App() {
         <Router>
             <div className="App">
                 <Routes>
-                    <Route path="/login" element={isAuthenticated() ? <Login /> : <Navigate to="/Login" />} />
-                    <Route path="/register" element={isAuthenticated() ? <Register /> : <Navigate to="/Register" />} />
+                    {/* Route voor inloggen */}
+                    <Route path="/login" element={<Login />} />
+
+                    {/* Route voor registreren */}
+                    <Route path="/register" element={<Register />} />
+
+                    {/* Route voor workout - beveiligd met authenticatie */}
                     <Route path="/workout" element={isAuthenticated() ? <CRUD /> : <Navigate to="/Workout" />} />
+
+                    {/* Standaard route naar login */}
                     <Route path="/" element={<Navigate to="/login" />} />
                 </Routes>
             </div>

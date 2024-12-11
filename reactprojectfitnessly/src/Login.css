@@ -5,7 +5,7 @@ body {
     height: 100vh;
     margin: 0;
     background-color: #f5f5f5;
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Roboto', sans-serif; /* Gebruik een modernere lettertype */
 }
 
 .login-container {
@@ -50,17 +50,16 @@ body {
 .remember-me {
     display: flex;
     align-items: center;
-    justify-content: left; /* Zorg dat de inhoud netjes links wordt uitgelijnd */
 }
 
     .remember-me input {
-        width: auto; /* Zorg dat de checkbox een natuurlijke breedte heeft */
-        margin-right: 10px; /* Voeg een kleine marge rechts toe */
+        margin-right: 10px;
         margin-left: 0; /* Zorg dat de checkbox even ver links begint als de input velden */
     }
 
     .remember-me label {
         margin: 0; /* Zorg ervoor dat het label naast de checkbox staat */
+        padding-left: 5px; /* Voeg wat padding toe voor een betere uitlijning */
     }
 
 .btn {

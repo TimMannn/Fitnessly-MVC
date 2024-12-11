@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import axios from 'axios';
 import { useNavigate, Link } from 'react-router-dom';
+import './Login.css';
 
 const Login = () => {
     const [userName, setUserName] = useState('');
@@ -9,7 +10,8 @@ const Login = () => {
     const [message, setMessage] = useState('');
     const navigate = useNavigate();
 
-    const handleLogin = async () => {
+    const handleLogin = async (e) => {
+        e.preventDefault();
         try {
             const response = await axios.post('https://localhost:7187/api/Account/login', {
                 userName,
@@ -21,7 +23,7 @@ const Login = () => {
 
             localStorage.setItem("token", response.data.token);
             setMessage('Login successful');
-            navigate("/Workout");
+            navigate("/workout");
         } catch (error) {
             console.error('Error details:', error.response);
             setMessage('Login failed');
@@ -29,31 +31,44 @@ const Login = () => {
     };
 
     return (
-        <div>
-            <h2>Login</h2>
-            <input
-                type="text"
-                placeholder="Username"
-                value={userName}
-                onChange={(e) => setUserName(e.target.value)}
-            />
-            <input
-                type="password"
-                placeholder="Password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-            />
-            <label>
-                <input
-                    type="checkbox"
-                    checked={rememberMe}
-                    onChange={(e) => setRememberMe(e.target.checked)}
-                />
-                Remember me
-            </label>
-            <button onClick={handleLogin}>Login</button>
-            {message && <p>{message}</p>}
-            <p>Dont have an account? <Link to="/register">Register here</Link></p>
+        <div className="login-container">
+            <form className="login-form" onSubmit={handleLogin}>
+                <h2>Login</h2>
+                <div className="form-group">
+                    <label htmlFor="username">Username</label>
+                    <input
+                        type="text"
+                        id="username"
+                        placeholder="Username"
+                        value={userName}
+                        onChange={(e) => setUserName(e.target.value)}
+                        required
+                    />
+                </div>
+                <div className="form-group">
+                    <label htmlFor="password">Password</label>
+                    <input
+                        type="password"
+                        id="password"
+                        placeholder="Password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        required
+                    />
+                </div>
+                <div className="form-group remember-me">
+                    <input
+                        type="checkbox"
+                        id="rememberMe"
+                        checked={rememberMe}
+                        onChange={() => setRememberMe(!rememberMe)}
+                    />
+                    <label htmlFor="rememberMe">Remember me</label>
+                </div>
+                <button type="submit" className="btn btn-primary">Login</button>
+                {message && <p className="message">{message}</p>}
+                <p>Do not have an account? <Link to="/register">Register here</Link></p>
+            </form>
         </div>
     );
 };

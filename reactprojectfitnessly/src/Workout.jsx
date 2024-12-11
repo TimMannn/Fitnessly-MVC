@@ -12,6 +12,7 @@ import Container from 'react-bootstrap/Container';
 import axios from "axios";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import './Workout.css';
 
 const CRUD = () => {
     const [Workout, setWorkout] = useState('');
@@ -185,17 +186,17 @@ const CRUD = () => {
     return (
         <Fragment>
             <ToastContainer />
-            <Navbar bg="light" expand="lg">
+            <Navbar bg="primary" variant="dark" expand="lg">
                 <Container>
-                    <Navbar.Brand href="#home">Workout App</Navbar.Brand>
+                    <Navbar.Brand href="#home">Fitnessly</Navbar.Brand>
                     <Nav className="ml-auto">
-                        <Button variant="outline-primary" onClick={handleLogout}>Logout</Button>
+                        <Button variant="outline-light" className="logout-btn" onClick={handleLogout}>Logout</Button>
                     </Nav>
                 </Container>
             </Navbar>
-            <Container>
-                <Row className="container-row mt-3">
-                    <Col>
+            <Container fluid>
+                <Row className="container-row mt-3 justify-content-center">
+                    <Col xs={12} sm={8} md={6} lg={4} xl={3} className="mx-auto text-center">
                         <input
                             type="text"
                             className="form-control"
@@ -206,39 +207,40 @@ const CRUD = () => {
                             maxLength={50}
                             required
                         />
-                    </Col>
-                    <Col>
-                        <Button className="btn btn-primary" onClick={handleSave}>Submit</Button>
+                        <Button className="btn submit-btn mt-3" onClick={handleSave}>Submit</Button>
                     </Col>
                 </Row>
             </Container>
-            <br></br>
-            <Table striped bordered hover>
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Workout</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {data.length > 0 ? (
-                        data.map((item, index) => (
-                            <tr key={index}>
-                                <td>{item.id}</td>
-                                <td>{item.name}</td>
-                                <td colSpan={2}>
-                                    <Button className="btn btn-primary" onClick={() => handleEdit(item.id)}>Edit</Button> | <Button className="btn btn-danger" onClick={() => handleDelete(item.id)}>Delete</Button>
-                                </td>
-                            </tr>
-                        ))
-                    ) : (
+            <br />
+            <Container fluid>
+                <Table striped bordered hover className="custom-table">
+                    <thead className="header-row">
                         <tr>
-                            <td colSpan="3">Loading...</td>
+                            <th>ID</th>
+                            <th>Workout</th>
+                            <th>Actions</th>
                         </tr>
-                    )}
-                </tbody>
-            </Table>
+                    </thead>
+                    <tbody>
+                        {data.length > 0 ? (
+                            data.map((item, index) => (
+                                <tr key={index}>
+                                    <td>{item.id}</td>
+                                    <td>{item.name}</td>
+                                    <td>
+                                        <Button className="btn edit-btn" onClick={() => handleEdit(item.id)}>Edit</Button> |
+                                        <Button className="btn delete-btn" onClick={() => handleDelete(item.id)}>Delete</Button>
+                                    </td>
+                                </tr>
+                            ))
+                        ) : (
+                            <tr>
+                                <td colSpan="3">Loading...</td>
+                            </tr>
+                        )}
+                    </tbody>
+                </Table>
+            </Container>
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
                     <Modal.Title>Change Workout</Modal.Title>

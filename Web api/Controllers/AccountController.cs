@@ -36,7 +36,7 @@ public class AccountController : ControllerBase
 		}
 		Console.WriteLine("Login API Success");
 		Console.WriteLine($"Generated Token: {token}");
-		return Ok(new { Token = token }); // Stuur de token terug in de response
+		return Ok(new { Token = token });
 	}
 
 	[HttpPost("logout")]
