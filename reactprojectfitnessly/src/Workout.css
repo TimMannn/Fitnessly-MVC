@@ -149,7 +149,7 @@ table.custom-table {
     }
 
     table.custom-table tr:nth-child(odd) td {
-        background-color: #cce6ff; /* Nog lichtere blauwe achtergrond voor oneven rijen */
+        background-color: #e6f2ff; /* Nog lichtere blauwe achtergrond voor oneven rijen */
     }
 
 /* Container voor inputfield en submit button */

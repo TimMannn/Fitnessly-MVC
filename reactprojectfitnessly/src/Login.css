@@ -23,11 +23,25 @@ body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     width: 350px; /* Maak het formulier breder */
     text-align: center;
+    position: relative; /* Zorg ervoor dat de header zich binnen de container bevindt */
 }
 
-    .login-form h2 {
-        margin-bottom: 20px;
-    }
+.login-header {
+    background-color: #007bff; /* Blauwe achtergrondkleur */
+    color: #fff; /* Witte tekstkleur */
+    padding: 10px; /* Padding boven en onder de tekst */
+    border-radius: 8px 8px 0 0; /* Alleen de bovenste hoeken afronden */
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+    width: calc(100% + 40px); /* Volledige breedte inclusief de padding van de container */
+    margin: -20px -20px 20px -20px; /* Negatieve marges om de padding van de container te compenseren */
+    text-align: center; /* Tekst centreren */
+    justify-content: center;
+}
+
+.login-form h2 {
+    margin: 0; /* Verwijder marges van de h2 */
+    padding: 0; /* Verwijder padding van de h2 */
+}
 
 .form-group {
     margin-bottom: 15px;
@@ -67,7 +81,7 @@ body {
     padding: 10px;
     border: none;
     border-radius: 4px;
-    background-color: #007bff;
+    background-color: #3399ff;
     color: #fff;
     cursor: pointer;
 }
