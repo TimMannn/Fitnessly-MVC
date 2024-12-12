@@ -128,6 +128,7 @@ const CRUD = () => {
                 if (response.status === 200) {
                     getData();
                     clear();
+                    handleClose();
                     toast.success('Workout has been updated');
                 } else {
                     toast.error(`Error updating workout: ${response.data.message}`);
@@ -207,6 +208,11 @@ const CRUD = () => {
             });
     };
 
+    const handleRowClick = (workoutId) => {
+        const token = localStorage.getItem('token');
+        navigate(`/exercise/${workoutId}`, { state: { token: token } });
+    };
+
     return (
         <Fragment>
             <ToastContainer />
@@ -240,7 +246,7 @@ const CRUD = () => {
                 <Table striped bordered hover className="custom-table">
                     <thead className="header-row">
                         <tr>
-                            <th>ID</th>
+                            <th>#</th>
                             <th>Workout</th>
                             <th>Actions</th>
                         </tr>
@@ -248,12 +254,12 @@ const CRUD = () => {
                     <tbody>
                         {data.length > 0 ? (
                             data.map((item, index) => (
-                                <tr key={index}>
-                                    <td>{item.id}</td>
+                                <tr key={index} onClick={() => handleRowClick(item.id)}>
+                                    <td>{index + 1}</td>
                                     <td>{item.name}</td>
                                     <td>
-                                        <Button className="btn edit-btn" onClick={() => handleEdit(item.id)}>Edit</Button> |
-                                        <Button className="btn delete-btn" onClick={() => handleDelete(item.id)}>Delete</Button>
+                                        <Button className="btn edit-btn" onClick={(e) => { e.stopPropagation(); handleEdit(item.id); }}>Edit</Button> |
+                                        <Button className="btn delete-btn" onClick={(e) => { e.stopPropagation(); handleDelete(item.id); }}>Delete</Button>
                                     </td>
                                 </tr>
                             ))
@@ -263,6 +269,7 @@ const CRUD = () => {
                             </tr>
                         )}
                     </tbody>
+
                 </Table>
             </Container>
             <Modal show={show} onHide={handleClose}>

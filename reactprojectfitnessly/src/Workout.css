@@ -99,12 +99,13 @@ button {
         }
 
 table.custom-table {
-    width: 100%;
-    margin-top: 2rem; 
-    border-collapse: collapse; 
-    text-align: center; 
+    width: 90%;
+    margin: auto;
+    margin-top: 2rem;
+    border-collapse: collapse;
+    text-align: center;
     border-radius: 12px;
-    background-color: #fff; 
+    background-color: #fff;
     overflow: hidden;
     box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
 }
