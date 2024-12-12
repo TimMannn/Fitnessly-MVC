@@ -1,16 +1,16 @@
-# In Web api/Dockerfile
+# In Webapi/Dockerfile
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
-COPY ["Web api/Web api.csproj", "Web api/"]
-RUN dotnet restore "Web api/Web api.csproj"
+COPY ["Webapi/Webapi.csproj", "Webapi/"]
+RUN dotnet restore "Webapi/Webapi.csproj"
 COPY . .
-WORKDIR "/src/Web api"
-RUN dotnet build "Web api.csproj" -c Release -o /app/build
+WORKDIR "/src/Webapi"
+RUN dotnet build "Webapi.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "Web api.csproj" -c Release -o /app/publish
+RUN dotnet publish "Webapi.csproj" -c Release -o /app/publish
 
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "Web api.dll"]
+ENTRYPOINT ["dotnet", "Webapi.dll"]

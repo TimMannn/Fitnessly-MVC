@@ -7,7 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System;
 
-namespace Web_api.Controllers
+namespace Webapi.Controllers
 {
 	[ApiController]
 	[Route("api/[controller]")]

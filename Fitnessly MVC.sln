@@ -17,7 +17,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTestFitnessly", "UnitTe
 EndProject
 Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "reactprojectfitnessly", "ReactProjectFitnessly\reactprojectfitnessly.esproj", "{201ACD68-F2B3-402C-BA35-68B82DE7F227}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web api", "Web api\Web api.csproj", "{C176E62D-A34E-49BF-9EBD-10B10B2D0F14}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Webapi", "Web api\Webapi.csproj", "{C176E62D-A34E-49BF-9EBD-10B10B2D0F14}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAL.EntityFramework", "DAL.EntityFramework\DAL.EntityFramework.csproj", "{7B66E7B7-FDA0-472A-BCF2-A711FEEFF020}"
 EndProject
