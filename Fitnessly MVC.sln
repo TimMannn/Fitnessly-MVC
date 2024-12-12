@@ -17,14 +17,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTestFitnessly", "UnitTe
 EndProject
 Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "reactprojectfitnessly", "ReactProjectFitnessly\reactprojectfitnessly.esproj", "{201ACD68-F2B3-402C-BA35-68B82DE7F227}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Webapi", "Web api\Webapi.csproj", "{C176E62D-A34E-49BF-9EBD-10B10B2D0F14}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAL.EntityFramework", "DAL.EntityFramework\DAL.EntityFramework.csproj", "{7B66E7B7-FDA0-472A-BCF2-A711FEEFF020}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{0E8118FF-24F7-4EE6-B170-D430D7BD20C5}"
 	ProjectSection(SolutionItems) = preProject
 		docker-compose.yml = docker-compose.yml
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Webapi", "Webapi\Webapi.csproj", "{4C17C325-A29B-43EC-B050-F270C5691038}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -54,14 +54,14 @@ Global
 		{201ACD68-F2B3-402C-BA35-68B82DE7F227}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{201ACD68-F2B3-402C-BA35-68B82DE7F227}.Release|Any CPU.Build.0 = Release|Any CPU
 		{201ACD68-F2B3-402C-BA35-68B82DE7F227}.Release|Any CPU.Deploy.0 = Release|Any CPU
-		{C176E62D-A34E-49BF-9EBD-10B10B2D0F14}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C176E62D-A34E-49BF-9EBD-10B10B2D0F14}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C176E62D-A34E-49BF-9EBD-10B10B2D0F14}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C176E62D-A34E-49BF-9EBD-10B10B2D0F14}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7B66E7B7-FDA0-472A-BCF2-A711FEEFF020}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{7B66E7B7-FDA0-472A-BCF2-A711FEEFF020}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7B66E7B7-FDA0-472A-BCF2-A711FEEFF020}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7B66E7B7-FDA0-472A-BCF2-A711FEEFF020}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4C17C325-A29B-43EC-B050-F270C5691038}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4C17C325-A29B-43EC-B050-F270C5691038}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4C17C325-A29B-43EC-B050-F270C5691038}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4C17C325-A29B-43EC-B050-F270C5691038}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
