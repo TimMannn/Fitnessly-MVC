@@ -13,7 +13,7 @@ services:
 
   backend:
     build:
-      context: "/Web api"
+      context: "./Web api"
       dockerfile: Dockerfile
     depends_on:
       - db
@@ -25,7 +25,7 @@ services:
 
   frontend:
     build:
-      context: "/reactprojectfitnessly"
+      context: "./reactprojectfitnessly"
       dockerfile: Dockerfile
     ports:
       - "3000:80"
