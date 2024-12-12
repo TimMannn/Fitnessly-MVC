@@ -66,9 +66,9 @@ namespace Web_api.Controllers
 		}
 
 		[HttpPut("{id}")]
-		public async Task<ActionResult> PutWorkout(int id, DALModels.Workout workout)
+		public async Task<ActionResult<DALModels.Workout>> PutWorkout(int id, [FromBody] EditWorkoutModel request)
 		{
-			if (id != workout.WorkoutId)
+			if (id != request.WorkoutId)
 			{
 				return BadRequest("Mismatched workout ID");
 			}
@@ -79,7 +79,7 @@ namespace Web_api.Controllers
 				return BadRequest(new { messages = errors });
 			}
 
-			var result = await _workoutService.EditWorkout(workout.WorkoutName, id);
+			var result = await _workoutService.EditWorkout(request.WorkoutName, request.WorkoutId, request.UserId);
 			if (result != "Alles is correct")
 			{
 				return BadRequest(new { message = result });

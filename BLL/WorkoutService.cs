@@ -105,7 +105,7 @@ namespace BLL
 			return message;
 		}
 
-		public async Task<string> EditWorkout(string newWorkoutName, int workoutID)
+		public async Task<string> EditWorkout(string newWorkoutName, int workoutID, string userId)
 		{
 			var message = "Alles is correct";
 			if (string.IsNullOrEmpty(newWorkoutName))
@@ -126,7 +126,7 @@ namespace BLL
 			}
 			else
 			{
-				await _workoutData.EditWorkouts(newWorkoutName, workoutID);
+				await _workoutData.EditWorkouts(newWorkoutName, workoutID, userId);
 			}
 			return message;
 		}

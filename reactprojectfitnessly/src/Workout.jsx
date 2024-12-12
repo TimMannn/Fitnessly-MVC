@@ -13,8 +13,9 @@ import axios from "axios";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './Workout.css';
-import * as jwt_decode from 'jwt-decode';
-
+import { jwtDecode } from 'jwt-decode' // import dependency
+// If using v3 or earlier, use this instead:
+// import jwtDecode from 'jwt-decode' // import dependency
 
 
 const CRUD = () => {
@@ -93,10 +94,18 @@ const CRUD = () => {
 
     const handleUpdate = () => {
         const token = localStorage.getItem('token');
+        if (!token) {
+            toast.error('No token found'); return;
+        } 
+            const decodedToken = jwtDecode(token);
+            const userId = decodedToken["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"];
+
+
         const url = `https://localhost:7187/api/Workout/${editID}`;
         const data = {
             "workoutId": editID,
-            "workoutName": editWorkout
+            "workoutName": editWorkout,
+            "userId" : userId
         };
 
         const clear = () => {
@@ -131,14 +140,17 @@ const CRUD = () => {
             });
     };
 
+
     const handleSave = () => {
         const token = localStorage.getItem('token');
         if (!token) {
             return; // Zorg ervoor dat er een token is
         }
 
-        const decodedToken = jwt_decode(token);
-        const userId = decodedToken.userId; // Pas aan op basis van je token structuur
+        const decodedToken = jwtDecode(token);
+        const userId = decodedToken["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"]; // Gebruik de juiste claim
+
+        console.log(decodedToken); // Controleer de inhoud van het gedecodeerde token
 
         const url = "https://localhost:7187/api/Workout";
         const data = {

@@ -11,7 +11,7 @@ namespace BLL
         Task<List<WorkoutDetails>> GetWorkouts(string userId);
         Task SendWorkoutsData(string workoutName, string userId);
         Task DeleteWorkouts(int ID);
-        Task EditWorkouts(string NewWorkoutName, int WorkoutID);
+        Task EditWorkouts(string NewWorkoutName, int WorkoutID, string userId);
         Task<WorkoutDetails> GetWorkout(int ID);
     }
 }

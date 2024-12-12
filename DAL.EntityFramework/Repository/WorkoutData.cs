@@ -45,20 +45,21 @@ namespace DAL.EntityFramework.Repository
             }
         }
 
-        // Bewerken in database
-        public async Task EditWorkouts(string newWorkoutName, int workoutID)
-        {
-            var workout = _context.Workouts.Find(workoutID);
-            if (workout != null)
-            {
-                workout.WorkoutName = newWorkoutName;
-                _context.Workouts.Update(workout);
-                await _context.SaveChangesAsync();
-            }
-        }
+		// Bewerken in database
+		public async Task EditWorkouts(string newWorkoutName, int workoutID, string userId)
+		{
+			var workout = await _context.Workouts
+				.FirstOrDefaultAsync(w => w.WorkoutId == workoutID && w.UserId == userId);
+			if (workout != null)
+			{
+				workout.WorkoutName = newWorkoutName;
+				_context.Workouts.Update(workout);
+				await _context.SaveChangesAsync();
+			}
+		}
 
-        // Haal specifieke workout op
-        public async Task<WorkoutDetails> GetWorkout(int workoutID)
+		// Haal specifieke workout op
+		public async Task<WorkoutDetails> GetWorkout(int workoutID)
         {
             var workout = _context.Workouts.FirstOrDefault(w => w.WorkoutId == workoutID);
             if (workout == null)
