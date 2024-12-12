@@ -23,8 +23,8 @@ body {
 }
 
 .navbar {
-    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2); /* Verhoogde schaduw voor duidelijkere zichtbaarheid */
-    z-index: 1; /* Zorgt ervoor dat de navbar boven andere elementen ligt */
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+    z-index: 1;
 }
 
 h2 {
@@ -32,31 +32,31 @@ h2 {
 }
 
 input[type="text"] {
-    width: 100%; /* Vul de beschikbare breedte */
+    width: 100%;
     padding: 0.75rem;
     box-sizing: border-box;
-    margin-top: 1rem; /* Verplaatst de marge naar boven */
-    margin-bottom: 0; /* Verwijdert de marge aan de onderkant */
+    margin-top: 1rem;
+    margin-bottom: 0;
     border: 1px solid #ced4da;
     border-radius: 4px;
 }
 
 button {
-    padding: 0.5rem 0.75rem; /* Comfortabele knoppadding */
-    margin: 0.2rem; /* Kleine marge tussen knoppen */
-    text-align: center; /* Zorgt ervoor dat de tekst in de knop centraal staat */
+    padding: 0.5rem 0.75rem;
+    margin: 0.2rem;
+    text-align: center;
     border: none;
     border-radius: 4px;
     cursor: pointer;
     color: #fff;
-    width: 100px; /* Vaste breedte voor de knoppen */
-    vertical-align: middle; /* Verticaal centreren */
+    width: 100px;
+    vertical-align: middle;
 }
 
     button.submit-btn {
         background-color: #3399ff;
         width: 150px;
-        margin-top: 1rem; /* Ruimte boven de submit button */
+        margin-top: 1rem; 
     }
 
         button.submit-btn:hover {
@@ -86,10 +86,10 @@ button {
         }
 
     button.logout-btn {
-        background-color: #3399ff; /* Lichtere blauwe kleur voor logout knop */
+        background-color: #3399ff; 
         border-color: #66b2ff;
         color: #fff;
-        width: 100px; /* Vaste breedte voor logout knop */
+        width: 100px;
         margin: 5px;
     }
 
@@ -98,33 +98,31 @@ button {
             border-color: #3399ff;
         }
 
-/* Gebruik de volledige breedte van het scherm */
 table.custom-table {
     width: 100%;
-    margin-top: 2rem; /* Ruimte boven de tabel */
-    border-collapse: collapse; /* Verwijdert dubbele randen */
-    text-align: center; /* Centraal uitlijnen van de tabelinhoud */
+    margin-top: 2rem; 
+    border-collapse: collapse; 
+    text-align: center; 
     border-radius: 12px;
-    background-color: #fff; /* Witte achtergrond voor contrast */
+    background-color: #fff; 
     overflow: hidden;
     box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
 }
 
     table.custom-table th,
     table.custom-table td {
-        padding: 0.25rem; /* Verkleinde padding voor kleinere rijen */
-        text-align: center; /* Tekst uitlijnen naar het midden */
-        border: 1px solid #dee2e6; /* Zachte rand voor beter zicht */
-        height: 1.5rem; /* Instellen van de hoogte van de rijen */
-        vertical-align: middle; /* Verticaal centreren */
+        padding: 0.25rem; 
+        text-align: center; 
+        border: 1px solid #dee2e6; 
+        height: 1.5rem;
+        vertical-align: middle;
     }
 
-    /* Specifieke stijl voor de header-rij */
     table.custom-table .header-row th {
-        background-color: #007bff; /* Blauwe achtergrondkleur voor header */
-        color: #fff; /* Witte tekstkleur */
-        font-size: 1.2rem; /* Grotere lettergrootte voor de header */
-        height: 2.5rem; /* Verhoogde rijhoogte voor de header */
+        background-color: #007bff; 
+        color: #fff;
+        font-size: 1.2rem; 
+        height: 2.5rem; 
     }
 
     table.custom-table th {
@@ -132,47 +130,46 @@ table.custom-table {
     }
 
         table.custom-table th:nth-child(1) {
-            width: 15%; /* Stel breedte in voor ID kolom */
+            width: 15%;
         }
 
         table.custom-table th:nth-child(2) {
-            width: 50%; /* Stel breedte in voor Workout kolom */
+            width: 50%;
         }
 
         table.custom-table th:nth-child(3) {
-            width: 35%; /* Stel breedte in voor Actions kolom */
+            width: 35%; 
         }
 
-    /* Specifieke stijl voor de rijen */
     table.custom-table tr:nth-child(even) td {
-        background-color: #b3d9ff; /* Lichtblauwe achtergrond voor even rijen */
+        background-color: #b3d9ff; 
     }
 
     table.custom-table tr:nth-child(odd) td {
-        background-color: #e6f2ff; /* Nog lichtere blauwe achtergrond voor oneven rijen */
+        background-color: #e6f2ff; 
     }
 
-/* Container voor inputfield en submit button */
+
 .container-row {
     display: flex;
-    flex-direction: column; /* Plaats items in een kolom */
-    justify-content: center; /* Centreer items horizontaal */
-    align-items: center; /* Centreer items verticaal */
-    gap: 0.5rem; /* Ruimte tussen inputfield en button */
-    margin-top: 2rem; /* Ruimte boven de inputfield */
-    width: 100%; /* Volledige breedte */
+    flex-direction: column; 
+    justify-content: center; 
+    align-items: center;
+    gap: 0.5rem; 
+    margin-top: 2rem; 
+    width: 100%; 
 }
 
     .container-row input[type="text"] {
-        flex: 1; /* Laat de input zoveel mogelijk ruimte innemen */
-        max-width: 400px; /* Maximale breedte voor de inputfield */
-        padding: 0.75rem; /* Padding voor een nette look */
-        text-align: center; /* Centreer tekst in de inputfield */
+        flex: 1;
+        max-width: 400px;
+        padding: 0.75rem; 
+        text-align: center; 
     }
 
     .container-row button.submit-btn {
         background-color: #3399ff;
         width: 200px;
-        margin-top: 1rem; /* Ruimte boven de submit button */
-        text-align: center; /* Centreer tekst in de button */
+        margin-top: 1rem; 
+        text-align: center;
     }

@@ -13,6 +13,9 @@ import axios from "axios";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './Workout.css';
+import * as jwt_decode from 'jwt-decode';
+
+
 
 const CRUD = () => {
     const [Workout, setWorkout] = useState('');
@@ -130,8 +133,16 @@ const CRUD = () => {
 
     const handleSave = () => {
         const token = localStorage.getItem('token');
+        if (!token) {
+            return; // Zorg ervoor dat er een token is
+        }
+
+        const decodedToken = jwt_decode(token);
+        const userId = decodedToken.userId; // Pas aan op basis van je token structuur
+
         const url = "https://localhost:7187/api/Workout";
         const data = {
+            "userId": userId,
             "workoutName": Workout
         };
 
@@ -161,6 +172,7 @@ const CRUD = () => {
                 errorMessages.forEach(msg => toast.error(msg));
             });
     };
+
 
     const handleLogout = () => {
         const token = localStorage.getItem('token');

@@ -29,7 +29,7 @@ namespace DAL.EntityFramework.Repository
         public async Task SendWorkoutsData(string workoutName, string userId)
         {
             Console.WriteLine("ik ben zelfs in de DAL laag gekomen");
-            var workout = new DALModels.Workout { WorkoutName = workoutName };
+            var workout = new DALModels.Workout { WorkoutName = workoutName, UserId = userId };
             _context.Workouts.Add(workout);
             await _context.SaveChangesAsync();
         }

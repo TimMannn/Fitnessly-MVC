@@ -67,10 +67,7 @@ namespace BLL
 			}
 		}
 
-
-
-
-		public async Task<string> SendWorkouts(string workoutName)
+		public async Task<string> SendWorkouts(string workoutName, string userId)
 		{
 			var message = "Alles is correct";
 			if (string.IsNullOrEmpty(workoutName))
@@ -87,15 +84,11 @@ namespace BLL
 			}
 			else
 			{
-				var user = await _userManager.GetUserAsync(_httpContextAccessor.HttpContext.User);
-				if (user == null)
-				{
-					throw new InvalidOperationException("User not found");
-				}
-				await _workoutData.SendWorkoutsData(workoutName, user.Id);
+				await _workoutData.SendWorkoutsData(workoutName, userId);
 			}
 			return message;
 		}
+			
 
 		public async Task<string> DeleteWorkouts(int ID)
 		{

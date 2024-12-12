@@ -28,7 +28,7 @@ public class AccountController : ControllerBase
 	public async Task<IActionResult> Login([FromBody] LoginModel model)
 	{
 		Console.WriteLine("Login API");
-		var token = await _accountService.LoginAsync(model); // Gebruik de gegenereerde token
+		var token = await _accountService.LoginAsync(model); 
 		if (token == "Invalid login attempt")
 		{
 			Console.WriteLine("Login API Fail");

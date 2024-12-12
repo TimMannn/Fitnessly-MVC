@@ -1,4 +1,5 @@
 ﻿using BLL;
+using BLL.Models;
 using DALModels = DAL.EntityFramework.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
@@ -8,8 +9,8 @@ using System;
 
 namespace Web_api.Controllers
 {
-	[Route("api/[controller]")]
 	[ApiController]
+	[Route("api/[controller]")]
 	public class WorkoutController : ControllerBase
 	{
 		private readonly WorkoutService _workoutService;
@@ -24,7 +25,7 @@ namespace Web_api.Controllers
 		{
 			try
 			{
-				var workouts = await _workoutService.GetWorkouts(); // Voeg async/await toe
+				var workouts = await _workoutService.GetWorkouts(); 
 				return Ok(workouts);
 			}
 			catch (Exception ex)
@@ -37,7 +38,7 @@ namespace Web_api.Controllers
 		[HttpGet("{id}")]
 		public async Task<ActionResult<DALModels.Workout>> GetWorkout(int id)
 		{
-			var workout = await _workoutService.GetWorkout(id); // Voeg async/await toe
+			var workout = await _workoutService.GetWorkout(id); 
 			if (workout == null)
 			{
 				return NotFound();
@@ -47,22 +48,21 @@ namespace Web_api.Controllers
 		}
 
 		[HttpPost]
-		public async Task<ActionResult<DALModels.Workout>> PostWorkout(DALModels.Workout workout)
+		public async Task<ActionResult<DALModels.Workout>> PostWorkout([FromBody] AddWorkoutModel request)
 		{
-			Console.WriteLine("Hoiii");
 			if (!ModelState.IsValid)
 			{
 				var errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage).ToList();
 				return BadRequest(new { messages = errors });
 			}
-			Console.WriteLine("1");
-			var result = await _workoutService.SendWorkouts(workout.WorkoutName);
+
+			var result = await _workoutService.SendWorkouts(request.WorkoutName, request.UserId);
 			if (result != "Alles is correct")
 			{
 				return BadRequest(new { message = result });
 			}
-			Console.WriteLine("2");
-			return CreatedAtAction(nameof(GetWorkout), new { id = workout.WorkoutId }, workout);
+
+			return CreatedAtAction(nameof(GetWorkout), new { id = request.UserId }, request);
 		}
 
 		[HttpPut("{id}")]
@@ -91,8 +91,9 @@ namespace Web_api.Controllers
 		[HttpDelete("{id}")]
 		public async Task<ActionResult> DeleteWorkout(int id)
 		{
-			await _workoutService.DeleteWorkouts(id); 
+			await _workoutService.DeleteWorkouts(id);
 			return Ok();
 		}
 	}
+
 }

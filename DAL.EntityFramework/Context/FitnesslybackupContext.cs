@@ -1,52 +1,41 @@
 ﻿using System;
 using System.Collections.Generic;
+using DAL.EntityFramework.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Pomelo.EntityFrameworkCore.MySql.Scaffolding.Internal;
-using DAL.EntityFramework.Models;
 
 namespace DAL.EntityFramework.Context;
 
 public partial class FitnesslybackupContext : IdentityDbContext<IdentityUser, IdentityRole, string, IdentityUserClaim<string>, IdentityUserRole<string>, IdentityUserLogin<string>, IdentityRoleClaim<string>, IdentityUserToken<string>>
 {
-	public FitnesslybackupContext()
-	{
-	}
-
 	public FitnesslybackupContext(DbContextOptions<FitnesslybackupContext> options)
 		: base(options)
 	{
 	}
 
+	public DbSet<IdentityUser> IdentityUsers { get; set; }
+	public DbSet<IdentityRole> IdentityRoles { get; set; }
+	public DbSet<IdentityUserClaim<string>> IdentityUserClaims { get; set; }
+	public DbSet<IdentityUserRole<string>> IdentityUserRoles { get; set; }
+	public DbSet<IdentityUserLogin<string>> IdentityUserLogins { get; set; }
+	public DbSet<IdentityRoleClaim<string>> IdentityRoleClaims { get; set; }
+	public DbSet<IdentityUserToken<string>> IdentityUserTokens { get; set; }
 	public virtual DbSet<Aspnetrole> Aspnetroles { get; set; }
-
 	public virtual DbSet<Aspnetroleclaim> Aspnetroleclaims { get; set; }
-
 	public virtual DbSet<Aspnetuser> Aspnetusers { get; set; }
-
 	public virtual DbSet<Aspnetuserclaim> Aspnetuserclaims { get; set; }
-
 	public virtual DbSet<Aspnetuserlogin> Aspnetuserlogins { get; set; }
-
 	public virtual DbSet<Aspnetusertoken> Aspnetusertokens { get; set; }
-
 	public virtual DbSet<Efmigrationshistory> Efmigrationshistories { get; set; }
-
 	public virtual DbSet<Exercise> Exercises { get; set; }
-
 	public virtual DbSet<Workout> Workouts { get; set; }
-
 	public virtual DbSet<Workoutexercise> Workoutexercises { get; set; }
-
 	public virtual DbSet<Workoutsessie> Workoutsessies { get; set; }
-
 	public virtual DbSet<Workoutsessieexercise> Workoutsessieexercises { get; set; }
-
 	public virtual DbSet<Workoutsessieexerciseworkoutsessiestat> Workoutsessieexerciseworkoutsessiestats { get; set; }
-
 	public virtual DbSet<Workoutsessiestat> Workoutsessiestats { get; set; }
-
 	public virtual DbSet<Workoutsessieworkoutsessieexercise> Workoutsessieworkoutsessieexercises { get; set; }
 
 	protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -56,19 +45,15 @@ public partial class FitnesslybackupContext : IdentityDbContext<IdentityUser, Id
 	protected override void OnModelCreating(ModelBuilder modelBuilder)
 	{
 		base.OnModelCreating(modelBuilder);
-		modelBuilder.Entity<IdentityUserLogin<string>>(entity =>
-		{
-			entity.HasKey(e => new { e.LoginProvider, e.ProviderKey });
-		});
 
 		modelBuilder.Entity<IdentityUserRole<string>>(entity =>
 		{
 			entity.HasKey(e => new { e.UserId, e.RoleId });
 		});
 
-		modelBuilder.Entity<IdentityUserToken<string>>(entity =>
+		modelBuilder.Entity<IdentityUserLogin<string>>(entity =>
 		{
-			entity.HasKey(e => new { e.UserId, e.LoginProvider, e.Name });
+			entity.HasKey(e => new { e.LoginProvider, e.ProviderKey });
 		});
 
 		modelBuilder
@@ -93,16 +78,16 @@ public partial class FitnesslybackupContext : IdentityDbContext<IdentityUser, Id
 
 			entity.ToTable("aspnetroleclaims");
 
-			entity.HasIndex(e => e.RoleId, "RoleId");
+			entity.HasIndex(e => e.RoleId, "FK_AspNetRoleClaims_AspNetRoles_RoleId");
 
 			entity.Property(e => e.Id).HasColumnType("int(11)");
-			entity.Property(e => e.ClaimType).HasMaxLength(256);
-			entity.Property(e => e.ClaimValue).HasMaxLength(256);
-			entity.Property(e => e.RoleId).HasMaxLength(128);
+			entity.Property(e => e.ClaimType).HasColumnType("text");
+			entity.Property(e => e.ClaimValue).HasColumnType("text");
+			entity.Property(e => e.RoleId).HasMaxLength(191);
 
 			entity.HasOne(d => d.Role).WithMany(p => p.Aspnetroleclaims)
 				.HasForeignKey(d => d.RoleId)
-				.HasConstraintName("aspnetroleclaims_ibfk_1");
+				.HasConstraintName("FK_AspNetRoleClaims_AspNetRoles_RoleId");
 		});
 
 		modelBuilder.Entity<Aspnetuser>(entity =>
@@ -113,24 +98,18 @@ public partial class FitnesslybackupContext : IdentityDbContext<IdentityUser, Id
 
 			entity.Property(e => e.Id).HasMaxLength(450);
 			entity.Property(e => e.AccessFailedCount).HasColumnType("int(11)");
-			entity.Property(e => e.ConcurrencyStamp).HasMaxLength(255);
+			entity.Property(e => e.ConcurrencyStamp).HasColumnType("text");
 			entity.Property(e => e.Email).HasMaxLength(256);
 			entity.Property(e => e.EmailConfirmed).HasColumnType("bit(1)");
-			entity.Property(e => e.LockoutEnabled)
-				.HasDefaultValueSql("b'0'")
-				.HasColumnType("bit(1)");
+			entity.Property(e => e.LockoutEnabled).HasColumnType("bit(1)");
 			entity.Property(e => e.LockoutEnd).HasColumnType("datetime");
 			entity.Property(e => e.NormalizedEmail).HasMaxLength(256);
 			entity.Property(e => e.NormalizedUserName).HasMaxLength(256);
 			entity.Property(e => e.PasswordHash).HasColumnType("text");
-			entity.Property(e => e.PhoneNumber).HasMaxLength(255);
-			entity.Property(e => e.PhoneNumberConfirmed)
-				.HasDefaultValueSql("b'0'")
-				.HasColumnType("bit(1)");
-			entity.Property(e => e.SecurityStamp).HasMaxLength(255);
-			entity.Property(e => e.TwoFactorEnabled)
-				.HasDefaultValueSql("b'0'")
-				.HasColumnType("bit(1)");
+			entity.Property(e => e.PhoneNumber).HasColumnType("text");
+			entity.Property(e => e.PhoneNumberConfirmed).HasColumnType("bit(1)");
+			entity.Property(e => e.SecurityStamp).HasColumnType("text");
+			entity.Property(e => e.TwoFactorEnabled).HasColumnType("bit(1)");
 			entity.Property(e => e.UserName).HasMaxLength(256);
 
 			entity.HasMany(d => d.Roles).WithMany(p => p.Users)
@@ -138,19 +117,19 @@ public partial class FitnesslybackupContext : IdentityDbContext<IdentityUser, Id
 					"Aspnetuserrole",
 					r => r.HasOne<Aspnetrole>().WithMany()
 						.HasForeignKey("RoleId")
-						.HasConstraintName("aspnetuserroles_ibfk_2"),
+						.HasConstraintName("FK_AspNetUserRoles_AspNetRoles_RoleId"),
 					l => l.HasOne<Aspnetuser>().WithMany()
 						.HasForeignKey("UserId")
-						.HasConstraintName("aspnetuserroles_ibfk_1"),
+						.HasConstraintName("FK_AspNetUserRoles_AspNetUsers_UserId"),
 					j =>
 					{
 						j.HasKey("UserId", "RoleId")
 							.HasName("PRIMARY")
 							.HasAnnotation("MySql:IndexPrefixLength", new[] { 0, 0 });
 						j.ToTable("aspnetuserroles");
-						j.HasIndex(new[] { "RoleId" }, "RoleId");
-						j.IndexerProperty<string>("UserId").HasMaxLength(128);
-						j.IndexerProperty<string>("RoleId").HasMaxLength(128);
+						j.HasIndex(new[] { "RoleId" }, "FK_AspNetUserRoles_AspNetRoles_RoleId");
+						j.IndexerProperty<string>("UserId").HasMaxLength(191);
+						j.IndexerProperty<string>("RoleId").HasMaxLength(191);
 					});
 		});
 
@@ -160,16 +139,16 @@ public partial class FitnesslybackupContext : IdentityDbContext<IdentityUser, Id
 
 			entity.ToTable("aspnetuserclaims");
 
-			entity.HasIndex(e => e.UserId, "UserId");
+			entity.HasIndex(e => e.UserId, "FK_AspNetUserClaims_AspNetUsers_UserId");
 
 			entity.Property(e => e.Id).HasColumnType("int(11)");
-			entity.Property(e => e.ClaimType).HasMaxLength(256);
-			entity.Property(e => e.ClaimValue).HasMaxLength(256);
-			entity.Property(e => e.UserId).HasMaxLength(128);
+			entity.Property(e => e.ClaimType).HasColumnType("text");
+			entity.Property(e => e.ClaimValue).HasColumnType("text");
+			entity.Property(e => e.UserId).HasMaxLength(191);
 
 			entity.HasOne(d => d.User).WithMany(p => p.Aspnetuserclaims)
 				.HasForeignKey(d => d.UserId)
-				.HasConstraintName("aspnetuserclaims_ibfk_1");
+				.HasConstraintName("FK_AspNetUserClaims_AspNetUsers_UserId");
 		});
 
 		modelBuilder.Entity<Aspnetuserlogin>(entity =>
@@ -180,16 +159,16 @@ public partial class FitnesslybackupContext : IdentityDbContext<IdentityUser, Id
 
 			entity.ToTable("aspnetuserlogins");
 
-			entity.HasIndex(e => e.UserId, "UserId");
+			entity.HasIndex(e => e.UserId, "FK_AspNetUserLogins_AspNetUsers_UserId");
 
-			entity.Property(e => e.LoginProvider).HasMaxLength(128);
-			entity.Property(e => e.ProviderKey).HasMaxLength(128);
-			entity.Property(e => e.ProviderDisplayName).HasMaxLength(256);
-			entity.Property(e => e.UserId).HasMaxLength(128);
+			entity.Property(e => e.LoginProvider).HasMaxLength(191);
+			entity.Property(e => e.ProviderKey).HasMaxLength(191);
+			entity.Property(e => e.ProviderDisplayName).HasColumnType("text");
+			entity.Property(e => e.UserId).HasMaxLength(191);
 
 			entity.HasOne(d => d.User).WithMany(p => p.Aspnetuserlogins)
 				.HasForeignKey(d => d.UserId)
-				.HasConstraintName("aspnetuserlogins_ibfk_1");
+				.HasConstraintName("FK_AspNetUserLogins_AspNetUsers_UserId");
 		});
 
 		modelBuilder.Entity<Aspnetusertoken>(entity =>
@@ -200,14 +179,14 @@ public partial class FitnesslybackupContext : IdentityDbContext<IdentityUser, Id
 
 			entity.ToTable("aspnetusertokens");
 
-			entity.Property(e => e.UserId).HasMaxLength(128);
-			entity.Property(e => e.LoginProvider).HasMaxLength(128);
-			entity.Property(e => e.Name).HasMaxLength(128);
-			entity.Property(e => e.Value).HasMaxLength(256);
+			entity.Property(e => e.UserId).HasMaxLength(191);
+			entity.Property(e => e.LoginProvider).HasMaxLength(191);
+			entity.Property(e => e.Name).HasMaxLength(191);
+			entity.Property(e => e.Value).HasColumnType("text");
 
 			entity.HasOne(d => d.User).WithMany(p => p.Aspnetusertokens)
 				.HasForeignKey(d => d.UserId)
-				.HasConstraintName("aspnetusertokens_ibfk_1");
+				.HasConstraintName("FK_AspNetUserTokens_AspNetUsers_UserId");
 		});
 
 		modelBuilder.Entity<Efmigrationshistory>(entity =>
@@ -253,6 +232,9 @@ public partial class FitnesslybackupContext : IdentityDbContext<IdentityUser, Id
 			entity.Property(e => e.WorkoutId)
 				.HasColumnType("int(11)")
 				.HasColumnName("workout_id");
+			entity.Property(e => e.UserId)
+				.HasMaxLength(255)
+				.HasDefaultValueSql("''");
 			entity.Property(e => e.WorkoutName)
 				.HasMaxLength(50)
 				.HasColumnName("workout_name");

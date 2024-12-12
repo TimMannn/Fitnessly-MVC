@@ -21,20 +21,20 @@ body {
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 350px; /* Maak het formulier breder */
+    width: 350px; 
     text-align: center;
     position: relative;
 }
 
 .register-header {
-    background-color: #007bff; /* Blauwe achtergrondkleur */
-    color: #fff; /* Witte tekstkleur */
-    padding: 10px; /* Padding boven en onder de tekst */
-    border-radius: 8px 8px 0 0; /* Alleen de bovenste hoeken afronden */
+    background-color: #007bff; 
+    color: #fff; 
+    padding: 10px; 
+    border-radius: 8px 8px 0 0; 
     box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
-    width: calc(100% + 40px); /* Volledige breedte inclusief de padding van de container */
-    margin: -20px -20px 20px -20px; /* Negatieve marges om de padding van de container te compenseren */
-    text-align: center; /* Tekst centreren */
+    width: calc(100% + 40px);
+    margin: -20px -20px 20px -20px; 
+    text-align: center; 
     justify-content: center;
 }
 
@@ -53,7 +53,7 @@ body {
     }
 
     .form-group input {
-        width: calc(100% - 16px); /* Zorg voor correcte breedte */
+        width: calc(100% - 16px); 
         padding: 8px;
         box-sizing: border-box;
         border: 1px solid #ccc;
@@ -61,14 +61,14 @@ body {
     }
 
 .btn {
-    width: 100%; /* Zorg ervoor dat de breedte van de knop de volledige breedte van de container bedekt */
+    width: 100%;
     padding: 10px;
     border: none;
     border-radius: 4px;
     background-color: #007bff;
     color: #fff;
     cursor: pointer;
-    margin: 10px 0 0 0; /* Verwijder extra marge aan de linker kant */
+    margin: 10px 0 0 0; 
 }
 
     .btn:hover {

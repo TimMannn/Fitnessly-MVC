@@ -5,7 +5,7 @@ body {
     height: 100vh;
     margin: 0;
     background-color: #f5f5f5;
-    font-family: 'Roboto', sans-serif; /* Gebruik een modernere lettertype */
+    font-family: 'Roboto', sans-serif; 
 }
 
 .login-container {
@@ -21,26 +21,26 @@ body {
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 350px; /* Maak het formulier breder */
+    width: 350px; 
     text-align: center;
-    position: relative; /* Zorg ervoor dat de header zich binnen de container bevindt */
+    position: relative; 
 }
 
 .login-header {
-    background-color: #007bff; /* Blauwe achtergrondkleur */
-    color: #fff; /* Witte tekstkleur */
-    padding: 10px; /* Padding boven en onder de tekst */
-    border-radius: 8px 8px 0 0; /* Alleen de bovenste hoeken afronden */
+    background-color: #007bff; 
+    color: #fff; 
+    padding: 10px;
+    border-radius: 8px 8px 0 0; 
     box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
-    width: calc(100% + 40px); /* Volledige breedte inclusief de padding van de container */
-    margin: -20px -20px 20px -20px; /* Negatieve marges om de padding van de container te compenseren */
-    text-align: center; /* Tekst centreren */
+    width: calc(100% + 40px); 
+    margin: -20px -20px 20px -20px; 
+    text-align: center; 
     justify-content: center;
 }
 
 .login-form h2 {
-    margin: 0; /* Verwijder marges van de h2 */
-    padding: 0; /* Verwijder padding van de h2 */
+    margin: 0; 
+    padding: 0; 
 }
 
 .form-group {
@@ -68,12 +68,12 @@ body {
 
     .remember-me input {
         margin-right: 10px;
-        margin-left: 0; /* Zorg dat de checkbox even ver links begint als de input velden */
+        margin-left: 0; 
     }
 
     .remember-me label {
-        margin: 0; /* Zorg ervoor dat het label naast de checkbox staat */
-        padding-left: 5px; /* Voeg wat padding toe voor een betere uitlijning */
+        margin: 0;
+        padding-left: 5px; 
     }
 
 .btn {

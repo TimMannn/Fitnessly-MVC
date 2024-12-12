@@ -26,7 +26,7 @@ const Login = () => {
             navigate("/workout");
         } catch (error) {
             console.error('Error details:', error.response);
-            setMessage('Login failed');
+            setMessage('Username or password is incorrect');
         }
     };
 
