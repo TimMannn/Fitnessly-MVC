@@ -2,7 +2,7 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 COPY ["Webapi.csproj", "."]
 COPY ["BLL/BLL.csproj", "BLL/"]
-COPY ["DAL.EntityFramework/DAL.EntityFramework.csproj", "DAL.EntityFramework/"]
+COPY ./DAL.EntityFramework/DAL.EntityFramework.csproj ./DAL.EntityFramework/
 RUN dotnet restore "Webapi.csproj"
 COPY . .
 WORKDIR "/src"
