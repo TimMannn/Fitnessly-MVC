@@ -6,12 +6,12 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm install
 
-# Kopieer de volledige inhoud van de map en voer de build uit
+# Kopieer de volledige inhoud van de map en voer de development build uit
 COPY . .
-RUN echo "Building the project..." && npm run build
+RUN npm run dev
 
 # Gebruik een Nginx image om de app te serven
 FROM nginx:alpine
-COPY --from=build /app/dist /usr/share/nginx/html
+COPY --from=build /app /usr/share/nginx/html
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
