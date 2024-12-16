@@ -69,7 +69,7 @@ jobs:
 
       # Build frontend project
       - name: Build frontend
-        run: CI='' npm run build
+        run: npm run build
         working-directory: ./reactprojectfitnessly
 
       # Setup Docker Buildx
