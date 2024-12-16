@@ -53,6 +53,10 @@ jobs:
       - name: Check npm version
         run: npm --version
 
+      # Set environment variable for CI
+      - name: Set environment variable for CI
+        run: echo "CI=true" >> $GITHUB_ENV
+
       # Install frontend dependencies
       - name: Install dependencies
         run: npm install
@@ -83,6 +87,7 @@ jobs:
       - name: Build and push backend image
         uses: docker/build-push-action@v2
         with:
+          context: .
           dockerfile: Dockerfile
           push: true
           tags: timverbakel/fitnessly-backend:latest
@@ -91,7 +96,7 @@ jobs:
       - name: Build and push frontend image
         uses: docker/build-push-action@v2
         with:
-          context: "./reactprojectfitnessly"
+          context: ./reactprojectfitnessly
           dockerfile: Dockerfile
           push: true
           tags: timverbakel/fitnessly-frontend:latest
@@ -108,5 +113,5 @@ jobs:
 
       # Run tests
       - name: Run tests
-        run: |
-          docker ps
+        run: docker ps
+        # Voeg hier je testcommando's toe
