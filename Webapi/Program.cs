@@ -16,6 +16,13 @@ using Microsoft.Extensions.DependencyInjection;
 var builder = WebApplication.CreateBuilder(args);
 var key = Encoding.ASCII.GetBytes("MySuperSecretKeyForJWT2024!ExtraLongKey123");
 
+// Laad de appsettings.json en omgevingsspecifieke configuratiebestanden
+builder.Configuration.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+					 .AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json", optional: true, reloadOnChange: true);
+
+// Voeg andere configuratiebronnen toe (indien nodig)
+builder.Configuration.AddEnvironmentVariables();
+
 builder.Services.AddControllers();
 
 builder.Services.AddEndpointsApiExplorer();
