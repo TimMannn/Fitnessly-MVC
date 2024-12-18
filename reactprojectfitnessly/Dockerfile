@@ -11,9 +11,8 @@ RUN npm install
 # Copy the entire project to the working directory
 COPY . .
 
-# Ensure the dist directory will be available after npm run build
-# This step is only to ensure the dist directory is created in the CI pipeline
-RUN mkdir -p /app/dist
+# Build the project
+RUN npm run build
 
 # Stage 2: Use nginx image to serve the build
 FROM nginx:alpine
