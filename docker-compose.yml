@@ -20,17 +20,32 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ConnectionStrings__DefaultConnection=Server=db;Database=fitnesslybackup;User=root;
+      - DOTNET_RUNNING_IN_CONTAINER=true
+      - DOTNET_USE_POLLING_FILE_WATCHER=true
+      - ASPNETCORE_URLS=http://+:7187
     ports:
-      - "5001:80"
+      - "7187:7187"
 
   frontend:
     build:
       context: ./reactprojectfitnessly
       dockerfile: Dockerfile
-    ports:
-      - "3000:8080"
+    expose:
+      - "80"
     depends_on:
       - backend
+
+  nginx:
+    image: nginx:latest
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./certificates:/etc/nginx/certificates
+    depends_on:
+      - backend
+      - frontend
 
 volumes:
   db_data:

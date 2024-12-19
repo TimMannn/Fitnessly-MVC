@@ -24,5 +24,6 @@ RUN dotnet publish "Webapi.csproj" -c Release -o /app/publish
 # Gebruik de ASP.NET runtime image voor de uiteindelijke container
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS final
 WORKDIR /app
+EXPOSE 7187
 COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "Webapi.dll"]
