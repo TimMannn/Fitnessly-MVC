@@ -13,10 +13,9 @@ import axios from "axios";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './Workout.css';
-import { jwtDecode } from 'jwt-decode' // import dependency
-// If using v3 or earlier, use this instead:
-// import jwtDecode from 'jwt-decode' // import dependency
-
+import { FaSignOutAlt } from 'react-icons/fa';
+import { IoIosAddCircle } from "react-icons/io";
+import { jwtDecode } from 'jwt-decode'
 
 const CRUD = () => {
     const [Workout, setWorkout] = useState('');
@@ -25,9 +24,13 @@ const CRUD = () => {
     const [data, setData] = useState([]);
     const navigate = useNavigate();
 
-    const [show, setShow] = useState(false);
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
+    const [showAdd, setShowAdd] = useState(false);
+    const handleCloseAdd = () => setShowAdd(false);
+    const handleShowAdd = () => setShowAdd(true);
+
+    const [showEdit, setShowEdit] = useState(false);
+    const handleCloseEdit = () => setShowEdit(false);
+    const handleShowEdit = () => setShowEdit(true);
 
     useEffect(() => {
         getData();
@@ -53,7 +56,7 @@ const CRUD = () => {
 
     const handleEdit = (ID) => {
         const token = localStorage.getItem('token');
-        handleShow();
+        handleShowEdit();
         axios.get(`https://localhost:7187/api/Workout/${ID}`, {
             headers: {
                 'Authorization': `Bearer ${token}`
@@ -96,16 +99,15 @@ const CRUD = () => {
         const token = localStorage.getItem('token');
         if (!token) {
             toast.error('No token found'); return;
-        } 
-            const decodedToken = jwtDecode(token);
-            const userId = decodedToken["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"];
-
+        }
+        const decodedToken = jwtDecode(token);
+        const userId = decodedToken["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"];
 
         const url = `https://localhost:7187/api/Workout/${editID}`;
         const data = {
             "workoutId": editID,
             "workoutName": editWorkout,
-            "userId" : userId
+            "userId": userId
         };
 
         const clear = () => {
@@ -128,7 +130,7 @@ const CRUD = () => {
                 if (response.status === 200) {
                     getData();
                     clear();
-                    handleClose();
+                    handleCloseEdit();
                     toast.success('Workout has been updated');
                 } else {
                     toast.error(`Error updating workout: ${response.data.message}`);
@@ -140,7 +142,6 @@ const CRUD = () => {
                 errorMessages.forEach(msg => toast.error(msg));
             });
     };
-
 
     const handleSave = () => {
         const token = localStorage.getItem('token');
@@ -174,7 +175,7 @@ const CRUD = () => {
                 if (response.status === 201) {
                     getData();
                     clear();
-                    handleClose();
+                    handleCloseAdd();
                     toast.success('Workout has been added');
                 } else {
                     toast.error(`Error adding workout: ${response.data.message}`);
@@ -185,7 +186,6 @@ const CRUD = () => {
                 errorMessages.forEach(msg => toast.error(msg));
             });
     };
-
 
     const handleLogout = () => {
         const token = localStorage.getItem('token');
@@ -213,6 +213,7 @@ const CRUD = () => {
         navigate(`/exercise/${workoutId}`, { state: { token: token } });
     };
 
+
     return (
         <Fragment>
             <ToastContainer />
@@ -220,25 +221,15 @@ const CRUD = () => {
                 <Container>
                     <Navbar.Brand href="#home">Fitnessly</Navbar.Brand>
                     <Nav className="ml-auto">
-                        <Button variant="outline-light" className="logout-btn" onClick={handleLogout}>Logout</Button>
+                        <Button variant="outline-light" className="logout-btn" onClick={handleLogout}>
+                            Logout <FaSignOutAlt />
+                        </Button>
                     </Nav>
                 </Container>
             </Navbar>
             <Container fluid>
-                <Row className="container-row mt-3 justify-content-center">
-                    <Col xs={12} sm={8} md={6} lg={4} xl={3} className="mx-auto text-center">
-                        <input
-                            type="text"
-                            className="form-control"
-                            placeholder="Enter workout name"
-                            value={Workout}
-                            onChange={(e) => setWorkout(e.target.value)}
-                            minLength={3}
-                            maxLength={50}
-                            required
-                        />
-                        <Button className="btn submit-btn mt-3" onClick={handleSave}>Submit</Button>
-                    </Col>
+                <Row className="toevoegen">
+                    <Button className="btn submit-btn" onClick={handleShowAdd}>Toevoegen <IoIosAddCircle /></Button>
                 </Row>
             </Container>
             <br />
@@ -269,12 +260,36 @@ const CRUD = () => {
                             </tr>
                         )}
                     </tbody>
-
                 </Table>
             </Container>
-            <Modal show={show} onHide={handleClose}>
+            <Modal show={showAdd} onHide={handleCloseAdd}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Change Workout</Modal.Title>
+                    <Modal.Title>Nieuwe Workout Toevoegen</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <Row>
+                        <Col>
+                            <input
+                                type="text"
+                                className="form-control"
+                                placeholder="Enter workout name"
+                                value={Workout}
+                                onChange={(e) => setWorkout(e.target.value)}
+                                minLength={3}
+                                maxLength={50}
+                                required
+                            />
+                        </Col>
+                    </Row>
+                </Modal.Body>
+                <Modal.Footer className="menu-footer">
+                    <Button className="btn menu-btn" onClick={handleCloseAdd}>Cancel</Button>
+                    <Button className="btn menu-btn" onClick={handleSave}>Save Changes</Button>
+                </Modal.Footer>
+            </Modal>
+            <Modal show={showEdit} onHide={handleCloseEdit}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Workout Bewerken</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <Row>
@@ -292,9 +307,9 @@ const CRUD = () => {
                         </Col>
                     </Row>
                 </Modal.Body>
-                <Modal.Footer>
-                    <Button variant="secondary" onClick={handleClose}>Close</Button>
-                    <Button variant="primary" onClick={handleUpdate}>Save Changes</Button>
+                <Modal.Footer className="menu-footer">
+                    <Button className="btn menu-btn" onClick={handleCloseEdit}>Cancel</Button>
+                    <Button className="btn menu-btn" onClick={handleUpdate}>Save Changes</Button>
                 </Modal.Footer>
             </Modal>
         </Fragment>

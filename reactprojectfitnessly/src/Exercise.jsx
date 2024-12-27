@@ -13,9 +13,9 @@ import axios from "axios";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './Exercise.css';
-import { FaArrowLeft } from 'react-icons/fa'
+import { FaArrowLeft, FaSignOutAlt } from 'react-icons/fa'
+import { IoIosAddCircle } from "react-icons/io";
 import { jwtDecode } from 'jwt-decode'
-
 
 
 const Exercise = () => {
@@ -235,16 +235,14 @@ const Exercise = () => {
                 <Container>
                     <Navbar.Brand href="#home">Fitnessly</Navbar.Brand>
                     <Nav className="ml-auto">
-                        <Button variant="outline-light" className="logout-btn" onClick={handleLogout}>Logout</Button>
+                        <Button variant="outline-light" className="logout-btn" onClick={handleLogout}>Logout <FaSignOutAlt /></Button>
                     </Nav>
                 </Container>
             </Navbar>
             <Container fluid>
                 <Button className="btn back-btn" onClick={handleBack}> <FaArrowLeft /> Terug </Button>
-                <Row className="container-row mt-3 justify-content-center">
-                    <Col xs={12} sm={8} md={6} lg={4} xl={3} className="mx-auto text-center">
-                        <Button className="btn submit-btn mt-3" onClick={handleShowAdd}>Toevoegen</Button>
-                    </Col>
+                <Row className="toevoegen">
+                    <Button className="btn submit-btn" onClick={handleShowAdd}>Toevoegen <IoIosAddCircle /></Button>
                 </Row>
             </Container>
             <br />
@@ -339,9 +337,9 @@ const Exercise = () => {
                         </Col>
                     </Row>
                 </Modal.Body>
-                <Modal.Footer>
-                    <Button variant="secondary" onClick={handleCloseAdd}>Close</Button>
-                    <Button variant="primary" onClick={handleSave}>Save Changes</Button>
+                <Modal.Footer className="menu-footer">
+                    <Button className="btn menu-btn" onClick={handleCloseAdd}>Cancel</Button>
+                    <Button className="btn menu-btn" onClick={handleSave}>Toevoegen</Button>
                 </Modal.Footer>
             </Modal>
             <Modal show={showEdit} onHide={handleCloseEdit}>
@@ -400,9 +398,9 @@ const Exercise = () => {
                         </Col>
                     </Row>
                 </Modal.Body>
-                <Modal.Footer>
-                    <Button variant="secondary" onClick={handleCloseEdit}>Close</Button>
-                    <Button variant="primary" onClick={handleUpdate}>Save Changes</Button>
+                <Modal.Footer className="menu-footer">
+                    <Button className="btn menu-btn" onClick={handleCloseEdit}>Cancel</Button>
+                    <Button className="btn menu-btn" onClick={handleUpdate}>Save Changes</Button>
                 </Modal.Footer>
             </Modal>
         </Fragment>

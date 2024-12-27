@@ -56,7 +56,8 @@ button {
     button.submit-btn {
         background-color: #3399ff;
         width: 150px;
-        margin-top: 1rem; 
+        margin-top: 1rem;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
 
         button.submit-btn:hover {
@@ -98,10 +99,26 @@ button {
             border-color: #3399ff;
         }
 
+    .menu-footer {
+        justify-content: center;
+    }
+
+    .toevoegen {
+        justify-content: right;
+        margin-top: 10px;
+        margin-right: 5%;
+    }
+
+    button.menu-btn {
+        text-align: center;
+        width: 200px;
+        margin: 10px;
+    }
+
 table.custom-table {
     width: 90%;
     margin: auto;
-    margin-top: 2rem;
+    margin-top: 1rem;
     border-collapse: collapse;
     text-align: center;
     border-radius: 12px;
