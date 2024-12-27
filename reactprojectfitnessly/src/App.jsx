@@ -21,9 +21,11 @@ function App() {
                     <Route path="/register" element={<Register />} />
 
                     {/* Route voor workout - beveiligd met authenticatie */}
-                    <Route path="/workout" element={isAuthenticated() ? <CRUD /> : <Navigate to="/Workout" />} />
+                    <Route path="/workout" element={isAuthenticated() ? <CRUD /> : <Navigate to="/login" />} />
 
-                    <Route path="/exercise" element={isAuthenticated() ? <Exercise /> : <Navigate to="/Exercise" />} />
+                    {/* Route voor exercise met workoutId als parameter - beveiligd met authenticatie */}
+                    <Route path="/exercise/:workoutId" element={isAuthenticated() ? <Exercise /> : <Navigate to="/login" />} />
+
                     {/* Standaard route naar login */}
                     <Route path="/" element={<Navigate to="/login" />} />
                 </Routes>

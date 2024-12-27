@@ -265,7 +265,7 @@ const CRUD = () => {
                             ))
                         ) : (
                             <tr>
-                                <td colSpan="3">Loading...</td>
+                                <td colSpan="3">Voeg een workout toe</td>
                             </tr>
                         )}
                     </tbody>

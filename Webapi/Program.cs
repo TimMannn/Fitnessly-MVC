@@ -62,9 +62,11 @@ builder.Services.AddAuthentication(options =>
 
 builder.Services.AddScoped<IAccountData, AccountData>();
 builder.Services.AddScoped<IWorkoutData, WorkoutData>();
+builder.Services.AddScoped<IExerciseData, ExerciseData>();
 
 builder.Services.AddScoped<WorkoutService>();
 builder.Services.AddScoped<AccountService>();
+builder.Services.AddScoped<ExerciseService>();
 
 builder.Services.AddCors(options =>
 {
