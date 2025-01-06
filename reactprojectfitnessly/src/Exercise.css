@@ -53,17 +53,6 @@ button {
     vertical-align: middle;
 }
 
-    button.submit-btn {
-        background-color: #3399ff;
-        width: 150px;
-        margin-top: 1rem;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    }
-
-        button.submit-btn:hover {
-            background-color: #0056b3;
-        }
-
     button.edit-btn {
         background-color: #3399ff;
         width: 100px;
@@ -109,29 +98,45 @@ button {
             margin: 10px;
         }
 
-    .toevoegen {
-        justify-content: right;
-        margin-top: 10px;
-        margin-right: 5%;
-    }
+.flex-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 5%;
+    padding-right: 5%;
+    padding-top: 2%;
+}
+
+.workoutname {
+    margin: 0 auto;
+    flex-grow: 1;
+    text-align: center;
+}
 
 button.back-btn {
     background-color: #3399ff;
     border-color: #66b2ff;
     color: #fff;
     width: 100px;
-    margin-top: 16px;
     margin-left: 5%;
-    justify-content: left;
-    position: absolute;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-        button.back-btn:hover {
-            background-color: #3399ff;
-            border-color: #3399ff;
-        }
+    button.back-btn:hover {
+        background-color: #3399ff;
+        border-color: #3399ff;
+    }
 
+button.submit-btn {
+    background-color: #3399ff;
+    width: 150px;
+    margin-right: 5%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+    button.submit-btn:hover {
+        background-color: #0056b3;
+    }
 
 table.exercise-custom-table {
     width: 90%;

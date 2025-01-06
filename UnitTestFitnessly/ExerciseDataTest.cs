@@ -1,47 +1,53 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using BLL;
 
 namespace UnitTestFitnessly
 {
-    public class ExerciseDataTest : IExerciseData
-    {
-        public List<ExerciseDetails> GetExercises(int WorkoutID)
-        {
-            return new List<ExerciseDetails>();
-        }
+	public class ExerciseDataTest : IExerciseData
+	{
+		public async Task<List<ExerciseDetails>> GetExercises(int WorkoutID)
+		{
+			// Simuleer een asynchrone actie met een lege lijst
+			return await Task.FromResult(new List<ExerciseDetails>());
+		}
 
-        public void SendExerciseData(string exerciseName, double exerciseGewicht, int exerciseSets, int exerciseReps, string Display, int WorkoutID)
-        {
-            
-        }
+		public Task SendExerciseData(string exerciseName, double exerciseGewicht, int exerciseSets, int exerciseReps, string display, int WorkoutID)
+		{
+			// Simuleer een voltooide taak
+			return Task.CompletedTask;
+		}
 
-        public void DeleteExercise(int ID)
-        {
-            
-        }
+		public Task DeleteExercise(int ID)
+		{
+			// Simuleer een voltooide taak
+			return Task.CompletedTask;
+		}
 
-        public void EditExercise(string NewExerciseName, double NewExerciseGewicht, int NewExerciseSets, int NewExerciseReps, int ExerciseID)
-        {
+		public Task EditExercise(string NewExerciseName, double NewExerciseGewicht, int NewExerciseSets, int NewExerciseReps, int ExerciseID)
+		{
+			// Simuleer een voltooide taak
+			return Task.CompletedTask;
+		}
 
-        }
+		public async Task<ExerciseDetails> GetExercise(int ExerciseID)
+		{
+			// Simuleer een oefening detail ophalen
+			var exercise = new ExerciseDetails(0, "", 0, 0, 0, "none");
+			return await Task.FromResult(exercise);
+		}
 
-        public ExerciseDetails GetExercise(int ExerciseID)
-        {
-            return new ExerciseDetails(0, "",0 ,0 ,0, "none");
-        }
+		public Task DisplayTrueExercise()
+		{
+			// Simuleer een voltooide taak
+			return Task.CompletedTask;
+		}
 
-        public void DisplayTrueExercise()
-        {
-
-        }
-
-        public void DisplayFalseExercise(int ExerciseID)
-        {
-
-        }
-    }
+		public Task DisplayFalseExercise(int ExerciseID)
+		{
+			// Simuleer een voltooide taak
+			return Task.CompletedTask;
+		}
+	}
 }

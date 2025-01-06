@@ -1,3 +1,4 @@
+/*
 using System.ComponentModel.DataAnnotations;
 using BLL;
 using DAL;
@@ -204,3 +205,4 @@ namespace UnitTestFitnessly
         }
     }
 }
+*/

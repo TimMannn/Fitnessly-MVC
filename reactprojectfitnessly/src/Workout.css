@@ -53,21 +53,32 @@ button {
     vertical-align: middle;
 }
 
-    button.submit-btn {
+    button.submitworkout-btn {
         background-color: #3399ff;
         width: 150px;
         margin-top: 1rem;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
 
-        button.submit-btn:hover {
+        button.submitworkout-btn:hover {
             background-color: #0056b3;
+        }
+
+    button.start-btn {
+        background-color: #81C784;
+        width: 100px;
+        margin: 6px;
+        height: 40px;
+    }
+
+        button.start-btn:hover {
+            background-color: #66BB6A;
         }
 
     button.edit-btn {
         background-color: #3399ff;
         width: 100px;
-        margin: 5px;
+        margin: 6px;
         height: 40px;
     }
 
@@ -78,7 +89,7 @@ button {
     button.delete-btn {
         background-color: #dc3545;
         width: 100px;
-        margin: 5px;
+        margin: 6px;
         height: 40px;
     }
 
@@ -103,11 +114,14 @@ button {
         justify-content: center;
     }
 
-    .toevoegen {
-        justify-content: right;
-        margin-top: 10px;
-        margin-right: 5%;
-    }
+.toevoegenworkout {
+    justify-content: right;
+    margin-top: 1.6%;
+    margin-right: 5%;
+    margin-bottom: 3rem;
+    width: 150px;
+    float: right;
+}
 
     button.menu-btn {
         text-align: center;

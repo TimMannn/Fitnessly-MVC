@@ -30,7 +30,7 @@ const Exercise = () => {
     const [editExerciseReps, setEditExerciseReps] = useState('');
     const [data, setData] = useState([]);
     const navigate = useNavigate();
-    const { workoutId } = useParams();
+    const { workoutId, workoutName } = useParams();
 
     const [showAdd, setShowAdd] = useState(false);
     const handleCloseAdd = () => setShowAdd(false);
@@ -240,11 +240,19 @@ const Exercise = () => {
                 </Container>
             </Navbar>
             <Container fluid>
-                <Button className="btn back-btn" onClick={handleBack}> <FaArrowLeft /> Terug </Button>
-                <Row className="toevoegen">
-                    <Button className="btn submit-btn" onClick={handleShowAdd}>Toevoegen <IoIosAddCircle /></Button>
+                <Row className="align-items-center flex-container">
+                    <Col xs="auto">
+                        <Button className="btn back-btn" onClick={handleBack}> <FaArrowLeft /> Terug </Button>
+                    </Col>
+                    <Col xs="auto" className="flex-grow-1 text-center">
+                        <h2> { workoutName } </h2>
+                    </Col>
+                    <Col xs="auto">
+                        <Button className="btn submit-btn" onClick={handleShowAdd}>Toevoegen <IoIosAddCircle /></Button>
+                    </Col>
                 </Row>
             </Container>
+
             <br />
             <Container fluid>
                 <Table striped bordered hover className="exercise-custom-table">
@@ -268,7 +276,7 @@ const Exercise = () => {
                                     <td>{item.sets}x</td>
                                     <td>{item.reps}x</td>
                                     <td>
-                                        <Button className="btn edit-btn" onClick={(e) => { e.stopPropagation(); handleEdit(item.id); }}>Edit</Button> |
+                                        <Button className="btn edit-btn" onClick={(e) => { e.stopPropagation(); handleEdit(item.id); }}>Edit</Button>
                                         <Button className="btn delete-btn" onClick={(e) => { e.stopPropagation(); handleDelete(item.id); }}>Delete</Button>
                                     </td>
                                 </tr>

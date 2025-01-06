@@ -208,9 +208,14 @@ const CRUD = () => {
             });
     };
 
-    const handleRowClick = (workoutId) => {
+    const handleRowClick = (workoutId, workoutName) => {
         const token = localStorage.getItem('token');
-        navigate(`/exercise/${workoutId}`, { state: { token: token } });
+        navigate(`/exercise/${workoutId}/${workoutName}`, { state: { token: token } });
+    };
+
+    const handleStartClick = (workoutId, workoutName) => {
+        const token = localStorage.getItem('token');
+        navigate(`/workoutsessie/${workoutId}/${workoutName}`, { state: { token: token } });
     };
 
 
@@ -228,8 +233,8 @@ const CRUD = () => {
                 </Container>
             </Navbar>
             <Container fluid>
-                <Row className="toevoegen">
-                    <Button className="btn submit-btn" onClick={handleShowAdd}>Toevoegen <IoIosAddCircle /></Button>
+                <Row className="toevoegenworkout">
+                    <Button className="btn submitworkout-btn" onClick={handleShowAdd}>Toevoegen <IoIosAddCircle /></Button>
                 </Row>
             </Container>
             <br />
@@ -245,11 +250,12 @@ const CRUD = () => {
                     <tbody>
                         {data.length > 0 ? (
                             data.map((item, index) => (
-                                <tr key={index} onClick={() => handleRowClick(item.id)}>
+                                <tr key={index} onClick={() => handleRowClick(item.id, item.name)}>
                                     <td>{index + 1}</td>
                                     <td>{item.name}</td>
                                     <td>
-                                        <Button className="btn edit-btn" onClick={(e) => { e.stopPropagation(); handleEdit(item.id); }}>Edit</Button> |
+                                        <Button className="btn start-btn" onClick={(e) => { e.stopPropagation(); handleStartClick(item.id, item.name); }}>Start</Button>
+                                        <Button className="btn edit-btn" onClick={(e) => { e.stopPropagation(); handleEdit(item.id); }}>Edit</Button>
                                         <Button className="btn delete-btn" onClick={(e) => { e.stopPropagation(); handleDelete(item.id); }}>Delete</Button>
                                     </td>
                                 </tr>

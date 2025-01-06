@@ -4,6 +4,7 @@ import Login from './Login';
 import Register from './Register';
 import CRUD from './Workout';
 import Exercise from './Exercise';
+import WorkoutSessie from './WorkoutSessie'
 
 function App() {
     const isAuthenticated = () => {
@@ -24,7 +25,9 @@ function App() {
                     <Route path="/workout" element={isAuthenticated() ? <CRUD /> : <Navigate to="/login" />} />
 
                     {/* Route voor exercise met workoutId als parameter - beveiligd met authenticatie */}
-                    <Route path="/exercise/:workoutId" element={isAuthenticated() ? <Exercise /> : <Navigate to="/login" />} />
+                    <Route path="/exercise/:workoutId/:workoutName?" element={isAuthenticated() ? <Exercise /> : <Navigate to="/login" />} />
+
+                    <Route path="/workoutsessie/:workoutId/:workoutName?" element={isAuthenticated() ? <WorkoutSessie /> : <Navigate to="/login" />} />
 
                     {/* Standaard route naar login */}
                     <Route path="/" element={<Navigate to="/login" />} />
