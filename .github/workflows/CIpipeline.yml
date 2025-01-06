@@ -40,7 +40,7 @@ jobs:
         working-directory: BLL
 
       - name: Upload test results
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: test-results
           path: BLL/test-results.xml
