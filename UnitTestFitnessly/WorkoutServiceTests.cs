@@ -1,7 +1,8 @@
-/*
 using System.ComponentModel.DataAnnotations;
 using BLL;
-using DAL;
+using DAL.EntityFramework;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.VisualStudio.TestPlatform.ObjectModel;
 using Moq;
 using WorkoutService = BLL.WorkoutService;
@@ -12,68 +13,92 @@ namespace UnitTestFitnessly
     public class WorkoutServiceTests
     {
         [TestMethod]
-        public void SendWorkouts_CorrectName_CreateName()
+        public async Task SendWorkouts_CorrectName_CreateName()
         {
             // Arrange
             string workoutName = "Pizza";
+            string userId = "";
             var dataMock = new Mock<IWorkoutData>();
-            var workoutService = new WorkoutService(dataMock.Object);
+			var userManagerMock = new Mock<UserManager<IdentityUser>>(
+				Mock.Of<IUserStore<IdentityUser>>(),
+				null, null, null, null, null, null, null, null);
+			var httpContextAccessorMock = new Mock<IHttpContextAccessor>();
 
-            // Act
-            var message = workoutService.SendWorkouts(workoutName);
+			var workoutService = new WorkoutService(dataMock.Object, userManagerMock.Object, httpContextAccessorMock.Object);
+
+			// Act
+			var message = await workoutService.SendWorkouts(workoutName, userId);
 
             // Assert
             Assert.AreEqual("Alles is correct", message);
-            dataMock.Verify(d => d.SendWorkoutsData(workoutName), Times.Once);
+            dataMock.Verify(d => d.SendWorkoutsData(workoutName, userId), Times.Once);
         }
 
         [TestMethod]
-        public void SendWorkouts_CorrectName_IsNullOrEmpty()
+        public async Task SendWorkouts_CorrectName_IsNullOrEmpty()
         {
             // Arrange
             string workoutName = "";
-            var dataMock = new Mock<IWorkoutData>();
-            var workoutService = new WorkoutService(dataMock.Object);
+			string userId = "";
+			var dataMock = new Mock<IWorkoutData>();
+			var userManagerMock = new Mock<UserManager<IdentityUser>>(
+				Mock.Of<IUserStore<IdentityUser>>(),
+				null, null, null, null, null, null, null, null);
+			var httpContextAccessorMock = new Mock<IHttpContextAccessor>();
 
-            // Act
-            var message = workoutService.SendWorkouts(workoutName);
+			var workoutService = new WorkoutService(dataMock.Object, userManagerMock.Object, httpContextAccessorMock.Object);
+
+			// Act
+			var message = await workoutService.SendWorkouts(workoutName, userId);
 
             // Assert
             Assert.AreEqual("Mag niet null zijn", message);
-            dataMock.Verify(d => d.SendWorkoutsData(It.IsAny<string>()), Times.Never);
+            dataMock.Verify(d => d.SendWorkoutsData(It.IsAny<string>(), It.IsAny<string>()), Times.Never);
 
         }
 
         [TestMethod]
-        public void SendWorkouts_InCorrectName_LessThen3()
+        public async Task SendWorkouts_InCorrectName_LessThen3()
         {
             // Arrange
             string workoutName = "PD";
-            var dataMock = new Mock<IWorkoutData>();
-            var workoutService = new WorkoutService(dataMock.Object);
+			string userId = "";
+			var dataMock = new Mock<IWorkoutData>();
+			var userManagerMock = new Mock<UserManager<IdentityUser>>(
+				Mock.Of<IUserStore<IdentityUser>>(),
+				null, null, null, null, null, null, null, null);
+			var httpContextAccessorMock = new Mock<IHttpContextAccessor>();
 
-            // Act
-            var message = workoutService.SendWorkouts(workoutName);
+			var workoutService = new WorkoutService(dataMock.Object, userManagerMock.Object, httpContextAccessorMock.Object);
+
+			// Act
+			var message = await workoutService.SendWorkouts(workoutName, userId);
 
             // Assert
             Assert.AreEqual("De naam moet minimaal 3 letters lang zijn", message);
-            dataMock.Verify(d => d.SendWorkoutsData(It.IsAny<string>()), Times.Never);
+            dataMock.Verify(d => d.SendWorkoutsData(It.IsAny<string>(), It.IsAny<string>()), Times.Never);
         }
 
         [TestMethod]
-        public void SendWorkouts_InCorrectName_MoreThen50()
+        public async Task SendWorkouts_InCorrectName_MoreThen50()
         {
             // Arrange
-            string workoutName = "ababababababababababababababababababababababababababababababababababababababababababababab";
-            var dataMock = new Mock<IWorkoutData>();
-            var workoutService = new WorkoutService(dataMock.Object);
+            string workoutName = new string('a', 51);
+			string userId = "";
+			var dataMock = new Mock<IWorkoutData>();
+			var userManagerMock = new Mock<UserManager<IdentityUser>>(
+				Mock.Of<IUserStore<IdentityUser>>(),
+				null, null, null, null, null, null, null, null);
+			var httpContextAccessorMock = new Mock<IHttpContextAccessor>();
 
-            // Act
-            var message = workoutService.SendWorkouts(workoutName);
+			var workoutService = new WorkoutService(dataMock.Object, userManagerMock.Object, httpContextAccessorMock.Object);
+
+			// Act
+			var message = await workoutService.SendWorkouts(workoutName, userId);
 
             // Assert
             Assert.AreEqual("De naam mag maximaal 50 letters lang zijn", message);
-            dataMock.Verify(d => d.SendWorkoutsData(It.IsAny<string>()), Times.Never);
+            dataMock.Verify(d => d.SendWorkoutsData(It.IsAny<string>(), It.IsAny<string>()), Times.Never);
         }
 
 
@@ -81,15 +106,20 @@ namespace UnitTestFitnessly
 
 
         [TestMethod]
-        public void DeleteWorkouts_CorrectID_NotNull()
+        public async Task DeleteWorkouts_CorrectID_NotNull()
         {
             //Arrange
             int workoutID = 1;
-            var dataMock = new Mock<IWorkoutData>();
-            var workoutService = new WorkoutService(dataMock.Object);
+			var dataMock = new Mock<IWorkoutData>();
+			var userManagerMock = new Mock<UserManager<IdentityUser>>(
+				Mock.Of<IUserStore<IdentityUser>>(),
+				null, null, null, null, null, null, null, null);
+			var httpContextAccessorMock = new Mock<IHttpContextAccessor>();
 
-            //Act
-            var message = workoutService.DeleteWorkouts(workoutID);
+			var workoutService = new WorkoutService(dataMock.Object, userManagerMock.Object, httpContextAccessorMock.Object);
+
+			//Act
+			var message = await workoutService.DeleteWorkouts(workoutID);
 
             //Assert
             Assert.AreEqual("Alles is correct", message);
@@ -97,15 +127,20 @@ namespace UnitTestFitnessly
         }
 
         [TestMethod]
-        public void DeleteWorkouts_InCorrectID_IsNullOrEmpty()
+        public async Task DeleteWorkouts_InCorrectID_IsNullOrEmpty()
         {
             //Arrange
             int workoutID = 0;
             var dataMock = new Mock<IWorkoutData>();
-            var workoutService = new WorkoutService(dataMock.Object);
-            //Act
+			var userManagerMock = new Mock<UserManager<IdentityUser>>(
+				Mock.Of<IUserStore<IdentityUser>>(),
+				null, null, null, null, null, null, null, null);
+			var httpContextAccessorMock = new Mock<IHttpContextAccessor>();
 
-            var message = workoutService.DeleteWorkouts(workoutID);
+			var workoutService = new WorkoutService(dataMock.Object, userManagerMock.Object, httpContextAccessorMock.Object);
+			//Act
+
+			var message = await workoutService.DeleteWorkouts(workoutID);
 
             //Assert
             Assert.AreEqual("Workout ID is kleiner of gelijk aan 0", message);
@@ -117,92 +152,121 @@ namespace UnitTestFitnessly
 
 
         [TestMethod]
-        public void EditWorkout_CorrectName_CorrectID()
+        public async Task EditWorkout_CorrectName_CorrectID()
         {
             //Arrange
             string workoutName = "Pizza";
-            int workoutID = 1;
+			string userId = "";
+			int workoutID = 1;
             var dataMock = new Mock<IWorkoutData>();
-            var workoutService = new WorkoutService(dataMock.Object);
+			var userManagerMock = new Mock<UserManager<IdentityUser>>(
+				Mock.Of<IUserStore<IdentityUser>>(),
+				null, null, null, null, null, null, null, null);
+			var httpContextAccessorMock = new Mock<IHttpContextAccessor>();
 
-            //Act
-            var message = workoutService.EditWorkout(workoutName, workoutID);
+			var workoutService = new WorkoutService(dataMock.Object, userManagerMock.Object, httpContextAccessorMock.Object);
+
+			//Act
+			var message = await workoutService.EditWorkout(workoutName, workoutID, userId);
 
             //Assert
             Assert.AreEqual("Alles is correct", message);
-            dataMock.Verify(d => d.EditWorkouts(workoutName, workoutID), Times.Once);
+            dataMock.Verify(d => d.EditWorkouts(workoutName, workoutID, userId), Times.Once);
         }
 
         [TestMethod]
-        public void EditWorkout_InCorrectName_IsNullOrEmpty()
+        public async Task EditWorkout_InCorrectName_IsNullOrEmpty()
         {
             //Arrange
             string workoutName = "";
             int workoutID = 1;
-            var dataMock = new Mock<IWorkoutData>();
-            var workoutService = new WorkoutService(dataMock.Object);
+			string userId = "";
+			var dataMock = new Mock<IWorkoutData>();
+			var userManagerMock = new Mock<UserManager<IdentityUser>>(
+				Mock.Of<IUserStore<IdentityUser>>(),
+				null, null, null, null, null, null, null, null);
+			var httpContextAccessorMock = new Mock<IHttpContextAccessor>();
 
-            //Act
-            var message = workoutService.EditWorkout(workoutName, workoutID);
+			var workoutService = new WorkoutService(dataMock.Object, userManagerMock.Object, httpContextAccessorMock.Object);
+
+			//Act
+			var message = await workoutService.EditWorkout(workoutName, workoutID, userId);
 
             //Assert
             Assert.AreEqual("Mag niet null zijn", message);
-            dataMock.Verify(d => d.EditWorkouts(It.IsAny<string>(), It.IsAny<int>()), Times.Never);
+            dataMock.Verify(d => d.EditWorkouts(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<string>()), Times.Never);
         }
 
         [TestMethod]
-        public void EditWorkout_InCorrectName_LessThen3()
+        public async Task EditWorkout_InCorrectName_LessThen3()
         {
             //Arrange
             string workoutName = "PD";
             int workoutID = 1;
-            var dataMock = new Mock<IWorkoutData>();
-            var workoutService = new WorkoutService(dataMock.Object);
+			string userId = "";
+			var dataMock = new Mock<IWorkoutData>();
+			var userManagerMock = new Mock<UserManager<IdentityUser>>(
+				Mock.Of<IUserStore<IdentityUser>>(),
+				null, null, null, null, null, null, null, null);
+			var httpContextAccessorMock = new Mock<IHttpContextAccessor>();
 
-            //Act
-            var message = workoutService.EditWorkout(workoutName, workoutID);
+			var workoutService = new WorkoutService(dataMock.Object, userManagerMock.Object, httpContextAccessorMock.Object);
+
+			//Act
+			var message = await workoutService.EditWorkout(workoutName, workoutID, userId);
 
             //Assert
             Assert.AreEqual("De naam moet minimaal 3 letters lang zijn", message);
-            dataMock.Verify(d => d.EditWorkouts(It.IsAny<string>(), It.IsAny<int>()), Times.Never);
+            dataMock.Verify(d => d.EditWorkouts(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<string>()), Times.Never);
 
         }
 
         [TestMethod]
-        public void EditWorkout_InCorrectName_moreThen50()
+        public async Task EditWorkout_InCorrectName_moreThen50()
         {
             //Arrange
-            string workoutName = "ababababababababababababababababababababababababababababababababababababababababababababab";
-            int workoutID = 1;
-            var dataMock = new Mock<IWorkoutData>();
-            var workoutService = new WorkoutService(dataMock.Object);
+            string workoutName = new string('a', 51);
+			int workoutID = 1;
+			string userId = "";
+			var dataMock = new Mock<IWorkoutData>();
+			var userManagerMock = new Mock<UserManager<IdentityUser>>(
+				Mock.Of<IUserStore<IdentityUser>>(),
+				null, null, null, null, null, null, null, null);
+			var httpContextAccessorMock = new Mock<IHttpContextAccessor>();
 
-            //Act
-            var message = workoutService.EditWorkout(workoutName, workoutID);
+			var workoutService = new WorkoutService(dataMock.Object, userManagerMock.Object, httpContextAccessorMock.Object);
+
+			//Act
+			var message = await workoutService.EditWorkout(workoutName, workoutID, userId);
 
             //Assert
             Assert.AreEqual("De naam mag maximaal 50 letters lang zijn", message);
-            dataMock.Verify(d => d.EditWorkouts(It.IsAny<string>(), It.IsAny<int>()), Times.Never);
+            dataMock.Verify(d => d.EditWorkouts(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<string>()), Times.Never);
 
         }
 
         [TestMethod]
-        public void EditWorkouts_InCorrectID_NotNull()
+        public async Task EditWorkouts_InCorrectID_NotNull()
         {
             //Arrange
             string workoutName = "Pizza";
             int workoutID = 0;
-            var dataMock = new Mock<IWorkoutData>();
-            var workoutService = new WorkoutService(dataMock.Object);
+			string userId = "";
+			var dataMock = new Mock<IWorkoutData>();
+			var userManagerMock = new Mock<UserManager<IdentityUser>>(
+				Mock.Of<IUserStore<IdentityUser>>(),
+				null, null, null, null, null, null, null, null);
+			var httpContextAccessorMock = new Mock<IHttpContextAccessor>();
 
-            //Act
-            var message = workoutService.EditWorkout(workoutName,workoutID);
+			var workoutService = new WorkoutService(dataMock.Object, userManagerMock.Object, httpContextAccessorMock.Object);
+
+			//Act
+			var message = await workoutService.EditWorkout(workoutName,workoutID, userId);
 
             //Assert
             Assert.AreEqual("Workout ID is kleiner of gelijk aan 0", message);
-            dataMock.Verify(d => d.EditWorkouts(It.IsAny<string>(), It.IsAny<int>()), Times.Never);
+            dataMock.Verify(d => d.EditWorkouts(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<string>()), Times.Never);
 
         }
     }
 }
-*/

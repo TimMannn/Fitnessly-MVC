@@ -1,5 +1,4 @@
-﻿/*
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,30 +10,31 @@ namespace UnitTestFitnessly
 {
     public class WorkoutDataTest : IWorkoutData
     {
-        public List<WorkoutDetails> GetWorkouts()
+        public async Task<List<WorkoutDetails>> GetWorkouts(string userId)
         {
             return new List<WorkoutDetails>();
         }
 
-        public void SendWorkoutsData(string workoutName)
+        public async Task SendWorkoutsData(string workoutName, string userId)
         {
             
         }
 
-        public void DeleteWorkouts(int ID)
+        public async Task DeleteWorkouts(int ID)
         {
             
         }
 
-        public void EditWorkouts(string NewWorkoutName, int ID)
+        public async Task EditWorkouts(string NewWorkoutName, int ID, string userId)
         {
 
         }
 
-        public WorkoutDetails GetWorkout(int WorkoutID)
+        public async Task<WorkoutDetails> GetWorkout(int WorkoutID)
         {
-            return new WorkoutDetails(0, "");
+			var exercise = new WorkoutDetails(0, "", "");
+			return await Task.FromResult(exercise);
+
         }
     }
 }
-*/
