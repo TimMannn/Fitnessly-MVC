@@ -43,8 +43,10 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: test-results
-          path: BLL/test-results.xml
+          path: BLL/*.trx
 
+      - name: Check test results file
+        run: ls -al BLL
 
       # Setup Node.js
       - name: Setup Node.js
