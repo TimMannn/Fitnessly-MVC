@@ -48,10 +48,12 @@ jobs:
         # SonarCloud Scan
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@v1
-        env:
+        with:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_ORG: Fitnessly-MVC
           SONAR_PROJECT_KEY: TimMannn_Fitnessly-MVC
+        env:
+          SONAR_JAVA_JDK: '17'
 
       # Setup Node.js
       - name: Setup Node.js
