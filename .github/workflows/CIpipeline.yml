@@ -38,6 +38,17 @@ jobs:
       - name: Test .NET Core project
         run: dotnet test --no-build --verbosity detailed
         working-directory: BLL
+          
+        # SonarCloud Scan
+      - name: Run SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@v2
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        with:
+          args: >
+            -Dsonar.projectKey=TimMannn_Fitnessly-MVC
+            -Dsonar.organization=timmannn
+            -Dsonar.host.url=https://sonarcloud.io
 
       # Setup Node.js
       - name: Setup Node.js
@@ -99,7 +110,6 @@ jobs:
           sudo curl -L "https://github.com/docker/compose/releases/download/$(curl -s https://api.github.com/repos/docker/compose/releases/latest | jq -r .tag_name)/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
           sudo chmod +x /usr/local/bin/docker-compose
           docker-compose --version
-
       # Build backend Docker image
       - name: Build and push backend image
         uses: docker/build-push-action@v2
