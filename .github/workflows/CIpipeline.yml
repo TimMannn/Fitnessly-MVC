@@ -39,6 +39,13 @@ jobs:
         run: dotnet test --no-build --verbosity detailed
         working-directory: BLL
 
+        # SonarCloud Analysis
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@v1
+        with:
+          organization: your-sonarcloud-organization
+          token: ${{ secrets.SONAR_TOKEN }}
+
       # Setup Node.js
       - name: Setup Node.js
         uses: actions/setup-node@v2
