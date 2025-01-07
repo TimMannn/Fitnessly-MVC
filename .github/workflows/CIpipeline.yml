@@ -57,7 +57,10 @@ jobs:
       - name: Verify Java version before SonarCloud
         run: java -version
 
-
+      - name: Run SonarCloud scan
+        run: |
+          export JAVA_HOME=/usr/lib/jvm/temurin-17-jdk
+          sonar-scanner -X
 
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@v1
