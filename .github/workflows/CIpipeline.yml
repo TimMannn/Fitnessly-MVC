@@ -39,12 +39,13 @@ jobs:
         run: dotnet test --no-build --verbosity detailed
         working-directory: BLL
 
-        # SonarCloud Analysis
+        # SonarCloud Scan
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@v1
-        with:
-          organization: timmannn
-          token: ${{ secrets.SONAR_TOKEN }}
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_ORG: Fitnessly-MVC
+          SONAR_PROJECT_KEY: TimMannn_Fitnessly-MVC
 
       # Setup Node.js
       - name: Setup Node.js
