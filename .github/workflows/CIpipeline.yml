@@ -51,6 +51,9 @@ jobs:
           path: ~/.sonar/cache
           key: ${{ runner.os }}-sonar
 
+      - name: Verify Java version
+        run: java -version
+
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@v1
         env:
