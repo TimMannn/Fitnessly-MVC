@@ -62,6 +62,16 @@ jobs:
         run: npm install
         working-directory: ./reactprojectfitnessly
 
+      # Run ESLint for static analysis on frontend
+      - name: Run ESLint
+        run: npm run lint
+        working-directory: ./reactprojectfitnessly
+
+      # Run Prettier to check code formatting
+      - name: Run Prettier
+        run: npm run prettier -- --check .
+        working-directory: ./reactprojectfitnessly
+
       # Clear npm cache
       - name: Clear cache
         run: npm cache clean --force
