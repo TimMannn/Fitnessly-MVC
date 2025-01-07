@@ -51,8 +51,13 @@ jobs:
           path: ~/.sonar/cache
           key: ${{ runner.os }}-sonar
 
-      - name: Verify Java version
+      - name: Set JAVA_HOME for SonarScanner
+        run: echo "JAVA_HOME=/usr/lib/jvm/temurin-17-jdk" >> $GITHUB_ENV
+
+      - name: Verify Java version before SonarCloud
         run: java -version
+
+
 
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@v1
