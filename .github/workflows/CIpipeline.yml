@@ -38,38 +38,14 @@ jobs:
       - name: Test .NET Core project
         run: dotnet test --no-build --verbosity detailed
         working-directory: BLL
-
-      - name: Set up JDK 17
-        uses: actions/setup-java@v3
-        with:
-          java-version: '17'
-          distribution: 'temurin'
-
-      - name: Cache SonarCloud packages
-        uses: actions/cache@v3
-        with:
-          path: ~/.sonar/cache
-          key: ${{ runner.os }}-sonar
-
-      - name: Set JAVA_HOME for SonarScanner
-        run: echo "JAVA_HOME=/usr/lib/jvm/temurin-17-jdk" >> $GITHUB_ENV
-
-      - name: Verify Java version before SonarCloud
-        run: java -version
-
-      - name: Run SonarCloud scan
-        run: |
-          export JAVA_HOME=/usr/lib/jvm/temurin-17-jdk
-          sonar-scanner -X
-
+          
+        # SonarCloud Scan
       - name: SonarCloud Scan
-        uses: SonarSource/sonarcloud-github-action@v1
+        uses: SonarSource/sonarcloud-github-action@v2
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        with:
-          args: >
-            -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }}
-            -Dsonar.organization=${{ secrets.SONAR_ORG }}
+          SONAR_ORG: Fitnessly-MVC
+          SONAR_PROJECT_KEY: TimMannn_Fitnessly-MVC
 
       # Setup Node.js
       - name: Setup Node.js
@@ -131,7 +107,6 @@ jobs:
           sudo curl -L "https://github.com/docker/compose/releases/download/$(curl -s https://api.github.com/repos/docker/compose/releases/latest | jq -r .tag_name)/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
           sudo chmod +x /usr/local/bin/docker-compose
           docker-compose --version
-
       # Build backend Docker image
       - name: Build and push backend image
         uses: docker/build-push-action@v2
