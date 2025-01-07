@@ -40,12 +40,15 @@ jobs:
         working-directory: BLL
           
         # SonarCloud Scan
-      - name: SonarCloud Scan
+      - name: Run SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@v2
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          SONAR_ORG: Fitnessly-MVC
-          SONAR_PROJECT_KEY: TimMannn_Fitnessly-MVC
+        with:
+          args: >
+            -Dsonar.projectKey=TimMannn_Fitnessly-MVC
+            -Dsonar.organization=Fitnessly-MVC
+            -Dsonar.host.url=https://sonarcloud.io/project/overview?id=TimMannn_Fitnessly-MVC
 
       # Setup Node.js
       - name: Setup Node.js
