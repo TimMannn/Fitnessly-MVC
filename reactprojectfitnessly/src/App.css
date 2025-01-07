@@ -1,70 +1,70 @@
 ﻿#root {
-    width: 100%;
-    margin: 0 auto;
-    padding: 2rem;
-    text-align: left; /* Aan de bovenkant beginnen */
-    box-sizing: border-box;
+  width: 100%;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: left; /* Aan de bovenkant beginnen */
+  box-sizing: border-box;
 }
 
 /* Gebruik de volledige breedte van het scherm */
 table {
-    width: 100%;
-    margin-top: 2rem; /* Ruimte boven de tabel */
-    border-collapse: collapse; /* Verwijdert dubbele randen */
-    text-align: center; /* Centraal uitlijnen van de tabelinhoud */
+  width: 100%;
+  margin-top: 2rem; /* Ruimte boven de tabel */
+  border-collapse: collapse; /* Verwijdert dubbele randen */
+  text-align: center; /* Centraal uitlijnen van de tabelinhoud */
 }
 
 tr:nth-child(even) {
-    background: #F2F2F2;
+  background: #f2f2f2;
 }
 
 tr:nth-child(odd) {
-    background: #FFF;
+  background: #fff;
 }
 
-th, td {
-    padding: 1rem; /* Gelijktrekking van padding */
-    text-align: center; /* Tekst uitlijnen naar het midden */
-    border: 1px solid #ddd; /* Zachte rand voor beter zicht */
+th,
+td {
+  padding: 1rem; /* Gelijktrekking van padding */
+  text-align: center; /* Tekst uitlijnen naar het midden */
+  border: 1px solid #ddd; /* Zachte rand voor beter zicht */
 }
 
 input[type="text"] {
-    width: 100%; /* Vul de beschikbare breedte */
-    padding: 0.5rem;
-    box-sizing: border-box;
-    margin-bottom: 1rem; /* Ruimte onder de input */
+  width: 100%; /* Vul de beschikbare breedte */
+  padding: 0.5rem;
+  box-sizing: border-box;
+  margin-bottom: 1rem; /* Ruimte onder de input */
 }
 
 /* Nieuwe stijl voor knoppen in de tabel om ze te centreren */
 button {
-    padding: 0.5rem 1rem; /* Comfortabele knoppadding */
-    margin-left: 0.5rem; /* Ruimte tussen knoppen */
-    text-align: center; /* Zorgt ervoor dat de tekst in de knop centraal staat */
+  padding: 0.5rem 1rem; /* Comfortabele knoppadding */
+  margin-left: 0.5rem; /* Ruimte tussen knoppen */
+  text-align: center; /* Zorgt ervoor dat de tekst in de knop centraal staat */
 }
 
 .container-row {
-    display: flex;
-    justify-content: center; /* Centreert de inhoud horizontaal */
-    align-items: center; /* Centreert de inhoud verticaal */
-    gap: 0.5rem; /* Ruimte tussen de invoerbalk en de knop */
-    margin-top: 2rem; /* Ruimte boven de invoerbalk */
-    width: 100%; /* Volledige breedte */
+  display: flex;
+  justify-content: center; /* Centreert de inhoud horizontaal */
+  align-items: center; /* Centreert de inhoud verticaal */
+  gap: 0.5rem; /* Ruimte tussen de invoerbalk en de knop */
+  margin-top: 2rem; /* Ruimte boven de invoerbalk */
+  width: 100%; /* Volledige breedte */
 }
 
-    .container-row input[type="text"] {
-        flex: 1; /* Laat de input zoveel mogelijk ruimte innemen */
-        max-width: 400px; /* Maximale breedte voor de invoerbalk */
-        padding: 0.5rem; /* Padding voor een nette look */
-    }
-
-    .container-row button {
-        padding: 0.5rem 1rem; /* Comfortabele knoppadding */
-    }
-
-html, body, #root {
-    height: 105%;
-    margin: 0;
+.container-row input[type="text"] {
+  flex: 1; /* Laat de input zoveel mogelijk ruimte innemen */
+  max-width: 400px; /* Maximale breedte voor de invoerbalk */
+  padding: 0.5rem; /* Padding voor een nette look */
 }
 
+.container-row button {
+  padding: 0.5rem 1rem; /* Comfortabele knoppadding */
+}
 
-
+html,
+body,
+#root {
+  height: 105%;
+  margin: 0;
+}

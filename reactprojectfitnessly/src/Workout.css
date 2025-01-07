@@ -1,207 +1,208 @@
-html, body, #root {
-    height: 100%;
-    width: 100%;
-    margin: 0;
-    padding: 0;
+html,
+body,
+#root {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-family: 'Roboto', sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Roboto", sans-serif;
 }
 
 .workout-container {
-    width: 100%;
-    margin: 0 auto;
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    text-align: center;
+  width: 100%;
+  margin: 0 auto;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
 }
 
 .navbar {
-    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
-    z-index: 1;
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+  z-index: 1;
 }
 
 h2 {
-    margin-bottom: 20px;
+  margin-bottom: 20px;
 }
 
 input[type="text"] {
-    width: 100%;
-    padding: 0.75rem;
-    box-sizing: border-box;
-    margin-top: 1rem;
-    margin-bottom: 0;
-    border: 1px solid #ced4da;
-    border-radius: 4px;
+  width: 100%;
+  padding: 0.75rem;
+  box-sizing: border-box;
+  margin-top: 1rem;
+  margin-bottom: 0;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
 }
 
 button {
-    padding: 0.5rem 0.75rem;
-    margin: 0.2rem;
-    text-align: center;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    color: #fff;
-    width: 100px;
-    vertical-align: middle;
+  padding: 0.5rem 0.75rem;
+  margin: 0.2rem;
+  text-align: center;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  color: #fff;
+  width: 100px;
+  vertical-align: middle;
 }
 
-    button.submitworkout-btn {
-        background-color: #3399ff;
-        width: 150px;
-        margin-top: 1rem;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    }
+button.submitworkout-btn {
+  background-color: #3399ff;
+  width: 150px;
+  margin-top: 1rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
 
-        button.submitworkout-btn:hover {
-            background-color: #0056b3;
-        }
+button.submitworkout-btn:hover {
+  background-color: #0056b3;
+}
 
-    button.start-btn {
-        background-color: #81C784;
-        width: 100px;
-        margin: 6px;
-        height: 40px;
-    }
+button.start-btn {
+  background-color: #81c784;
+  width: 100px;
+  margin: 6px;
+  height: 40px;
+}
 
-        button.start-btn:hover {
-            background-color: #66BB6A;
-        }
+button.start-btn:hover {
+  background-color: #66bb6a;
+}
 
-    button.edit-btn {
-        background-color: #3399ff;
-        width: 100px;
-        margin: 6px;
-        height: 40px;
-    }
+button.edit-btn {
+  background-color: #3399ff;
+  width: 100px;
+  margin: 6px;
+  height: 40px;
+}
 
-        button.edit-btn:hover {
-            background-color: #138496;
-        }
+button.edit-btn:hover {
+  background-color: #138496;
+}
 
-    button.delete-btn {
-        background-color: #dc3545;
-        width: 100px;
-        margin: 6px;
-        height: 40px;
-    }
+button.delete-btn {
+  background-color: #dc3545;
+  width: 100px;
+  margin: 6px;
+  height: 40px;
+}
 
-        button.delete-btn:hover {
-            background-color: #c82333;
-        }
+button.delete-btn:hover {
+  background-color: #c82333;
+}
 
-    button.logout-btn {
-        background-color: #3399ff; 
-        border-color: #66b2ff;
-        color: #fff;
-        width: 100px;
-        margin: 5px;
-    }
+button.logout-btn {
+  background-color: #3399ff;
+  border-color: #66b2ff;
+  color: #fff;
+  width: 100px;
+  margin: 5px;
+}
 
-        button.logout-btn:hover {
-            background-color: #3399ff;
-            border-color: #3399ff;
-        }
+button.logout-btn:hover {
+  background-color: #3399ff;
+  border-color: #3399ff;
+}
 
-    .menu-footer {
-        justify-content: center;
-    }
+.menu-footer {
+  justify-content: center;
+}
 
 .toevoegenworkout {
-    justify-content: right;
-    margin-top: 1.6%;
-    margin-right: 5%;
-    margin-bottom: 3rem;
-    width: 150px;
-    float: right;
+  justify-content: right;
+  margin-top: 1.6%;
+  margin-right: 5%;
+  margin-bottom: 3rem;
+  width: 150px;
+  float: right;
 }
 
-    button.menu-btn {
-        text-align: center;
-        width: 200px;
-        margin: 10px;
-    }
+button.menu-btn {
+  text-align: center;
+  width: 200px;
+  margin: 10px;
+}
 
 table.custom-table {
-    width: 90%;
-    margin: auto;
-    margin-top: 1rem;
-    border-collapse: collapse;
-    text-align: center;
-    border-radius: 12px;
-    background-color: #fff;
-    overflow: hidden;
-    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
+  width: 90%;
+  margin: auto;
+  margin-top: 1rem;
+  border-collapse: collapse;
+  text-align: center;
+  border-radius: 12px;
+  background-color: #fff;
+  overflow: hidden;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
 }
 
-    table.custom-table th,
-    table.custom-table td {
-        padding: 0.25rem; 
-        text-align: center; 
-        border: 1px solid #dee2e6; 
-        height: 1.5rem;
-        vertical-align: middle;
-    }
+table.custom-table th,
+table.custom-table td {
+  padding: 0.25rem;
+  text-align: center;
+  border: 1px solid #dee2e6;
+  height: 1.5rem;
+  vertical-align: middle;
+}
 
-    table.custom-table .header-row th {
-        background-color: #007bff; 
-        color: #fff;
-        font-size: 1.2rem; 
-        height: 2.5rem; 
-    }
+table.custom-table .header-row th {
+  background-color: #007bff;
+  color: #fff;
+  font-size: 1.2rem;
+  height: 2.5rem;
+}
 
-    table.custom-table th {
-        width: auto;
-    }
+table.custom-table th {
+  width: auto;
+}
 
-        table.custom-table th:nth-child(1) {
-            width: 15%;
-        }
+table.custom-table th:nth-child(1) {
+  width: 15%;
+}
 
-        table.custom-table th:nth-child(2) {
-            width: 50%;
-        }
+table.custom-table th:nth-child(2) {
+  width: 50%;
+}
 
-        table.custom-table th:nth-child(3) {
-            width: 35%; 
-        }
+table.custom-table th:nth-child(3) {
+  width: 35%;
+}
 
-    table.custom-table tr:nth-child(even) td {
-        background-color: #b3d9ff; 
-    }
+table.custom-table tr:nth-child(even) td {
+  background-color: #b3d9ff;
+}
 
-    table.custom-table tr:nth-child(odd) td {
-        background-color: #e6f2ff; 
-    }
-
+table.custom-table tr:nth-child(odd) td {
+  background-color: #e6f2ff;
+}
 
 .container-row {
-    display: flex;
-    flex-direction: column; 
-    justify-content: center; 
-    align-items: center;
-    gap: 0.5rem; 
-    margin-top: 2rem; 
-    width: 100%; 
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 2rem;
+  width: 100%;
 }
 
-    .container-row input[type="text"] {
-        flex: 1;
-        max-width: 400px;
-        padding: 0.75rem; 
-        text-align: center; 
-    }
+.container-row input[type="text"] {
+  flex: 1;
+  max-width: 400px;
+  padding: 0.75rem;
+  text-align: center;
+}
 
-    .container-row button.submit-btn {
-        background-color: #3399ff;
-        width: 200px;
-        margin-top: 1rem; 
-        text-align: center;
-    }
+.container-row button.submit-btn {
+  background-color: #3399ff;
+  width: 200px;
+  margin-top: 1rem;
+  text-align: center;
+}
