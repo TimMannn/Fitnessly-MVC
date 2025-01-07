@@ -1,0 +1,228 @@
+html,
+body,
+#root {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "Roboto", sans-serif;
+}
+
+.exercise-container {
+    width: 100%;
+    margin: 0 auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.navbar {
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+h2 {
+    margin-bottom: 20px;
+}
+
+input[type="text"],
+input[type="number"] {
+    width: 100%;
+    padding: 0.75rem;
+    box-sizing: border-box;
+    margin-top: 1rem;
+    margin-bottom: 0;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+}
+
+button {
+    padding: 0.5rem 0.75rem;
+    margin: 0.2rem;
+    text-align: center;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    color: #fff;
+    width: 100px;
+    vertical-align: middle;
+}
+
+    .verstopt {
+        background-color: transparent;
+        width: 100px;
+        margin: 5px;
+        height: 40px;
+    }
+
+    button.delete-btn {
+        background-color: #dc3545;
+        width: 100px;
+        margin: 5px;
+        height: 40px;
+    }
+
+        button.delete-btn:hover {
+            background-color: #c82333;
+        }
+
+    button.logout-btn {
+        background-color: #3399ff;
+        border-color: #66b2ff;
+        color: #fff;
+        width: 100px;
+        margin: 5px;
+    }
+
+        button.logout-btn:hover {
+            background-color: #3399ff;
+            border-color: #3399ff;
+        }
+
+.menu-footer {
+    justify-content: center;
+}
+
+button.menu-btn {
+    text-align: center;
+    width: 200px;
+    margin: 10px;
+}
+
+.flex-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 5%;
+    padding-right: 5%;
+    padding-top: 2%;
+}
+
+.workoutname {
+    margin: 0 auto;
+    flex-grow: 1;
+    text-align: center;
+}
+
+button.back-btn {
+    background-color: #3399ff;
+    border-color: #66b2ff;
+    color: #fff;
+    width: 100px;
+    margin-left: 5%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+    button.back-btn:hover {
+        background-color: #3399ff;
+        border-color: #3399ff;
+    }
+
+button.submit-btn {
+    background-color: #3399ff;
+    width: 150px;
+    margin-right: 5%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+    button.submit-btn:hover {
+        background-color: #0056b3;
+    }
+
+table.exercise-custom-table {
+    width: 90%;
+    margin: auto;
+    margin-top: 1rem;
+    border-collapse: collapse;
+    text-align: center;
+    border-radius: 12px;
+    background-color: #fff;
+    overflow: hidden;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
+}
+
+    table.exercise-custom-table th,
+    table.exercise-custom-table td {
+        padding: 0.25rem;
+        text-align: center;
+        border: 1px solid #dee2e6;
+        height: 1.5rem;
+        vertical-align: middle;
+    }
+
+    table.exercise-custom-table .header-row th {
+        background-color: #007bff;
+        color: #fff;
+        font-size: 1.2rem;
+        height: 2.5rem;
+    }
+
+    table.exercise-custom-table th {
+        width: auto;
+    }
+
+        table.exercise-custom-table th:nth-child(1) {
+            width: 15%;
+        }
+
+        table.exercise-custom-table th:nth-child(2) {
+            width: 20%;
+        }
+
+        table.exercise-custom-table th:nth-child(3) {
+            width: 15%;
+        }
+
+        table.exercise-custom-table th:nth-child(4) {
+            width: 15%;
+        }
+
+        table.exercise-custom-table th:nth-child(5) {
+            width: 15%;
+        }
+
+        table.exercise-custom-table th:nth-child(6) {
+            width: 20%;
+        }
+
+    table.exercise-custom-table tr:nth-child(even) td {
+        background-color: #b3d9ff;
+    }
+
+    table.exercise-custom-table tr:nth-child(odd) td {
+        background-color: #e6f2ff;
+    }
+
+.container-row {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 2rem;
+    width: 100%;
+}
+
+    .container-row input[type="text"],
+    .container-row input[type="number"] {
+        flex: 1;
+        max-width: 400px;
+        padding: 0.75rem;
+        text-align: center;
+    }
+
+    .container-row button.submit-btn {
+        background-color: #3399ff;
+        width: 200px;
+        margin-top: 1rem;
+        text-align: center;
+    }
+

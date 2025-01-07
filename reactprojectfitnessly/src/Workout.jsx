@@ -237,7 +237,27 @@ const CRUD = () => {
   };
 
   const handleStartClick = (workoutId, workoutName) => {
-    const token = localStorage.getItem("token");
+      const token = localStorage.getItem("token");
+          axios
+              .put(
+                  `https://localhost:7187/api/Exercise/display/true`,
+                  {},
+                  {
+                      headers: {
+                          Authorization: `Bearer ${token}`,
+                      },
+                  },
+              )
+              .then(() => {
+                  setData(prevData =>
+                      prevData.map(item => ({ ...item, display: "true" }))
+                  );
+              })
+              .catch((error) => {
+                  console.error("Error setting all exercises to true:", error);
+                  toast.error("Failed to update all exercises display");
+              });
+
     navigate(`/workoutsessie/${workoutId}/${workoutName}`, {
       state: { token: token },
     });

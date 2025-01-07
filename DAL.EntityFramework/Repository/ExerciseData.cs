@@ -110,13 +110,13 @@ namespace DAL.EntityFramework.Repository
 				.Select(e => new ExerciseDetails(e.ExerciseId, e.ExerciseName, e.ExerciseGewicht, e.ExerciseSets, e.ExerciseReps, e.ExerciseDisplay))
 				.FirstOrDefaultAsync();
 
-			return exercise ?? new ExerciseDetails(0, "", 0, 0, 0, "block");
+			return exercise ?? new ExerciseDetails(0, "", 0, 0, 0, "true");
 		}
 
 		public async Task DisplayTrueExercise()
 		{
 			var exercises = await _context.Exercises.ToListAsync();
-			exercises.ForEach(e => e.ExerciseDisplay = "block");
+			exercises.ForEach(e => e.ExerciseDisplay = "true");
 			await _context.SaveChangesAsync();
 		}
 
@@ -125,7 +125,7 @@ namespace DAL.EntityFramework.Repository
 			var exercise = await _context.Exercises.FindAsync(exerciseID);
 			if (exercise != null)
 			{
-				exercise.ExerciseDisplay = "none";
+				exercise.ExerciseDisplay = "false";
 				await _context.SaveChangesAsync();
 			}
 		}

@@ -97,5 +97,37 @@ namespace Webapi.Controllers
 			await _exerciseService.DeleteExercise(id);
 			return Ok();
 		}
+
+		[HttpPut("display/true")]
+		public async Task<ActionResult> SetAllExercisesDisplayTrue()
+		{
+			try
+			{
+				await _exerciseService.DisplayTrueExercise();
+				return Ok();
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine($"Error in SetAllExercisesDisplayTrue: {ex.Message}");
+				return StatusCode(500, "Internal server error");
+			}
+		}
+
+		[HttpPut("display/false/{id}")]
+		public async Task<ActionResult> SetExerciseDisplayFalse(int id)
+		{
+			Console.WriteLine($"Received request to set display to false for exercise ID: {id}");
+			try
+			{
+				await _exerciseService.DisplayFalseExercise(id);
+				return Ok();
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine($"Error in SetExerciseDisplayFalse: {ex.Message}");
+				return StatusCode(500, "Internal server error");
+			}
+		}
+
 	}
 }
