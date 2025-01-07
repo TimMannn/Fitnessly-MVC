@@ -36,7 +36,7 @@ jobs:
         working-directory: BLL
 
       - name: Test .NET Core project
-        run: dotnet test --no-build --verbosity normal
+        run: dotnet test --no-build --verbosity detailed
         working-directory: BLL
 
       # Setup Node.js
@@ -60,6 +60,16 @@ jobs:
       # Install frontend dependencies
       - name: Install dependencies
         run: npm install
+        working-directory: ./reactprojectfitnessly
+
+      # Run ESLint for static analysis on frontend
+      - name: Run ESLint
+        run: npm run lint
+        working-directory: ./reactprojectfitnessly
+
+      # Run Prettier to check code formatting
+      - name: Run Prettier
+        run: npm run prettier -- --check .
         working-directory: ./reactprojectfitnessly
 
       # Clear npm cache
@@ -119,4 +129,3 @@ jobs:
       # Run tests
       - name: Run tests
         run: docker ps
-        # Voeg hier je testcommando's toe
