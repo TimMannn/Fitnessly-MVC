@@ -48,7 +48,7 @@ jobs:
           args: >
             -Dsonar.projectKey=TimMannn_Fitnessly-MVC
             -Dsonar.organization=Fitnessly-MVC
-            -Dsonar.host.url=https://sonarcloud.io/project/overview?id=TimMannn_Fitnessly-MVC
+            -Dsonar.host.url=https://sonarcloud.io
 
       # Setup Node.js
       - name: Setup Node.js
