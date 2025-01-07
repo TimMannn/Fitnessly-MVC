@@ -39,6 +39,12 @@ jobs:
         run: dotnet test --no-build --verbosity detailed
         working-directory: BLL
 
+      - name: Install Java 17
+        run: |
+          sudo apt update
+          sudo apt install -y openjdk-17-jdk
+          java -version
+
         # SonarCloud Scan
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@1
