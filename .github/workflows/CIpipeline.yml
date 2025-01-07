@@ -43,7 +43,7 @@ jobs:
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@v1
         with:
-          organization: TimMannn
+          organization: timmannn
           token: ${{ secrets.SONAR_TOKEN }}
 
       # Setup Node.js
