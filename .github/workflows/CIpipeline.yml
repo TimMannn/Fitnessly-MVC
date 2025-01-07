@@ -38,22 +38,14 @@ jobs:
       - name: Test .NET Core project
         run: dotnet test --no-build --verbosity detailed
         working-directory: BLL
-
-      - name: Set up JDK 17
-        uses: actions/setup-java@v2
-        with:
-          java-version: '17'
-          distribution: 'temurin'
           
         # SonarCloud Scan
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@v1
-        with:
+        env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_ORG: Fitnessly-MVC
           SONAR_PROJECT_KEY: TimMannn_Fitnessly-MVC
-        env:
-          SONAR_JAVA_JDK: '17'
 
       # Setup Node.js
       - name: Setup Node.js
