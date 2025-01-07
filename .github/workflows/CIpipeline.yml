@@ -38,14 +38,27 @@ jobs:
       - name: Test .NET Core project
         run: dotnet test --no-build --verbosity detailed
         working-directory: BLL
-          
-        # SonarCloud Scan
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Cache SonarCloud packages
+        uses: actions/cache@v3
+        with:
+          path: ~/.sonar/cache
+          key: ${{ runner.os }}-sonar
+
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@v1
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          SONAR_ORG: Fitnessly-MVC
-          SONAR_PROJECT_KEY: TimMannn_Fitnessly-MVC
+        with:
+          args: >
+            -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }}
+            -Dsonar.organization=${{ secrets.SONAR_ORG }}
 
       # Setup Node.js
       - name: Setup Node.js
