@@ -58,7 +58,7 @@ button {
 
     .verstopt {
         background-color: transparent;
-        width: 100px;
+        width: 150px;
         margin: 5px;
         height: 40px;
     }
@@ -226,3 +226,7 @@ table.exercise-custom-table {
         text-align: center;
     }
 
+.timer {
+    background-color: inherit;
+    text-align: center;
+}

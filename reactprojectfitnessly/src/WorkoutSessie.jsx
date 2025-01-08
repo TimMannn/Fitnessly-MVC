@@ -1,4 +1,4 @@
-import { useState, useEffect, Fragment } from "react";
+import { useState, useEffect, useRef, Fragment } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
@@ -20,6 +20,9 @@ import { IoMdStopwatch } from "react-icons/io";
 
 const WorkoutSessie = () => {
     const [data, setData] = useState([]);
+    const [timer, setTimer] = useState(0);
+    const timerRef = useRef(null);
+    const startTimeRef = useRef(null);
     const navigate = useNavigate();
     const { workoutId, workoutName, workoutSessieId } = useParams();
 
@@ -34,7 +37,10 @@ const WorkoutSessie = () => {
 
     useEffect(() => {
         getData();
+        startTimer();
+        return () => cancelAnimationFrame(timerRef.current);
     }, []);
+
 
     const getData = () => {
         const token = localStorage.getItem("token");
@@ -162,6 +168,7 @@ const WorkoutSessie = () => {
     };
 
     const handleStoppenClick = () => {
+        cancelAnimationFrame(timerRef.current);
         const token = localStorage.getItem("token");
         axios
             .put(
@@ -186,6 +193,23 @@ const WorkoutSessie = () => {
         navigate("/workout", {
             state: { token: token },
         });
+    };
+
+    const startTimer = () => {
+        startTimeRef.current = Date.now() - timer * 1000; // Initieer de starttijd
+        const updateTimer = () => {
+            setTimer(Math.floor((Date.now() - startTimeRef.current) / 1000));
+            timerRef.current = requestAnimationFrame(updateTimer);
+        };
+        timerRef.current = requestAnimationFrame(updateTimer);
+    };
+
+
+    const formatTime = (seconds) => {
+        const hrs = String(Math.floor(seconds / 3600)).padStart(2, '0');
+        const minutes = String(Math.floor((seconds % 3600) / 60)).padStart(2, '0');
+        const secs = String(seconds % 60).padStart(2, '0');
+        return `${hrs}:${minutes}:${secs}`;
     };
 
 
@@ -221,6 +245,9 @@ const WorkoutSessie = () => {
                     </Col>
                 </Row>
             </Container>
+            <div className="timer">
+                <p>{formatTime(timer)}</p>
+            </div>
 
             <br />
             <Container fluid>
@@ -285,13 +312,15 @@ const WorkoutSessie = () => {
                                     <div key={i}>
                                         <h2>Set: {i + 1}</h2>
                                         <Form.Group controlId={`SetsModels_${i}_Gewicht`}>
-                                            <Form.Label>Nieuw Gewicht:</Form.Label>
+                                            <Form.Label>Gewicht:</Form.Label>
                                             <Form.Control type="text" defaultValue={selectedExercise.gewicht} required />
                                         </Form.Group>
+                                        <h3> </h3>
                                         <Form.Group controlId={`SetsModels_${i}_Reps`}>
-                                            <Form.Label>Nieuwe hoeveelheid Reps:</Form.Label>
+                                            <Form.Label>Hoeveelheid Reps:</Form.Label>
                                             <Form.Control type="text" defaultValue={selectedExercise.reps} required />
                                         </Form.Group>
+                                        <h2> </h2>
                                     </div>
                                 ))}
                             </Form>
