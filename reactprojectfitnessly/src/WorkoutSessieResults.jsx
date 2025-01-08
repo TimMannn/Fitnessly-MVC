@@ -29,7 +29,7 @@ const WorkoutSessieResults = () => {
             })
             .then((response) => {
                 console.log("Full response:", response);
-                console.log("Fetched results:", response.data); // Log de response data
+                console.log("Fetched results:", response.data); 
                 setResults(response.data);
             })
             .catch((error) => {
@@ -43,7 +43,7 @@ const WorkoutSessieResults = () => {
     }, []);
 
     useEffect(() => {
-        console.log("Results state updated:", results); // Log de results state update
+        console.log("Results state updated:", results); 
     }, [results]);
 
 

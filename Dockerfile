@@ -24,6 +24,19 @@ RUN dotnet publish "Webapi.csproj" -c Release -o /app/publish
 # Gebruik de ASP.NET runtime image voor de uiteindelijke container
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS final
 WORKDIR /app
-EXPOSE 7187
+EXPOSE 443
+
+# Voeg de certificaten toe (indien aanwezig in de map ./certificates)
+COPY ./certificates /etc/ssl/certs/
+
+# Kopieer de gepubliceerde bestanden
 COPY --from=publish /app/publish .
+
+# Stel de applicatie in om te luisteren op HTTPS
+ENV ASPNETCORE_URLS=https://+:443
+
+# Stel het pad naar het certificaat en de sleutel in (vervang met je echte pad)
+ENV ASPNETCORE_Kestrel__Certificates__Default__Path=/etc/ssl/certs/cert.pem
+ENV ASPNETCORE_Kestrel__Certificates__Default__KeyPath=/etc/ssl/certs/key.pem
+
 ENTRYPOINT ["dotnet", "Webapi.dll"]
