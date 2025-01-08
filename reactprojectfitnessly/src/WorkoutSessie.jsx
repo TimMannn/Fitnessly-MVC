@@ -5,7 +5,8 @@ import Nav from "react-bootstrap/Nav";
 import Table from "react-bootstrap/Table";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Button from "react-bootstrap/Button";
-//import Modal from "react-bootstrap/Modal";
+import Modal from "react-bootstrap/Modal";
+import Form from "react-bootstrap/Form"
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
@@ -21,6 +22,15 @@ const WorkoutSessie = () => {
     const [data, setData] = useState([]);
     const navigate = useNavigate();
     const { workoutId, workoutName } = useParams();
+
+    const [showModal, setShowModal] = useState(false);
+    const [selectedExercise, setSelectedExercise] = useState(null);
+
+    const handleClose = () => setShowModal(false);
+    const handleShow = (exercise) => {
+        setSelectedExercise(exercise);
+        setShowModal(true);
+    };
 
     useEffect(() => {
         getData();
@@ -71,7 +81,7 @@ const WorkoutSessie = () => {
             });
     };
 
-    const handleKlaarClick = (index, exerciseId) => {
+    const handleKlaarClick = (exerciseId) => {
         const token = localStorage.getItem("token");
         axios
             .put(
@@ -186,7 +196,8 @@ const WorkoutSessie = () => {
                                             className="btn edit-btn"
                                             onClick={(e) => {
                                                 e.stopPropagation();
-                                                handleKlaarClick(index, item.id);
+                                                handleKlaarClick(item.id);
+                                                handleShow(item);
                                             }}
                                         >
                                             Klaar
@@ -202,6 +213,44 @@ const WorkoutSessie = () => {
                     </tbody>
                 </Table>
             </Container>
+
+                <Modal show={showModal} onHide={handleClose}>
+                    <Modal.Header closeButton>
+                        <Modal.Title>Bewerk oefening</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        {selectedExercise && (
+                            <Form>
+                                <input type="hidden" name="WorkoutID" value={workoutId} />
+                                <input type="hidden" id="WorkoutSessieStatsSets" name="WorkoutSessieStatsSets" value={selectedExercise.sets} />
+                                <input type="hidden" id="WorkoutSessieStatsName" name="WorkoutSessieStatsName" value={selectedExercise.name} />
+                                <input type="hidden" name="ExerciseID" value={selectedExercise.id} />
+
+                                {[...Array(selectedExercise.sets)].map((_, i) => (
+                                    <div key={i}>
+                                        <h2>Set: {i + 1}</h2>
+                                        <Form.Group controlId={`SetsModels_${i}_Gewicht`}>
+                                            <Form.Label>Nieuw Gewicht:</Form.Label>
+                                            <Form.Control type="text" defaultValue={selectedExercise.gewicht} required />
+                                        </Form.Group>
+                                        <Form.Group controlId={`SetsModels_${i}_Reps`}>
+                                            <Form.Label>Nieuwe hoeveelheid Reps:</Form.Label>
+                                            <Form.Control type="text" defaultValue={selectedExercise.reps} required />
+                                        </Form.Group>
+                                    </div>
+                                ))}
+                            </Form>
+                        )}
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button variant="secondary" onClick={handleClose}>
+                            Sluiten
+                        </Button>
+                        <Button variant="primary" onClick={handleClose}>
+                            Opslaan
+                        </Button>
+                    </Modal.Footer>
+                </Modal>
         </Fragment>
     );
 };

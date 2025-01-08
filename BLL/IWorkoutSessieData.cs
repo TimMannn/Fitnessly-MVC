@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace BLL
 {
-    public interface IWorkoutSessieData
-    {
-        void CreateWorkoutSessie(int WorkoutID);
-        void CreateWorkoutSessieExercise(string WorkoutSessieExerciseName, int WorkoutSessieStatsSets);
-        void CreateWorkoutSessieStats(double WorkoutSessieStatsGewicht, int WorkoutSessieStatsReps);
-        (List<WorkoutSessieExerciseResult>, List<WorkoutSessieExerciseStats>) GetResults();
-    }
+	public interface IWorkoutSessieData
+	{
+		Task<int> CreateWorkoutSessie(int workoutID);
+		Task<int> CreateWorkoutSessieExercise(int workoutSessieID, string workoutSessieExerciseName, int workoutSessieStatsSets);
+		Task<int> CreateWorkoutSessieStats(int workoutSessieExerciseID, double workoutSessieStatsGewicht, int workoutSessieStatsReps);
+		Task<(List<WorkoutSessieExerciseResult>, List<WorkoutSessieExerciseStats>)> GetResults(int workoutSessieID);
+	}
 }

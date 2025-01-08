@@ -1,38 +1,35 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace BLL
 {
-    public class WorkoutSessieService
-    {
-        private readonly IWorkoutSessieData data;
+	public class WorkoutSessieService
+	{
+		private readonly IWorkoutSessieData _data;
 
-        public WorkoutSessieService(IWorkoutSessieData data)
-        {
-            this.data = data;
-        }
+		public WorkoutSessieService(IWorkoutSessieData data)
+		{
+			_data = data;
+		}
 
-        public void CreateWorkoutSessie(int WorkoutID)
-        {
-            data.CreateWorkoutSessie(WorkoutID);
-        }
+		public async Task<int> CreateWorkoutSessie(int workoutID)
+		{
+			return await _data.CreateWorkoutSessie(workoutID);
+		}
 
-        public void CreateWorkoutSessieExercise (string WorkoutSessieExerciseName, int WorkoutSessieStatsSets)
-        {
-            data.CreateWorkoutSessieExercise(WorkoutSessieExerciseName, WorkoutSessieStatsSets);
-        }
+		public async Task<int> CreateWorkoutSessieExercise(int workoutSessieID, string workoutSessieExerciseName, int workoutSessieStatsSets)
+		{
+			return await _data.CreateWorkoutSessieExercise(workoutSessieID, workoutSessieExerciseName, workoutSessieStatsSets);
+		}
 
-    public void CreateWorkoutSessieStats(double WorkoutSessieStatsGewicht, int WorkoutSessieStatsReps)
-        {
-            data.CreateWorkoutSessieStats(WorkoutSessieStatsGewicht, WorkoutSessieStatsReps);
-        }
+		public async Task<int> CreateWorkoutSessieStats(int workoutSessieExerciseID, double workoutSessieStatsGewicht, int workoutSessieStatsReps)
+		{
+			return await _data.CreateWorkoutSessieStats(workoutSessieExerciseID, workoutSessieStatsGewicht, workoutSessieStatsReps);
+		}
 
-        public (List<WorkoutSessieExerciseResult>, List<WorkoutSessieExerciseStats>) GetResults()
-        {
-            return data.GetResults();
-        }
-    }
+		public async Task<(List<WorkoutSessieExerciseResult>, List<WorkoutSessieExerciseStats>)> GetResults(int workoutSessieID)
+		{
+			return await _data.GetResults(workoutSessieID);
+		}
+	}
 }
