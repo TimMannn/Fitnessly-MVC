@@ -18,27 +18,35 @@ const WorkoutSessieResults = () => {
     });
     const navigate = useNavigate();
 
+    const getData = () => {
+        const token = localStorage.getItem("token");
+
+        axios
+            .get(`https://localhost:7187/api/WorkoutSessie/${workoutSessieId}/results`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            })
+            .then((response) => {
+                console.log("Full response:", response);
+                console.log("Fetched results:", response.data); // Log de response data
+                setResults(response.data);
+            })
+            .catch((error) => {
+                console.error("Error fetching results:", error);
+                toast.error("Failed to fetch results");
+            });
+    };
+
     useEffect(() => {
         getData();
     }, []);
 
-    const getData = async () => {
-        const token = localStorage.getItem("token");
-        try {
-            const response = await axios.get(
-                `https://localhost:7187/api/WorkoutSessie/${workoutSessieId}/results`,
-                {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
-                }
-            );
-            setResults(response.data);
-        } catch (error) {
-            console.error("Error fetching results:", error);
-            toast.error("Failed to fetch results");
-        }
-    };
+    useEffect(() => {
+        console.log("Results state updated:", results); // Log de results state update
+    }, [results]);
+
+
 
     const handleLogout = () => {
         const token = localStorage.getItem("token");

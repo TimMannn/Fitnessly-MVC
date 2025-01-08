@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace BLL
@@ -29,7 +30,23 @@ namespace BLL
 
 		public async Task<(List<WorkoutSessieExerciseResult>, List<WorkoutSessieExerciseStats>)> GetResults(int workoutSessieID)
 		{
-			return await _data.GetResults(workoutSessieID);
+			Console.WriteLine($"Fetching results for workoutSessieID: {workoutSessieID}");
+			var results = await _data.GetResults(workoutSessieID);
+			Console.WriteLine("Fetched results:");
+
+			Console.WriteLine("WorkoutSessieExerciseResults:");
+			foreach (var result in results.Item1)
+			{
+				Console.WriteLine($"Name: {result.Name}, Sets: {result.Sets}");
+			}
+
+			Console.WriteLine("WorkoutSessieExerciseStats:");
+			foreach (var stat in results.Item2)
+			{
+				Console.WriteLine($"Gewicht: {stat.Gewicht}, Reps: {stat.Reps}");
+			}
+
+			return results;
 		}
 	}
 }

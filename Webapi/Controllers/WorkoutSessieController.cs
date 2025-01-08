@@ -65,19 +65,27 @@ namespace Webapi.Controllers
 			}
 		}
 
-		[HttpGet("{workoutSessieID}/results")]
-		public async Task<ActionResult<(List<WorkoutSessieExerciseResult>, List<WorkoutSessieExerciseStats>)>> GetResults(int workoutSessieID)
+		[HttpGet("{workoutSessieId}/results")]
+		public async Task<IActionResult> GetResults(int workoutSessieId)
 		{
-			try
+			var results = await _workoutSessieService.GetResults(workoutSessieId);
+
+			if (results.Item1 == null || results.Item2 == null)
 			{
-				var results = await _workoutSessieService.GetResults(workoutSessieID);
-				return Ok(results);
+				return NotFound();
 			}
-			catch (Exception ex)
+
+			// Creëer een response object met de juiste structuur
+			var response = new
 			{
-				Console.WriteLine($"Error in GetResults: {ex.Message}");
-				return StatusCode(500, "Internal server error");
-			}
+				WorkoutSessieExerciseResults = results.Item1,
+				WorkoutSessieExerciseStats = results.Item2
+			};
+
+			// Log de resultaten voordat ze worden teruggestuurd
+			Console.WriteLine("Returning results: ", response);
+
+			return Ok(response);
 		}
 	}
 }
