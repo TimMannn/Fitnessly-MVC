@@ -21,7 +21,7 @@ import { IoMdStopwatch } from "react-icons/io";
 const WorkoutSessie = () => {
     const [data, setData] = useState([]);
     const navigate = useNavigate();
-    const { workoutId, workoutName } = useParams();
+    const { workoutId, workoutName, workoutSessieId } = useParams();
 
     const [showModal, setShowModal] = useState(false);
     const [selectedExercise, setSelectedExercise] = useState(null);
@@ -55,6 +55,61 @@ const WorkoutSessie = () => {
             });
     };
 
+    const handleSave = async () => {
+        const token = localStorage.getItem("token");
+
+        try {
+            const workoutSessieExerciseResponse = await axios.post(
+                `https://localhost:7187/api/WorkoutSessie/${workoutSessieId}/exercises`,
+                {
+                    exerciseName: selectedExercise.name,
+                    sets: selectedExercise.sets,
+                },
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            );
+
+            const workoutSessieExerciseId = workoutSessieExerciseResponse.data;
+
+            const stats = [];
+            for (let i = 0; i < selectedExercise.sets; i++) {
+                stats.push({
+                    gewicht: document.getElementById(`SetsModels_${i}_Gewicht`).value,
+                    reps: document.getElementById(`SetsModels_${i}_Reps`).value,
+                });
+            }
+
+            console.log("Workout Sessie Exercise ID:", workoutSessieExerciseId);
+            console.log("Stats:", stats);
+
+            await Promise.all(
+                stats.map(stat =>
+                    axios.post(
+                        `https://localhost:7187/api/WorkoutSessie/exercises/${workoutSessieExerciseId}/stats`,
+                        stat,
+                        {
+                            headers: {
+                                Authorization: `Bearer ${token}`,
+                            },
+                        }
+                    )
+                )
+            );
+
+            toast.success("Exercise stats saved successfully!");
+            handleClose();
+        } catch (error) {
+            console.error("Error saving exercise stats:", error);
+            toast.error("Failed to save exercise stats.");
+        }
+    };
+
+
+
+
     const handleLogout = () => {
         const token = localStorage.getItem("token");
         axios
@@ -76,7 +131,7 @@ const WorkoutSessie = () => {
                 }
             })
             .catch((error) => {
-                console.error("Error:", error); // Debugging line
+                console.error("Error:", error); 
                 toast.error("Error logging out");
             });
     };
@@ -246,7 +301,7 @@ const WorkoutSessie = () => {
                         <Button variant="secondary" onClick={handleClose}>
                             Sluiten
                         </Button>
-                        <Button variant="primary" onClick={handleClose}>
+                        <Button variant="primary" onClick={handleSave}>
                             Opslaan
                         </Button>
                     </Modal.Footer>

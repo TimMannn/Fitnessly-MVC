@@ -18,12 +18,14 @@ namespace Webapi.Controllers
 			_workoutSessieService = workoutSessieService;
 		}
 
-		[HttpPost]
-		public async Task<ActionResult<int>> CreateWorkoutSessie([FromBody] int workoutID)
+		[HttpPost("{workoutID}")]
+		public async Task<ActionResult<int>> CreateWorkoutSessie(int workoutID)
 		{
 			try
 			{
+				Console.WriteLine($"Creating workout session for workout ID: {workoutID}");
 				var workoutSessieID = await _workoutSessieService.CreateWorkoutSessie(workoutID);
+				Console.WriteLine($"Workout session created with ID: {workoutSessieID}");
 				return Ok(workoutSessieID);
 			}
 			catch (Exception ex)

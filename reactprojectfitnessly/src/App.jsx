@@ -41,7 +41,7 @@ function App() {
           />
 
           <Route
-            path="/workoutsessie/:workoutId/:workoutName?"
+            path="/workoutsessie/:workoutId/:workoutName?/:workoutSessieId?"
             element={
               isAuthenticated() ? <WorkoutSessie /> : <Navigate to="/login" />
             }

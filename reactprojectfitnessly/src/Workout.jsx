@@ -236,32 +236,58 @@ const CRUD = () => {
     });
   };
 
-  const handleStartClick = (workoutId, workoutName) => {
-      const token = localStorage.getItem("token");
-          axios
-              .put(
-                  `https://localhost:7187/api/Exercise/display/true`,
-                  {},
-                  {
-                      headers: {
-                          Authorization: `Bearer ${token}`,
-                      },
-                  },
-              )
-              .then(() => {
-                  setData(prevData =>
-                      prevData.map(item => ({ ...item, display: "true" }))
-                  );
-              })
-              .catch((error) => {
-                  console.error("Error setting all exercises to true:", error);
-                  toast.error("Failed to update all exercises display");
-              });
+    const handleStartClick = async (workoutId, workoutName) => {
+        const token = localStorage.getItem("token");
 
-    navigate(`/workoutsessie/${workoutId}/${workoutName}`, {
-      state: { token: token },
-    });
-  };
+        try {
+            // Maak een nieuwe workoutsessie aan
+            const workoutSessieId = await createWorkoutSessie(workoutId);
+
+            // Zet alle oefeningen op display true
+            await axios.put(
+                `https://localhost:7187/api/Exercise/display/true`,
+                {},
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            );
+
+            // Navigeren naar de workoutsessie pagina met de nieuwe workoutsessieID
+            navigate(`/workoutsessie/${workoutId}/${workoutName}/${workoutSessieId}`, {
+                state: { token: token },
+            });
+        } catch (error) {
+            console.error("Error during start click:", error);
+            toast.error("Failed to start workout session.");
+        }
+    };
+
+
+    const createWorkoutSessie = async (workoutId) => {
+        const token = localStorage.getItem("token");
+
+        try {
+            console.log("Creating workout session for workout ID:", workoutId);
+            const response = await axios.post(
+                `https://localhost:7187/api/WorkoutSessie/${workoutId}`, 
+                {},
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            );
+            console.log("Workout session created with ID:", response.data);
+            return response.data; 
+        } catch (error) {
+            console.error("Error creating workout session:", error);
+            toast.error("Failed to create workout session.");
+            throw error;
+        }
+    };
+
 
   return (
     <Fragment>
