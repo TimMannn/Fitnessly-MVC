@@ -95,17 +95,55 @@ namespace DAL.EntityFramework.Repository
 				.Include(ws => ws.Workoutsessieworkoutsessieexercises)
 					.ThenInclude(wse => wse.Workoutsessieexercise)
 						.ThenInclude(we => we.Workoutsessieexerciseworkoutsessiestats)
+							.ThenInclude(wes => wes.Workoutsessiestats)
 				.FirstOrDefaultAsync(ws => ws.WorkoutsessieId == workoutSessieId);
 
-			if (workoutSessie == null) throw new KeyNotFoundException("WorkoutSessie not found");
+			if (workoutSessie == null)
+			{
+				throw new KeyNotFoundException("WorkoutSessie not found");
+			}
 
-			var exerciseResults = workoutSessie.Workoutsessieworkoutsessieexercises.Select(wse =>
-				new WorkoutSessieExerciseResult(wse.Workoutsessieexercise.WorkoutsessieexerciseName, wse.Workoutsessieexercise.WorkoutsessieexerciseSets)).ToList();
+			Console.WriteLine($"Workoutsessie found - Id: {workoutSessie.WorkoutsessieId}, Name: {workoutSessie.WorkoutsessieName}");
 
-			var statsResults = workoutSessie.Workoutsessieworkoutsessieexercises
-				.SelectMany(wse => wse.Workoutsessieexercise.Workoutsessieexerciseworkoutsessiestats
-					.Select(wes =>
-						new WorkoutSessieExerciseStats(wes.Workoutsessiestats.WorkoutsessiestatsGewicht, wes.Workoutsessiestats.WorkoutsessiestatsReps))).ToList();
+			var exerciseResults = workoutSessie.Workoutsessieworkoutsessieexercises
+				.Select(wse => new WorkoutSessieExerciseResult(
+					wse.Workoutsessieexercise.WorkoutsessieexerciseName,
+					wse.Workoutsessieexercise.WorkoutsessieexerciseSets))
+				.ToList();
+
+			Console.WriteLine($"Number of exercises: {exerciseResults.Count}");
+			foreach (var er in exerciseResults)
+			{
+				Console.WriteLine($"Exercise - Name: {er.Name}, Sets: {er.Sets}");
+			}
+
+			var statsResults = new List<WorkoutSessieExerciseStats>();
+
+			foreach (var wse in workoutSessie.Workoutsessieworkoutsessieexercises)
+			{
+				Console.WriteLine($"Processing exercise - Id: {wse.WorkoutsessieexerciseId}, Name: {wse.Workoutsessieexercise.WorkoutsessieexerciseName}");
+
+				foreach (var wes in wse.Workoutsessieexercise.Workoutsessieexerciseworkoutsessiestats)
+				{
+					if (wes.Workoutsessiestats != null)
+					{
+						statsResults.Add(new WorkoutSessieExerciseStats(
+							wes.Workoutsessiestats.WorkoutsessiestatsGewicht,
+							wes.Workoutsessiestats.WorkoutsessiestatsReps));
+						Console.WriteLine($"Stat Found - Gewicht: {wes.Workoutsessiestats.WorkoutsessiestatsGewicht}, Reps: {wes.Workoutsessiestats.WorkoutsessiestatsReps}");
+					}
+					else
+					{
+						Console.WriteLine("Workoutsessiestats is null for WorkoutsessieexerciseId: " + wse.WorkoutsessieexerciseId);
+					}
+				}
+			}
+
+			Console.WriteLine($"Number of stats results: {statsResults.Count}");
+			foreach (var sr in statsResults)
+			{
+				Console.WriteLine($"Stats - Gewicht: {sr.Gewicht}, Reps: {sr.Reps}");
+			}
 
 			return (exerciseResults, statsResults);
 		}

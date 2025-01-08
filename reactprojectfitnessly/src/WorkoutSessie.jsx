@@ -190,13 +190,13 @@ const WorkoutSessie = () => {
                 toast.error("Failed to update all exercises display");
             });
 
-        navigate("/workout", {
+        navigate(`/workoutsessieresults/${workoutSessieId}`, {
             state: { token: token },
         });
     };
 
     const startTimer = () => {
-        startTimeRef.current = Date.now() - timer * 1000; // Initieer de starttijd
+        startTimeRef.current = Date.now() - timer * 1000;
         const updateTimer = () => {
             setTimer(Math.floor((Date.now() - startTimeRef.current) / 1000));
             timerRef.current = requestAnimationFrame(updateTimer);

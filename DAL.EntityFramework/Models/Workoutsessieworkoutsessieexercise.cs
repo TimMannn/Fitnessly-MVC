@@ -1,17 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DAL.EntityFramework.Models;
 
 public partial class Workoutsessieworkoutsessieexercise
 {
-    public int Id { get; set; }
+	[Column("id")]
+	public int Id { get; set; }
 
-    public int WorkoutsessieId { get; set; }
+	[Column("workoutsessie_id")]
+	public int WorkoutsessieId { get; set; }
 
-    public int WorkoutsessieexerciseId { get; set; }
+	[Column("workoutsessieexercise_id")]
+	public int WorkoutsessieexerciseId { get; set; }
 
-    public virtual Workoutsessie Workoutsessie { get; set; } = null!;
-
-    public virtual Workoutsessieexercise Workoutsessieexercise { get; set; } = null!;
+	public virtual Workoutsessie Workoutsessie { get; set; } = null!;
+	public virtual Workoutsessieexercise Workoutsessieexercise { get; set; } = null!;
 }
+
