@@ -32,6 +32,9 @@ COPY ./certificates /etc/ssl/certs/
 # Kopieer de gepubliceerde bestanden
 COPY --from=publish /app/publish .
 
+# Installeer MySQL-client
+RUN apt-get update && apt-get install -y mysql-client
+
 # Stel de applicatie in om te luisteren op HTTPS
 ENV ASPNETCORE_URLS=https://+:443
 
