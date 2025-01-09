@@ -1,4 +1,3 @@
-# Begin met de basis .NET SDK image
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 
 # Stel de werkdirectory in voor de build stappen
@@ -33,6 +32,8 @@ COPY ./certificates /etc/ssl/certs/
 COPY --from=publish /app/publish .
 
 # Installeer MySQL-client
+RUN apt-get update && apt-get install -y gnupg
+RUN apt-key adv --recv-keys --keyserver keyserver.ubuntu.com 5072E1F5
 RUN apt-get update && apt-get install -y mysql-client
 
 # Stel de applicatie in om te luisteren op HTTPS
