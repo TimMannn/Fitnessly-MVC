@@ -14,7 +14,9 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./Workout.css";
 import { FaSignOutAlt } from "react-icons/fa";
+import { CgArrowTopRight } from "react-icons/cg";
 import { IoIosAddCircle } from "react-icons/io";
+import { FaLightbulb } from "react-icons/fa6";
 import { jwtDecode } from "jwt-decode";
 
 const CRUD = () => {
@@ -312,10 +314,15 @@ const CRUD = () => {
             Workout toevoegen <IoIosAddCircle />
           </Button>
         </Row>
-      </Container>
-      <br />
-      <Container fluid>
-        <Table striped bordered hover className="custom-table">
+          </Container>
+          <Container fluid>
+              <div>
+                  <FaLightbulb /> Click on the row of a workout to add exercises.
+              </div>
+          </Container>
+          <br />
+          <Container fluid>
+              <Table striped bordered hover className="custom-table">
           <thead className="header-row">
             <tr>
               <th>#</th>
@@ -365,7 +372,7 @@ const CRUD = () => {
               ))
             ) : (
               <tr>
-                <td colSpan="3">Voeg een workout toe</td>
+                  <td colSpan="3">Voeg eerst een workout toe <CgArrowTopRight /></td>
               </tr>
             )}
           </tbody>

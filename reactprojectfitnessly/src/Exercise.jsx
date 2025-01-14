@@ -278,7 +278,8 @@ const Exercise = () => {
         </Row>
       </Container>
 
-      <br />
+          <br />
+
       <Container fluid>
         <Table striped bordered hover className="exercise-custom-table">
           <thead className="header-row">
@@ -324,7 +325,7 @@ const Exercise = () => {
               ))
             ) : (
               <tr>
-                    <td colSpan="6">Voeg een exercise toe <CgArrowTopRight /></td>
+                    <td colSpan="6">Voeg eerst een exercise toe <CgArrowTopRight /></td>
               </tr>
             )}
           </tbody>

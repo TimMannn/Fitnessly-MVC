@@ -58,7 +58,7 @@ const Register = () => {
             onChange={(e) => setEmail(e.target.value)}
             required
           />
-        </div>
+              </div>
         <div className="form-group">
           <label htmlFor="password">Password</label>
           <input
@@ -68,8 +68,17 @@ const Register = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
-          />
-        </div>
+                  />
+              </div>
+              <div style={{ textAlign: 'left' }}>
+                  <ul>
+                      <li>At least one uppercase letter</li>
+                      <li>At least one lowercase letter</li>
+                      <li>At least one numeral (0-9)</li>
+                      <li>At least one symbol (!@#^*_?{ }-)</li>
+                      <li>Minimum 6 characters</li>
+                  </ul>
+              </div>
         <div className="form-group">
           <label htmlFor="confirmPassword">Confirm Password</label>
           <input
