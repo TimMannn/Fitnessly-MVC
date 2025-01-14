@@ -9,6 +9,7 @@
     it('Should add a new workout', () => {
         // Bezoek de workout pagina
         cy.visit('https://localhost:3000/workout');
+        cy.wait(1000);
         // Open de modal om een nieuwe workout toe te voegen
         cy.get('#addworkout-button').click();
         cy.wait(1000);

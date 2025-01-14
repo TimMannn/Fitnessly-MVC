@@ -271,7 +271,7 @@ const Exercise = () => {
             <h2> {workoutName} </h2>
           </Col>
           <Col xs="auto">
-            <Button className="btn submit-btn" onClick={handleShowAdd}>
+            <Button className="btn submit-btn" id="addexercise-button" onClick={handleShowAdd}>
               Exercise toevoegen <IoIosAddCircle />
             </Button>
           </Col>
@@ -304,6 +304,7 @@ const Exercise = () => {
                   <td>
                     <Button
                       className="btn edit-btn"
+                      id="editexercise-button"
                       onClick={(e) => {
                         e.stopPropagation();
                         handleEdit(item.id);
@@ -313,6 +314,7 @@ const Exercise = () => {
                     </Button>
                     <Button
                       className="btn delete-btn"
+                      id="deleteexercise-button"
                       onClick={(e) => {
                         e.stopPropagation();
                         handleDelete(item.id);
@@ -391,7 +393,7 @@ const Exercise = () => {
           <Button className="btn menu-btn" onClick={handleCloseAdd}>
             Cancel
           </Button>
-          <Button className="btn menu-btn" onClick={handleSave}>
+          <Button className="btn menu-btn" id="toevoegen-button" onClick={handleSave}>
             Toevoegen
           </Button>
         </Modal.Footer>
@@ -456,7 +458,7 @@ const Exercise = () => {
           <Button className="btn menu-btn" onClick={handleCloseEdit}>
             Cancel
           </Button>
-          <Button className="btn menu-btn" onClick={handleUpdate}>
+          <Button className="btn menu-btn" id="saveexercise-button" onClick={handleUpdate}>
             Save Changes
           </Button>
         </Modal.Footer>
