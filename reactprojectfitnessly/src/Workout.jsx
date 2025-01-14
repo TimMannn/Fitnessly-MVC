@@ -310,7 +310,7 @@ const CRUD = () => {
       </Navbar>
       <Container fluid>
         <Row className="toevoegenworkout">
-          <Button className="btn submitworkout-btn" onClick={handleShowAdd}>
+          <Button className="btn submitworkout-btn" id="addworkout-button" onClick={handleShowAdd}>
             Workout toevoegen <IoIosAddCircle />
           </Button>
         </Row>
@@ -351,6 +351,7 @@ const CRUD = () => {
                     </Button>
                     <Button
                       className="btn edit-btn"
+                      id="edit-button"
                       onClick={(e) => {
                         e.stopPropagation();
                         handleEdit(item.id);
@@ -360,6 +361,7 @@ const CRUD = () => {
                     </Button>
                     <Button
                       className="btn delete-btn"
+                      id="delete-button"
                       onClick={(e) => {
                         e.stopPropagation();
                         handleDelete(item.id);

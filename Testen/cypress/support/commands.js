@@ -23,3 +23,21 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+
+Cypress.Commands.add('login', (userName, password, rememberMe) => {
+        // Login via API en stel token in localStorage
+        cy.request('POST', 'https://localhost:7187/api/Account/login', {
+            userName: 'CypressTestAccount', // Vervang dit door een valide gebruikersnaam
+            password: 'CypressTestAccount123!',    // Vervang dit door een geldig wachtwoord
+            rememberMe: true,
+        }).then((response) => {
+            expect(response.status).to.eq(200);
+            const token = response.body.token;
+            window.localStorage.setItem('token', token);
+        });
+    });
+
+
+
+
+
