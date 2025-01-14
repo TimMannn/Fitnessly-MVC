@@ -70,7 +70,7 @@ const Login = () => {
           />
           <label htmlFor="rememberMe">Remember me</label>
         </div>
-        <button type="submit" className="btn btn-primary">
+        <button type="submit" id="login-button" className="btn btn-primary">
           Login
         </button>
         {message && <p className="message">{message}</p>}

@@ -9,12 +9,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BLL", "BLL\BLL.csproj", "{E
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DAL SQL", "DAL\DAL SQL.csproj", "{6F6B5C13-C7B8-45B1-A1D8-24BEAAC3DDEC}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTestFitnessly", "UnitTestFitnessly\UnitTestFitnessly.csproj", "{DD7FE018-8F72-4F5A-8AAD-344AC9610E07}"
-	ProjectSection(ProjectDependencies) = postProject
-		{6F6B5C13-C7B8-45B1-A1D8-24BEAAC3DDEC} = {6F6B5C13-C7B8-45B1-A1D8-24BEAAC3DDEC}
-		{E3AA1C8B-D392-4647-82CE-49B893F4ADB3} = {E3AA1C8B-D392-4647-82CE-49B893F4ADB3}
-	EndProjectSection
-EndProject
 Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "reactprojectfitnessly", "ReactProjectFitnessly\reactprojectfitnessly.esproj", "{201ACD68-F2B3-402C-BA35-68B82DE7F227}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAL.EntityFramework", "DAL.EntityFramework\DAL.EntityFramework.csproj", "{7B66E7B7-FDA0-472A-BCF2-A711FEEFF020}"
@@ -26,6 +20,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Webapi", "Webapi\Webapi.csproj", "{4C17C325-A29B-43EC-B050-F270C5691038}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Testen", "Testen\Testen.csproj", "{90075BC4-F89A-4D45-B4D3-9D15DA5A0B8C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,10 +41,6 @@ Global
 		{6F6B5C13-C7B8-45B1-A1D8-24BEAAC3DDEC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6F6B5C13-C7B8-45B1-A1D8-24BEAAC3DDEC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6F6B5C13-C7B8-45B1-A1D8-24BEAAC3DDEC}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DD7FE018-8F72-4F5A-8AAD-344AC9610E07}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DD7FE018-8F72-4F5A-8AAD-344AC9610E07}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DD7FE018-8F72-4F5A-8AAD-344AC9610E07}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DD7FE018-8F72-4F5A-8AAD-344AC9610E07}.Release|Any CPU.Build.0 = Release|Any CPU
 		{201ACD68-F2B3-402C-BA35-68B82DE7F227}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{201ACD68-F2B3-402C-BA35-68B82DE7F227}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{201ACD68-F2B3-402C-BA35-68B82DE7F227}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
@@ -63,6 +55,10 @@ Global
 		{4C17C325-A29B-43EC-B050-F270C5691038}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4C17C325-A29B-43EC-B050-F270C5691038}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4C17C325-A29B-43EC-B050-F270C5691038}.Release|Any CPU.Build.0 = Release|Any CPU
+		{90075BC4-F89A-4D45-B4D3-9D15DA5A0B8C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{90075BC4-F89A-4D45-B4D3-9D15DA5A0B8C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{90075BC4-F89A-4D45-B4D3-9D15DA5A0B8C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{90075BC4-F89A-4D45-B4D3-9D15DA5A0B8C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -309,7 +309,7 @@ const CRUD = () => {
       <Container fluid>
         <Row className="toevoegenworkout">
           <Button className="btn submitworkout-btn" onClick={handleShowAdd}>
-            Toevoegen <IoIosAddCircle />
+            Workout toevoegen <IoIosAddCircle />
           </Button>
         </Row>
       </Container>

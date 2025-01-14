@@ -81,7 +81,7 @@ const Register = () => {
             required
           />
         </div>
-        <button type="submit" className="btn btn-primary">
+        <button type="submit" id="register-button" className="btn btn-primary">
           Register
         </button>
         {message && <p className="message">{message}</p>}

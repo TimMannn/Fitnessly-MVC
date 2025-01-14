@@ -14,6 +14,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./Exercise.css";
 import { FaArrowLeft, FaSignOutAlt } from "react-icons/fa";
+import { CgArrowTopRight } from "react-icons/cg";
 import { IoIosAddCircle } from "react-icons/io";
 import { jwtDecode } from "jwt-decode";
 
@@ -271,7 +272,7 @@ const Exercise = () => {
           </Col>
           <Col xs="auto">
             <Button className="btn submit-btn" onClick={handleShowAdd}>
-              Toevoegen <IoIosAddCircle />
+              Exercise toevoegen <IoIosAddCircle />
             </Button>
           </Col>
         </Row>
@@ -323,7 +324,7 @@ const Exercise = () => {
               ))
             ) : (
               <tr>
-                <td colSpan="6">Voeg een exercise toe</td>
+                    <td colSpan="6">Voeg een exercise toe <CgArrowTopRight /></td>
               </tr>
             )}
           </tbody>
