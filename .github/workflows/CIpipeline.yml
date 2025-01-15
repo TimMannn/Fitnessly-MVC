@@ -36,5 +36,107 @@ jobs:
         working-directory: BLL
 
       - name: Test .NET Core project
-        run: dotnet test --no-build --verbosity normal
+        run: dotnet test --no-build --collect:"XPlat Code Coverage" --results-directory ./TestResults /p:CoverletOutput=./TestResults/Coverage/ /p:CoverletOutputFormat=cobertura
         working-directory: BLL
+          
+        # SonarCloud Scan
+      - name: Run SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@v2
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        with:
+          args: >
+            -Dsonar.projectKey=TimMannn_Fitnessly-MVC
+            -Dsonar.organization=timmannn
+            -Dsonar.host.url=https://sonarcloud.io
+            -Dsonar.cs.opencover.reportsPaths=./TestResults/Coverage/coverage.cobertura.xml
+      
+      # Setup Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '20.18.0'
+
+      # Check Node.js version
+      - name: Check Node.js version
+        run: node --version
+
+      # Check npm version
+      - name: Check npm version
+        run: npm --version
+
+      # Set environment variable for CI
+      - name: Set environment variable for CI
+        run: echo "CI=true" >> $GITHUB_ENV
+
+      # Install frontend dependencies
+      - name: Install dependencies
+        run: npm install
+        working-directory: ./reactprojectfitnessly
+
+      # Run ESLint for static analysis on frontend
+      - name: Run ESLint
+        run: npm run lint
+        working-directory: ./reactprojectfitnessly
+
+      # Run Prettier to check code formatting
+      - name: Run Prettier
+        run: npm run prettier -- --check .
+        working-directory: ./reactprojectfitnessly
+
+      # Clear npm cache
+      - name: Clear cache
+        run: npm cache clean --force
+        working-directory: ./reactprojectfitnessly
+
+      # Build frontend project
+      - name: Build frontend
+        run: npm run build
+        working-directory: ./reactprojectfitnessly
+
+      # Setup Docker Buildx
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+
+      # Log in to Docker Hub
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      # Install docker-compose
+      - name: Install Docker Compose
+        run: |
+          sudo curl -L "https://github.com/docker/compose/releases/download/$(curl -s https://api.github.com/repos/docker/compose/releases/latest | jq -r .tag_name)/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+          sudo chmod +x /usr/local/bin/docker-compose
+          docker-compose --version
+      # Build backend Docker image
+      - name: Build and push backend image
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          dockerfile: Dockerfile
+          push: true
+          tags: timverbakel/fitnessly-backend:latest
+
+      # Build frontend Docker image (use built files)
+      - name: Build and push frontend image
+        uses: docker/build-push-action@v2
+        with:
+          context: ./reactprojectfitnessly
+          dockerfile: Dockerfile
+          push: true
+          tags: timverbakel/fitnessly-frontend:latest
+
+      # Run backend container
+      - name: Run backend container
+        run: docker-compose -f docker-compose.yml up -d db backend
+
+      # Run frontend container
+      - name: Run fronted container
+        run: docker-compose -f docker-compose.yml up -d frontend
+
+      # Run tests
+      - name: Run tests
+        run: docker ps

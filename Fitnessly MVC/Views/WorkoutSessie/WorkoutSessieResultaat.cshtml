@@ -76,7 +76,7 @@
             }
 </style>
 <div class="container">
-    <h1>Resultaten</h1>
+    <div className="Resultaten-top"><h1>Resultaten</h1></div>
     @{
         var currentIndex = 0;
     }
@@ -87,12 +87,13 @@
             @for (int i = 0; i < workoutSessieExerciseResult.Sets; i++)
             {
                 var Repnumber = i + 1;
-                <h4>Rep: @Repnumber</h4>
+                <h6>Rep: @Repnumber</h6>
                 @if (currentIndex < Model.workoutSessieExerciseStats.Count)
                 {
                     var workoutSessieExerciseStats = Model.workoutSessieExerciseStats[currentIndex];
-                    <h5>Gewicht: @workoutSessieExerciseStats.Gewicht | Reps: @workoutSessieExerciseStats.Reps</h5>
+                    <h6>Gewicht: @workoutSessieExerciseStats.Gewicht | Reps: @workoutSessieExerciseStats.Reps</h6>
                     currentIndex++;
+                    <h1></h1>
                 }
                 else
                 {

@@ -3,8 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using System.Runtime.InteropServices.Marshalling;
 using BLL;
-using DAL;
-using SqlServerDAL;
+using DAL.EntityFramework;
 
 namespace Fitnessly_MVC.Controllers
 {

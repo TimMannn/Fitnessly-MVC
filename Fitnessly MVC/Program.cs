@@ -1,5 +1,6 @@
 using BLL;
-using DAL;
+using DAL.EntityFramework;
+using DAL.EntityFramework.Repository;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,9 +16,13 @@ var connectionString = builder.Configuration["ConnectionString"];
     dbContextOptions => dbContextOptions
         .UseMySql(connectionString, serverVersion)); */
 
-builder.Services.AddScoped<IWorkoutData>(x => new WorkoutData(connectionString));
-builder.Services.AddScoped<IExerciseData>(x => new ExerciseData(connectionString));
-builder.Services.AddScoped<IWorkoutSessieData>(x => new WorkoutSessieData(connectionString));
+builder.Services.AddScoped<IWorkoutData, WorkoutData>();
+builder.Services.AddScoped<IExerciseData, ExerciseData>();
+builder.Services.AddScoped<IWorkoutSessieData, WorkoutSessieData>();
+
+builder.Services.AddScoped<WorkoutService>();
+builder.Services.AddScoped<ExerciseService>();
+builder.Services.AddScoped<WorkoutSessieService>();
 
 var app = builder.Build();
 
