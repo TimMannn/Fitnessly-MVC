@@ -40,7 +40,7 @@ jobs:
         
       - name: Test .NET Core project
         run: dotnet test --no-build --collect:"XPlat Code Coverage" --results-directory ./TestResults /p:CoverletOutput=./TestResults/Coverage/ /p:CoverletOutputFormat=cobertura
-        working-directory: BLL
+        working-directory: Testen
           
         # SonarCloud Scan
       - name: Run SonarCloud Scan
