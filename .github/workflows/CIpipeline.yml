@@ -41,7 +41,7 @@ jobs:
       - name: Test .NET Core project with coverage
         run: |
           dotnet test --no-build --collect:"XPlat Code Coverage" --results-directory ./TestResults /p:CoverletOutput=./TestResults/Coverage/ /p:CoverletOutputFormat=cobertura
-          coverlet ./Testen/bin/Debug/net8.0/Testen.dll --target "dotnet" --targetargs "test --no-build --results-directory ./TestResults" -f opencover -o "coverage.xml"
+          coverlet ./Testen/bin/Debug/net8.0/Testen.dll --target "dotnet" --targetargs "test --no-build" -f opencover -o "./TestResults/Coverage/coverage.xml"
         working-directory: Testen
           
         # SonarCloud Scan
