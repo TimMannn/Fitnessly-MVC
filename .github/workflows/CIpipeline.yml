@@ -38,11 +38,8 @@ jobs:
       - name: Install Coverlet tool
         run: dotnet tool install --global coverlet.console
 
-      - name: Test .NET Core project with coverage
-        run: |
-          dotnet test --no-build --collect:"XPlat Code Coverage" --results-directory ./TestResults /p:CoverletOutput=./TestResults/Coverage/ /p:CoverletOutputFormat=cobertura
-          coverlet /home/runner/work/Fitnessly-MVC/Fitnessly-MVC/Testen/bin/Debug/net8.0/Testen.dll --target "dotnet" --targetargs "test --no-build" -f opencover -o "/home/runner/work/Fitnessly-MVC/Fitnessly-MVC/Testen/TestResults/Coverage/coverage.xml"
-        working-directory: Testen
+      - name: Build project 
+        run: dotnet build --no-incremental --configuration Release
 
       - name: Run tests with code coverage 
         run: | 
