@@ -38,12 +38,10 @@ jobs:
       - name: Install Coverlet tool 
         run: dotnet tool install --global coverlet.console 
         
-      - name: Test .NET Core project with coverage 
-        run: | 
-          dotnet test --no-build --collect:"XPlat Code Coverage" --results-directory ./TestResults /p:CoverletOutput=./TestResults/Coverage/ /p:CoverletOutputFormat=cobertura 
-          coverlet ./BLL/bin/Release/net8.0/BLL.dll --target "dotnet" --targetargs "test --no-build" -f opencover -o "coverage.xml" 
+      - name: Test .NET Core project
+        run: dotnet test --no-build --collect:"XPlat Code Coverage" --results-directory ./TestResults /p:CoverletOutput=./TestResults/Coverage/ /p:CoverletOutputFormat=cobertura
         working-directory: BLL
-       
+          
         # SonarCloud Scan
       - name: Run SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@v2
