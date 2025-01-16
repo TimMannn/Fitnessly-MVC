@@ -44,6 +44,17 @@ jobs:
           coverlet /home/runner/work/Fitnessly-MVC/Fitnessly-MVC/Testen/bin/Debug/net8.0/Testen.dll --target "dotnet" --targetargs "test --no-build" -f opencover -o "/home/runner/work/Fitnessly-MVC/Fitnessly-MVC/Testen/TestResults/Coverage/coverage.xml"
         working-directory: Testen
 
+      - name: Run tests with code coverage 
+        run: | 
+          dotnet test --no-build --configuration Release --collect:"XPlat Code Coverage" --results-directory ./TestResults /p:CoverletOutput=./TestResults/Coverage/ /p:CoverletOutputFormat=cobertura 
+          coverlet ./BLL/bin/Release/net6.0/BLL.dll --target "dotnet" --targetargs "test --no-build" -f opencover -o "coverage.xml" 
+            
+      - name: Upload code coverage report 
+        uses: actions/upload-artifact@v2 
+        with: 
+          name: coverage-report 
+          path: coverage.xml
+
         # SonarCloud Scan
       - name: Run SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@v2
