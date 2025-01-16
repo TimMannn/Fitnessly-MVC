@@ -35,23 +35,15 @@ jobs:
         run: dotnet build --no-restore
         working-directory: BLL
 
-      - name: Install Coverlet tool
-        run: dotnet tool install --global coverlet.console
-
-      - name: Build project 
-        run: dotnet build --no-incremental --configuration Release
-
-      - name: Run tests with code coverage 
+      - name: Install Coverlet tool 
+        run: dotnet tool install --global coverlet.console 
+        
+      - name: Test .NET Core project with coverage 
         run: | 
-          dotnet test --no-build --configuration Release --collect:"XPlat Code Coverage" --results-directory ./TestResults /p:CoverletOutput=./TestResults/Coverage/ /p:CoverletOutputFormat=cobertura 
+          dotnet test --no-build --collect:"XPlat Code Coverage" --results-directory ./TestResults /p:CoverletOutput=./TestResults/Coverage/ /p:CoverletOutputFormat=cobertura 
           coverlet ./BLL/bin/Release/net6.0/BLL.dll --target "dotnet" --targetargs "test --no-build" -f opencover -o "coverage.xml" 
-            
-      - name: Upload code coverage report 
-        uses: actions/upload-artifact@v2 
-        with: 
-          name: coverage-report 
-          path: coverage.xml
-
+        working-directory: BLL
+       
         # SonarCloud Scan
       - name: Run SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@v2
