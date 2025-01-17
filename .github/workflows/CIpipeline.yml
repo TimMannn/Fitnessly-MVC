@@ -122,6 +122,7 @@ jobs:
           context: .
           dockerfile: Dockerfile
           push: true
+          platforms: linux/amd64,linux/arm64
           tags: timverbakel/fitnessly-backend:latest
 
       # Build frontend Docker image (use built files)
@@ -131,6 +132,7 @@ jobs:
           context: ./reactprojectfitnessly
           dockerfile: Dockerfile
           push: true
+          platforms: linux/amd64,linux/arm64
           tags: timverbakel/fitnessly-frontend:latest
 
       - name: Run all services
