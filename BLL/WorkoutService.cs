@@ -18,6 +18,7 @@ namespace BLL
 			_userManager = userManager;
 			_httpContextAccessor = httpContextAccessor;
 		}
+		public WorkoutService() { }
 
 		public async Task<List<WorkoutDetails>> GetWorkouts()
 		{

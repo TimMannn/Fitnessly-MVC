@@ -1,5 +1,4 @@
-﻿// cypress/integration/register_login.spec.js
-describe('User Registration and Login', () => {
+﻿describe('User Registration and Login', () => {
 
     const uniqueUser = `testuser_${new Date().getTime()}`
 
