@@ -123,7 +123,7 @@ jobs:
           dockerfile: Dockerfile
           push: true
           tags: timverbakel/fitnessly-backend:latest
-          platforms: linux/arm64
+          platforms: linux/amd64
 
       # Build frontend Docker image for multiple platforms (use built files)
       - name: Build and push frontend image
@@ -133,7 +133,7 @@ jobs:
           dockerfile: Dockerfile
           push: true
           tags: timverbakel/fitnessly-frontend:latest
-          platforms: linux/arm64
+          platforms: linux/amd64
 
       - name: Run all services
         run: docker-compose -f docker-compose.yml up -d
