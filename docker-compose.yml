@@ -1,47 +1,60 @@
+version: '3.4'
+
 services:
   db:
     image: mysql:8.0
     environment:
       MYSQL_DATABASE: fitnesslybackup
+      MYSQL_USER: root
       MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
     ports:
       - "3306:3306"
     volumes:
       - db_data:/var/lib/mysql
       - ./db-init:/docker-entrypoint-initdb.d
+    networks:
+      - fitnessly-mvc-development_fitnessly_network
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
     depends_on:
       - db
     environment:
-      PMA_HOST: db
+      PMA_HOST: fitnessly-mvc-development-db-1
     ports:
       - "8080:80"
+    networks:
+      - fitnessly-mvc-development_fitnessly_network
 
   backend:
     build:
       context: .
       dockerfile: Dockerfile
+    image: timverbakel/fitnessly-backend:latest
     depends_on:
       - db
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ConnectionStrings__DefaultConnection=Server=db;Database=fitnesslybackup;User=root;Password=;
+      - ConnectionStrings__DefaultConnection="Server=fitnessly-mvc-development-db-1;Database=fitnesslybackup;User=root;"
       - DOTNET_RUNNING_IN_CONTAINER=true
       - DOTNET_USE_POLLING_FILE_WATCHER=true
       - ASPNETCORE_URLS=https://+:443
     ports:
       - "7187:443"
+    networks:
+      - fitnessly-mvc-development_fitnessly_network
 
   frontend:
     build:
       context: ./reactprojectfitnessly
       dockerfile: Dockerfile
+    image: timverbakel/fitnessly-frontend:latest
     expose:
       - "80"
     depends_on:
       - backend
+    networks:
+      - fitnessly-mvc-development_fitnessly_network
 
   nginx:
     image: nginx:latest
@@ -54,6 +67,24 @@ services:
     depends_on:
       - backend
       - frontend
+    networks:
+      - fitnessly-mvc-development_fitnessly_network
+
+  watchtower:
+    image: containrrr/watchtower
+    container_name: watchtower
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - WATCHTOWER_CLEANUP=true
+      - WATCHTOWER_POLL_INTERVAL=300
+    restart: always
+    networks:
+      - fitnessly-mvc-development_fitnessly_network
+
+networks:
+   fitnessly-mvc-development_fitnessly_network:
+     external: true
 
 volumes:
   db_data:
